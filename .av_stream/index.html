@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>Audio Video Streaming Service Settings</title>
+</head>
+<body style="background-color:white;">
+<table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color:silver;"><tr><td>
+<center><h1>Audio Video Streaming Service Settings</h1></center>
+<!-- Style below allows 2 images placed one above the other -->
+<style>
+.containerdiv { float: left; position: relative; } 
+.cornerimage { position: absolute; top: 0px; right: 9%; left 8%} 
+</style>
+<div class="containerdiv width: 480px; height: 270px; ">
+    <center><img border="0" src="no_preview.png" width="480" height="270" alt=""></center>
+    <center><img class="cornerimage" border="0" src="stream.mjpg" width="480" height="270" alt=""></center>
+<div>
+<!--hidden-->
+<!-- End of Style -->
+  <form action="/" method="POST">
+  <label for="facebook_settings"><b>Facebook:</b></label>
+  <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
+    <label for="facebook_url">URL:</label>
+    <input type="text" id="facebook_url" name="facebook_url" value="<!--facebook_url-->" <!--startup_enabled--> style="width: 540px;"><br><br>
+    <label for="facebook_stream_key">Stream ID:</label>
+    <input type="text" id="facebook_stream_key" name="facebook_stream_key" value="<!--facebook_stream_key-->" <!--startup_enabled--> style="width: 506px;">
+    <br>
+  </td></tr></table>	
+  <br>
+  <label for="audio_sttings"><b>Audio:</b></label>
+  <br>
+  <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
+    <label for="audio_out_codec">Codec:</label>
+    <select id="audio_out_codec" name="audio_out_codec" style="width: 60px;"> <!--audio_out_codec_txt-->
+    </select>
+    <label for="audio_out_bitrate">Bitrate:</label>
+    <select id="audio_out_bitrate" name="audio_out_bitrate" style="width: 60px;"> <!--audio_out_bitrate_txt-->
+    </select>
+    <label for="audio_out_sample_rate">Sample Rate:</label>
+    <select id="audio_out_sample_rate" name="audio_out_sample_rate" style="width: 70px;" > <!--audio_out_sample_rate_txt-->
+    </select>
+  </td></tr></table>
+  <br>
+  <label for="video_settings"><b>Video:</b></label><br>
+  <table style="border:1px solid black;margin-left:auto;margin-right:auto; background-color:lightgrey"><tr><td>
+    <label for="video_in_bitrate">Bitrate:</label>
+    <input type="text" id="video_in_bitrate" name="video_in_bitrate" value="<!--video_in_bitrate-->" style="width: 70px;">
+    <label for="video_in_frames_per_second">Frames per Second:</label>
+    <select name="video_in_frames_per_second" id="video_in_frames_per_second" style="width: 38px;"> <!--video_in_frames_per_second_txt-->
+    </select>
+    <label for="video_res">Resolution:</label>
+    <select name="video_res" id="video_res" style="width: 85px;"> <!--video_resolution_txt-->
+    </select>
+    <label for="video_out_codec">Codec:</label>
+    <select id="video_out_codec" name="video_out_codec" style="width: 65px;" > <!--video_out_codec_txt-->
+    </select><br><br>
+    <label for="video_out_overlay_text">Text Overlay:</label>
+    <input type="text" id="video_out_overlay_text" name="video_out_overlay_text" value="<!--video_out_overlay_text-->" style="width: 488px;">
+  </td></tr></table>
+  <br>
+  <label for="sync_settings"><b>Sync:</b></label><br>
+  <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
+    <label for="itsoffset_seconds">Offset in Seconds:</label>
+    <input type="text" id="itsoffset_seconds" name="itsoffset_seconds" value="<!--itsoffset_seconds-->" style="width: 60px;">
+    <label for="itsoffset">Offset Type:</label>
+    <select name="itsoffset" id="itsoffset" style="width: 60px;"> <!--itsoffset_txt-->
+    </select>
+  </td></tr></table>
+  <br>
+  <label for="metadata_settings"><b>Metadata:</b></label><br>
+  <table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color:lightgrey"><tr><td>
+    <label for="metadata_title">Title:</label>
+    <input type="text" id="metadata_title" name="metadata_title" value="<!--metadata_title-->" style="width: 418px;">
+    <label for="metadata_year">Year:</label>
+    <input type="text" id="metadata_year" name="metadata_year" value="<!--metadata_year-->" style="width: 82px;"><br><br>
+    <label for="metadata_description">Description:</label>
+    <input type="text" id="metadata_description" name="metadata_description" value="<!--metadata_description-->" style="width: 497px;">
+  </td></tr></table>
+  <br>
+  <label for="misc_settings"><b>Miscellaneous:</b></label><br>
+  <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
+    <label for="enable_speaker">Enable Speaker </label>
+    <input type="checkbox" id="enable_speaker" name="enable_speaker" <!--enable_speaker_txt-->>
+    <label for="startup_udp">Startup UDP </label>
+    <input type="checkbox" id="startup_udp" name="startup_udp" onclick="EnableDisableTextBox(this)" <!--startup_udp_txt-->>
+  </td></tr></table>
+  <br>
+  <table style="black;margin-left:auto;margin-right:auto;"><tr><td>
+    <input type="submit" onclick="return confirm('Are you sure? Changes will take effect next time you start streaming.')" value="Save" style="width: 60px;">&nbsp&nbsp&nbsp
+    <input type="reset" style="width: 60px;">&nbsp&nbsp&nbsp
+    <input type="button" onclick="location.href='/help.html'" value="Help" style="width: 60px;">&nbsp&nbsp&nbsp
+    <input type="button" onclick="location.href='/info.html'" value="Info" style="width: 60px;">
+  </td></tr></table>
+  </form> 
+</td></tr></table>
+</body>
+ <script type="text/javascript">
+    function EnableDisableTextBox(startup_udp) {
+        var facebook_url = document.getElementById("facebook_url");
+        facebook_url.disabled = startup_udp.checked ? true : false;
+        var facebook_stream_key = document.getElementById("facebook_stream_key");
+        facebook_stream_key.disabled = startup_udp.checked ? true : false;      
+    }
+</script>
+</html>

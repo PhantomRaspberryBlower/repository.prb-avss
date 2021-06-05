@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>Audio Video Streaming Service Help</title>
+</head>
+<body style="background-color:white;">
+<table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color:silver;width=640px;"><tr><td>
+<center><h1>Audio Video Streaming Service Help</h1></center>
+<pre>
+=======================================
+Program: av_stream_service.py
+Stream Audio & Video to Facebook or UDP
+Written By: Phantom Raspberry Blower
+Date: 21-04-2021
+=======================================
+<pre>
+<b>Initial Setup Process:</b>
+<b>----------------------</b>
+<b>Things We Need:</b>
+	Raspberry Pi
+	USB Soundcard
+	Headphones
+	Network Cable
+	Power Cable
+
+<b>Method #1 (simple):</b> Connect the headphones, network cable, USB soundcard, power cable and power up the 
+Raspberry Pi. Put the headphones on; within a minute of the Pi starting you will hear "Hello this is 
+Raspberry Pi and my IP address is ...". Write down the IP address you will also hear through the 
+in-built speaker two beeps to notify you that the Pi is ready. Using a computer, phone or tablet 
+connected to the local network open a web browser and type the IP address you wrote down followed by a 
+colon and port number 8000 i.e. if the IP address is "192.168.0.10" type 192.168.0.10:8000 into the 
+browser. This displays a webpage with a preview of the camera image and the settings you can modify. 
+At the bottom of the page are buttons to save, reset and links to help and info.
+Click onto the help link for further operating instructions.
+
+<b>Method #2 (advanced):</b> Connect the headphones, network cable, USB soundcard, power cable and power up 
+the Raspberry Pi. Put the headphones on; within a minute of the Pi starting you will hear "Hello this 
+is Raspberry Pi and my IP address is ...". Write down the IP address you will also hear through the
+inbuilt speaker two beeps to notify you that the Pi is ready. Using a computer connected to the local 
+network we have two ways to connect to the Pi; Virtual Network Computing (VNC) or the Secure Shell 
+Protocol (SSH).
+<b>Using VNC</b>
+To connect using VNC download and install TightVNC. Using TightVNC connect to the Pi with the IP 
+address you wrote down, two colons and port number 4569 i.e. if the IP address is "192.168.0.10" type 
+192.168.0.10::4569 Type in the username (pi) and password (default is raspberry). Once connected 
+using VNC navigate to the '/home/pi/Desktop/.av_stream' directory to view all the files for Audio 
+Video Streaming Service.
+<b>Using SSH</b>
+To connect using SSH download and install Putty. Using Putty connect to the 
+Pi with the IP address you wrote down i.e. if the IP address is "192.168.0.10" type 192.168.0.10. 
+Type in the username (pi) and password (default is raspberry). Once connected using SSH type 
+'cd /home/pi/Desktop/av_stream.service' to change directory; type 'dir' to view all the files for 
+Audio Video Streaming Service.
+
+<b>NOTE:-</b> If you are connected using VNC you may notice that <b>OBS Studio</b> is installed. <b>THIS IS FOR TESTING 
+PURPOSES ONLY!</b> Currently as of April 2021 OBS Studio does not utilize the graphics processor (GPU) 
+for hardware encoding, leaving only software encoding using the CPU. When recording or streaming this 
+over-works the poor Pi which can only a manage 5fps at 1920x1080, 10fps at 1280x720 and 18fps at a 
+resolution of 960x540. The CPU will reach 75 degrees centigrade very rapidly. For this reason, this 
+should not be used for long periods or it will eventually damage the Pi. Like I said earlier only for 
+testing purposes.
+<pre>
+<b>Startup Process:</b>
+<b>----------------</b>
+Power up the RPi and wait until you hear 2 beeps and if headphones are connected the words "Hello this 
+is Raspberry Pi and my IP address is ..." followed by the IP address of the device. This indicates the 
+Pi is ready to start streaming.<br>
+<b>Start Stream:</b>
+<b>-------------</b>
+Press the switch once to start streaming to facebook (using the supplied stream key) or for testing 
+purposes broadcast using UDP (i.e. udp://224.0.0.1:4569). The LED, speaker will flash and beep 4 times 
+(morse code letter 'v' for videoing) before starting the stream if headphones are connected you will 
+also hear the words "Starting stream" Once streaming begins the led remains on.<br>
+<b>End Stream:</b>
+<b>-----------</b>
+To stop the stream press the switch again the LED and speaker will flash and beep once (morse code 
+letter 'e' for ending) and the words "Ending stream" can be heard through the headphones. The LED will
+remain off once the stream has stopped<br>
+<b>Shutdown Process:</b>
+<b>-----------------</b>
+To power down the RPi press and hold the switch for four seconds; the led flashes and the speaker beeps
+three times (morse code letter 's' for shutdown) and the words "Shutting down" can be heard through 
+headphones before starting the shutdown process.<br>
+<b>Overview:</b>
+<b>---------</b>
+1. Press switch to start/stop Stream
+2. Turn on led when streaming
+3. If stream fails led starts blinking:
+    a. Long slow LED blinking means unable to connect
+    b. Fast LED linking means connected but the stream key is incorrect
+4. Long press (4 sec or more) stop current stream, flash led three times and shutdown<br>
+<b>GPIO Pin Configuration:</b>
+<b>-----------------------</b>
+The Raspberry Pi has a 40 pin connector some of which can be used as inputs or outputs. These connectors
+are called General Purpose Input Output pins. The following pin numbers have been used:
+    Pin 4 ...... Positive Cooling Fan + (red cable) 5v
+    Pin 6 ...... Negative Coolog Fan - (black cable)
+    Pin 12 ..... Streaming LED + (red cable)
+    Pin 14 ..... Streaming LED - (white cable)
+    Pin 17 ..... Streaming Switch + (red cable) 3v
+    Pin 18 ..... Streaming Switch - (black cable)
+    Pin 30 ..... Piezo Speaker - (black cable)
+    Pin 36 ..... Piezo Speaker + (red cable)
+
+<b>Config file:</b>
+<b>------------</b>
+The config file can be found in the <b>/home/pi/Desktop/.av_stream</b> directory the following options 
+are available:<br>
+
+[SETTINGS]
+<pre>
+audio_hardware = hw:CARD=CODEC,DEV=0				# Soundcard hardware device
+audio_in_channels = 2						# Stereo
+audio_in_codec = alsa						# Soundcard api
+audio_in_sample_rate = 48000					# Soundcard sample rate
+audio_out_bitrate = 128k					# Audio output sample rate
+audio_out_codec = mp3						# Audio output codec
+audio_out_sample_rate = 44100					# Audio output sample rate
+broadcast_url = udp://224.0.0.1					# UDP broadcast url
+broadcast_port = 4569						# UDP broadcast port number
+enable_speaker = True						# Enable audible notifications
+facebook_url = rtmps://live-api-s.facebook.com:443/rtmp/	# Facebook live streaming url
+facebook_stream_key = &lt;STREAM-KEY&gt;				# Facebook live stream key
+gpio_led_pin = 12						# GPIO LED pin number
+gpio_switch_pin = 18						# GPIO switch pin number
+gpio_spkr_pin = 36						# GPIO speaker pin number
+itsoffset_seconds = 3.84					# Delay audio/video seconds
+itsoffset = audio						# Delay audio/video (audio, video, none)
+metadata_comment = Installed by Phantom Raspberry Blower	# Stream metadata comment
+metadata_copyright = © Leicester Community Radio		# Stream metadata copyright
+metadata_description = Leicester Community Radio started ...	# Stream metadata description
+metadata_title = Leicester Community Radio			# Stream metadata title
+metadata_year = current year					# Stream metadata year
+startup_udp = True						# Startup using UDP (for testing)
+video_in_bitrate = 1536000					# Camera bitrate
+video_in_codec = h264						# Camera codec
+video_in_frames_per_second = 25					# Camera frames per second
+video_in_intra_refresh_period = 50				# Camera gop
+video_in_height = 720						# Camera resolution height
+video_in_width = 1280						# Camera reaolution width
+video_out_codec = mpegts					# Stream output codec
+video_out_overlay_text = -a 12 -a "Leicester Community Radio"	# Stream output text overlay
+<pre>
+  <table style="black;margin-left:auto;margin-right:auto;"><tr><td>
+    <input type="button" onclick="location.href='/index.html'" value="Back" style="width: 60px;">
+   </td></tr></table>
+</td></tr></table>
+</body>
+</html>

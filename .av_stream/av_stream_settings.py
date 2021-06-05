@@ -1,0 +1,279 @@
+# Web streaming example
+# Source code from the official PiCamera package
+# http://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming
+
+import io
+import picamera
+import logging
+import socketserver
+from threading import Condition
+from http import server
+from systeminfo import SystemInfo
+import os
+import datetime as dt
+import commontasks
+
+settings_dict = {}
+
+si = SystemInfo()
+
+audio_codecs = ['aac', 'mp2', 'mp3']
+audio_bitrates = ['32k', '64k', '96k', '128k']
+audio_sample_rates = ['44100', '48000']
+video_fps = ['15', '20', '25', '30']
+video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
+video_codecs = ['mp4', 'mpegts']
+offset_types = ['audio', 'video', 'none']
+
+hidden_form_elements = '<br>'
+
+def get_settings():
+    global settings_dict
+    settings_dict = commontasks.get_settings('/home/pi/Desktop/.av_stream/config.ini')
+
+def set_settings():
+    global settings_dict
+    commontasks.save_settings(settings_dict, '/home/pi/Desktop/.av_stream/config.ini')
+
+get_settings()
+
+def options(opt, lst):
+  txt = ''
+  for item in lst: 
+    if opt == item:
+      txt += '\n  <option selected="selected" value="' + item + '">' + item + '</option>'
+    else:
+      txt += '\n  <option value="' + item + '">' + item + '</option>'
+  return txt
+
+def INDEX_PAGE():
+    audio_out_codec_txt = options(settings_dict['audio_out_codec'], audio_codecs)
+    audio_out_bitrate_txt = options(settings_dict['audio_out_bitrate'], audio_bitrates)
+    audio_out_sample_rate_txt = options(settings_dict['audio_out_sample_rate'], audio_sample_rates)
+    video_in_frames_per_second_txt = options(settings_dict['video_in_frames_per_second'], video_fps)
+    video_resolution_txt = options(settings_dict['video_in_width'] + "x" + settings_dict['video_in_height'], video_resolutions)
+    video_out_codec_txt = options(settings_dict['video_out_codec'], video_codecs)
+    itsoffset_txt = options(settings_dict['itsoffset'], offset_types)
+    hostname = si.hostname
+    enable_speaker_txt = ''
+    startup_udp_txt = ''
+    disable_form_elements = ''
+    if settings_dict['enable_speaker'] == 'True':
+        enable_speaker_txt = 'checked="True"'
+    if settings_dict['startup_udp'] == 'True':
+        startup_udp_txt = 'checked="True"'        
+        disable_form_elements = 'disabled'
+    tags = {"<!--hidden-->": hidden_form_elements,
+            "<!--startup_enabled-->": disable_form_elements,
+            "<!--facebook_url-->": settings_dict['facebook_url'],
+            "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
+            "<!--audio_out_codec_txt-->": audio_out_codec_txt,
+            "<!--audio_out_bitrate_txt-->": audio_out_bitrate_txt,
+            "<!--audio_out_sample_rate_txt-->": audio_out_sample_rate_txt,
+            "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
+            "<!--video_in_frames_per_second_txt-->": video_in_frames_per_second_txt,
+            "<!--video_resolution_txt-->": video_resolution_txt,
+            "<!--video_out_codec_txt-->": video_out_codec_txt,
+            "<!--video_out_overlay_text-->": settings_dict['video_out_overlay_text'].replace('"', "'"),
+            "<!--itsoffset_seconds-->": settings_dict['itsoffset_seconds'],
+            "<!--itsoffset_txt-->": itsoffset_txt,
+            "<!--metadata_title-->": settings_dict['metadata_title'],
+            "<!--metadata_year-->": settings_dict['metadata_year'],
+            "<!--metadata_description-->": settings_dict['metadata_description'],
+            "<!--enable_speaker_txt-->": enable_speaker_txt,
+            "<!--startup_udp_txt-->": startup_udp_txt}
+    f = open("index.html", "r")
+    page = f.read()   
+    for tag, cmd in tags.items():
+        page = page.replace(tag, cmd)
+    return page
+
+def HELP_PAGE():
+    f = open("help.html", "r")
+    page = f.read()
+    return page
+
+def INFO_PAGE():
+    f = open("info.html", "r")
+    page = f.read()
+    disk_info_txt = '\n<b>Storage:</b>'
+    for item in si.disk_info:
+        if item.path != '/root/':
+            disk_info_txt = disk_info_txt + u'\n \
+       Path: %s\n \
+       Total: %sGB\n \
+       Used: %sGB\n \
+       Free: %sGB\n' % (
+                item.path,
+                round(item.total / (1024**3), 2),
+                round(item.used / (1024**3), 2),
+                round(item.free / (1024**3), 2))
+    tags = {"<!--username-->": si.username,
+            "<!--hostname-->": si.hostname,
+            "<!--platform-->": si.os_platform,
+            "<!--distribution-->": si.platform_linux_distribution[0],
+            "<!--dist_version-->": si.platform_linux_distribution[1],
+            "<!--platform_system-->": si.platform_system,
+            "<!--platform_node-->": si.platform_node,
+            "<!--platform_release-->": si.platform_release,
+            "<!--platform_version-->": si.platform_version,
+            "<!--platform_machine-->": si.platform_machine,
+            "<!--cpu_model-->": si.cpu_model,
+            "<!--cpu_cores-->": str(si.cpu_cores),
+            "<!--cpu_temp-->": si.cpu_temp + "'C",
+            "<!--cpu_hardware-->": si.cpu_hardware,
+            "<!--cpu_revision-->": si.cpu_revision,
+            "<!--cpu_serial_number-->": si.cpu_serial_number,
+            "<!--gpu_temp-->": si.gpu_temp + "'C",
+            "<!--total_mem-->": str(int(si.ram_info.total / 1024)),
+            "<!--used_mem-->": str(int(si.ram_info.used / 1024)),
+            "<!--free_mem-->": str(int(si.ram_info.free / 1024)),
+            "<!--disk_info_txt-->": disk_info_txt,
+            "<!--eth0_lan_ip-->": si.get_lan_ip_addr('eth0'),
+            "<!--wlan0_lan_ip-->": si.get_lan_ip_addr('wlan0'),
+            "<!--gateway_ip-->": si.default_gateway,
+            "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8')}
+    for tag, cmd in tags.items():
+        page = page.replace(tag, cmd)
+    return page
+
+class StreamingOutput(object):
+    def __init__(self):
+        self.frame = None
+        self.buffer = io.BytesIO()
+        self.condition = Condition()
+
+    def write(self, buf):
+        if buf.startswith(b'\xff\xd8'):
+            # New frame, copy the existing buffer's content and notify all
+            # clients it's available
+            self.buffer.truncate()
+            with self.condition:
+                self.frame = self.buffer.getvalue()
+                self.condition.notify_all()
+            self.buffer.seek(0)
+        return self.buffer.write(buf)
+
+class StreamingHandler(server.BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/':
+            # Redirect to the defalt settings page
+            self.send_response(301)
+            self.send_header('Location', '/index.html')
+            self.end_headers()
+        elif self.path == '/index.html':
+            # Display settings page
+            content = INDEX_PAGE().encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
+        elif self.path == '/help.html':
+            # Display help page
+            content = HELP_PAGE().encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
+        elif self.path == '/info.html':
+            # Display information page
+            content = INFO_PAGE().encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
+        elif self.path == '/no_preview.png':
+            # Display no prview image
+            self.send_response(200)
+            file = open('no_preview.png', 'rb')
+            img = file.read()
+            size = str(os.stat('no_preview.png').st_size)
+            self.send_header('Content-Type', 'image/png')
+            self.send_header('Content-Length', size)
+            self.end_headers()
+            self.wfile.write(img)
+        elif self.path == '/stream.mjpg':
+            # Video stream
+            self.send_response(200)
+            self.send_header('Age', 0)
+            self.send_header('Cache-Control', 'no-cache, private')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
+            self.end_headers()
+            try:
+                while True:
+                    with output.condition:
+                        output.condition.wait()
+                        frame = output.frame
+                    self.wfile.write(b'--FRAME\r\n')
+                    self.send_header('Content-Type', 'image/jpeg')
+                    self.send_header('Content-Length', len(frame))
+                    self.end_headers()
+                    self.wfile.write(frame)
+                    self.wfile.write(b'\r\n')
+            except Exception as e:
+                logging.warning(
+                    'Removed streaming client %s: %s',
+                    self.client_address, str(e))
+        else:
+            self.send_error(404)
+            self.end_headers()
+
+    def do_POST(self):
+        # Post the settings to commit any changes
+        import urllib.parse
+        global settings_dict
+        content_length = int(self.headers['Content-Length'])    # Get the size of data
+        post_data = self.rfile.read(content_length).decode("utf-8")   # Get the data
+        post_data = urllib.parse.unquote(str(post_data))
+        post_data = post_data.split("&")
+        for item in post_data:
+            items = item.split("=")
+            if items[0] == 'video_res':
+                item = items[1].split('x')
+                settings_dict.update({'video_in_width': item[0]})
+                settings_dict.update({'video_in_height': item[1]})
+            elif items[1] == 'on':
+                settings_dict.update({items[0]:items[1].replace('on', 'True')})
+            else:
+                settings_dict.update({items[0]:items[1].replace("'", '"').replace('+', ' ')})
+        if str(post_data).find('enable_speaker') < 0:
+            settings_dict.update({'enable_speaker': 'False'})
+        if str(post_data).find('startup_udp') < 0:
+            settings_dict.update({'startup_udp': 'False'})
+        set_settings()
+        INDEX_PAGE()
+        self.do_GET()
+
+class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
+    global hidden_form_elements
+    allow_reuse_address = True
+    daemon_threads = True
+
+try:
+    with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
+        camera.annotate_text = dt.datetime.now().strftime('Leicester Community Radio - %A, %d %B %Y %-I:%M %p')
+        camera.annotate_text_size = 12
+        output = StreamingOutput()
+        #Uncomment the next line to change your Pi's Camera rotation (in degrees)
+        #camera.rotation = 90
+        camera.start_recording(output, format='mjpeg')
+        try:
+            address = ('', 8000)
+            server = StreamingServer(address, StreamingHandler)
+            server.serve_forever()
+        finally:
+            camera.stop_recording()
+except:
+    output = StreamingOutput()
+    try:
+        address = ('', 8000)
+        server = StreamingServer(address, StreamingHandler)
+        hidden_form_elements = '<center><b><p>Preview unavailable during a live stream.</p></b></center>'
+        server.serve_forever()
+    except:
+        pass
+    
