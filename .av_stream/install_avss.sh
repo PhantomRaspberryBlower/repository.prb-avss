@@ -40,18 +40,18 @@ cd /home/pi/.av_stream
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
-sudo git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss /home/pi/.av_stream
-sudo cp -r /home/pi/.av_stream/.av_stream/*.* /home/pi/.av_stream/
-sudo rm -r /home/pi/.av_stream/.av_stream
-sudo rm -r /home/pi/.av_stream/.git
+git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss /home/pi/.av_stream
+cp -r /home/pi/.av_stream/.av_stream/*.* /home/pi/.av_stream/
+rm -r /home/pi/.av_stream/.av_stream
+rm -r /home/pi/.av_stream/.git
 sudo cp /home/pi/.av_stream/asound.conf /etc/asound.conf
 sudo cp /home/pi/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
 sudo systemctl enable /etc/systemd/system/av_stream.service
 echo "-----------------------------------"
 echo "       Cleaning installation"
 echo "-----------------------------------"
-sudo rm /home/pi/.av_stream/asound.conf
-sudo rm /home/pi/.av_stream/av_stream.service
+rm /home/pi/.av_stream/asound.conf
+rm /home/pi/.av_stream/av_stream.service
 sudo apt autoremove
 echo "-----------------------------------"
 echo "           Enable camera"
