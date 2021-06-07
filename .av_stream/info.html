@@ -5,7 +5,18 @@
 <body style="background-color:white;">
 <table style="border:1px solid black;padding-left: 55px;padding-right: 55px;margin-left:auto;margin-right:auto;background-color:silver;"><tr><td>
 <center><h1>System Information</h1></center>
+<form action="/" method="POST">
+ <input type="hidden" id="update" name="update" value="update">
 <pre>
+<center>
+=======================================
+Program: av_stream_service.py
+Stream Audio & Video to Facebook or UDP
+Written By: Phantom Raspberry Blower
+Date: 21-04-2021
+=======================================
+</center>
+
 <b>Software:</b>
 	Username: <!--username-->
 	Hostname: <!--hostname-->
@@ -42,11 +53,48 @@
 	    wlan0: <!--wlan0_lan_ip-->
 	Gateway: <!--gateway_ip-->
 	WAN IP: <!--wan_ip-->
+
+<b>AVSS Settings:</b>
+
+Audio Hardware: <!--audio_hardware-->
+Audio In Channels: <!--audio_in_channels-->
+Audio In Codec: <!--audio_in_codec-->
+Audio In Sample Rate: <!--audio_in_sample_rate-->
+Audio Out Bitrate: <!--audio_out_bitrate-->
+Audio Out Codec: <!--audio_out_codec-->
+Audio Out Sample Rate: <!--audio_out_sample_rate-->
+Broadcast URL: <!--broadcast_url-->
+Broadcast Port: <!--broadcast_port-->
+Enable Speaker: <!--enable_speaker-->
+Facebook URL: <!--facebook_url-->
+Facebook Stream Key: <!--facebook_stream_key-->
+GPIO LED Pin: <!--gpio_led_pin-->
+GPIO Switch Pin: <!--gpio_switch_pin-->
+GPIO Speaker Pin: <!--gpio_spkr_pin-->
+Offset in seconds: <!--itsoffset_seconds-->
+Offset Source: <!--itsoffset-->
+Last Updated: <!--last_updated-->
+Metadata Comment: <!--metadata_comment-->
+Metadata Copyright: <!--metadata_copyright-->
+Metadata Description: <!--metadata_description-->
+Metadata Title: <!--metadata_title-->
+Metadata Year: <!--metadata_year-->
+Startup UDP: <!--startup_udp-->
+Video In Bitrate: <!--video_in_bitrate-->
+Video In Codec: <!--video_in_codec-->
+Video In Frames per Second: <!--video_in_frames_per_second-->
+Video In Width: <!--video_in_width-->
+Video In Height: <!--video_in_height-->
+Video Out Codec: <!--video_out_codec-->
+Video Out Overlay Text: <!--video_out_overlay_text-->
 </pre>
   <table style="black;margin-left:auto;margin-right:auto;"><tr><td>
-    <input type="button" onclick="location.href='/index.html'" value="Back" style="width: 60px;">
+    <input type="submit" onclick="return confirm('Checking for updates.')" value="Update" style="width: 60px;">&nbsp&nbsp&nbsp
+    <input type="button" onclick="location.href='/index.html'" value="Back" style="width: 60px;">&nbsp&nbsp&nbsp
+    <input type="button" onclick="location.href='/help.html'" value="Help" style="width: 60px;">
   </td></tr></table>
-  <br> 
+  <br>
+</form>
 </td></tr></table>
 </body>
 </html>

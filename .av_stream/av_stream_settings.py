@@ -11,12 +11,10 @@ from http import server
 from systeminfo import SystemInfo
 import os
 import datetime as dt
+import time
 import commontasks
 
-settings_dict = {}
-
 si = SystemInfo()
-
 audio_codecs = ['aac', 'mp2', 'mp3']
 audio_bitrates = ['32k', '64k', '96k', '128k']
 audio_sample_rates = ['44100', '48000']
@@ -24,18 +22,18 @@ video_fps = ['15', '20', '25', '30']
 video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 video_codecs = ['mp4', 'mpegts']
 offset_types = ['audio', 'video', 'none']
-
+settings_dict = {}
 hidden_form_elements = '<br>'
 
 def get_settings():
     global settings_dict
-    settings_dict = commontasks.get_settings('/home/pi/Desktop/.av_stream/config.ini')
+    settings_dict = commontasks.get_settings('config.ini')
+
+get_settings()
 
 def set_settings():
     global settings_dict
-    commontasks.save_settings(settings_dict, '/home/pi/Desktop/.av_stream/config.ini')
-
-get_settings()
+    commontasks.save_settings(settings_dict, 'config.ini')
 
 def options(opt, lst):
   txt = ''
@@ -65,23 +63,23 @@ def INDEX_PAGE():
         disable_form_elements = 'disabled'
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
-            "<!--facebook_url-->": settings_dict['facebook_url'],
-            "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
             "<!--audio_out_codec_txt-->": audio_out_codec_txt,
             "<!--audio_out_bitrate_txt-->": audio_out_bitrate_txt,
             "<!--audio_out_sample_rate_txt-->": audio_out_sample_rate_txt,
-            "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
             "<!--video_in_frames_per_second_txt-->": video_in_frames_per_second_txt,
             "<!--video_resolution_txt-->": video_resolution_txt,
             "<!--video_out_codec_txt-->": video_out_codec_txt,
+            "<!--itsoffset_txt-->": itsoffset_txt,
+            "<!--enable_speaker_txt-->": enable_speaker_txt,
+            "<!--startup_udp_txt-->": startup_udp_txt,
+            "<!--facebook_url-->": settings_dict['facebook_url'],
+            "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
+            "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
             "<!--video_out_overlay_text-->": settings_dict['video_out_overlay_text'].replace('"', "'"),
             "<!--itsoffset_seconds-->": settings_dict['itsoffset_seconds'],
-            "<!--itsoffset_txt-->": itsoffset_txt,
             "<!--metadata_title-->": settings_dict['metadata_title'],
             "<!--metadata_year-->": settings_dict['metadata_year'],
-            "<!--metadata_description-->": settings_dict['metadata_description'],
-            "<!--enable_speaker_txt-->": enable_speaker_txt,
-            "<!--startup_udp_txt-->": startup_udp_txt}
+            "<!--metadata_description-->": settings_dict['metadata_description']}
     f = open("index.html", "r")
     page = f.read()   
     for tag, cmd in tags.items():
@@ -96,7 +94,7 @@ def HELP_PAGE():
 def INFO_PAGE():
     f = open("info.html", "r")
     page = f.read()
-    disk_info_txt = '\n<b>Storage:</b>'
+    disk_info_txt = '<b>Storage:</b>'
     for item in si.disk_info:
         if item.path != '/root/':
             disk_info_txt = disk_info_txt + u'\n \
@@ -133,8 +131,15 @@ def INFO_PAGE():
             "<!--wlan0_lan_ip-->": si.get_lan_ip_addr('wlan0'),
             "<!--gateway_ip-->": si.default_gateway,
             "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8')}
+    
+    for key, value in settings_dict.items():
+        if len(str(value)) > 50:
+            value = value[:50] + "..."
+        tags.update({"<!--%s-->" % key: str(value)})
+
     for tag, cmd in tags.items():
-        page = page.replace(tag, cmd)
+        page = page.replace(tag, "<b>%s</b>" % cmd)
+        
     return page
 
 class StreamingOutput(object):
@@ -240,12 +245,16 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 settings_dict.update({items[0]:items[1].replace('on', 'True')})
             else:
                 settings_dict.update({items[0]:items[1].replace("'", '"').replace('+', ' ')})
-        if str(post_data).find('enable_speaker') < 0:
-            settings_dict.update({'enable_speaker': 'False'})
-        if str(post_data).find('startup_udp') < 0:
-            settings_dict.update({'startup_udp': 'False'})
+        if post_data[0]=='update=update':
+            os.popen('sudo apt-get update')
+            #os.popen('sudo apt-get uprade')
+            settings_dict.update({'last_updated': dt.date.today().strftime('%d/%m/%Y')})
+        else:
+            if str(post_data).find('enable_speaker') < 0:
+                settings_dict.update({'enable_speaker': 'False'})
+            if str(post_data).find('startup_udp') < 0:
+                settings_dict.update({'startup_udp': 'False'})
         set_settings()
-        INDEX_PAGE()
         self.do_GET()
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
@@ -272,7 +281,7 @@ except:
     try:
         address = ('', 8000)
         server = StreamingServer(address, StreamingHandler)
-        hidden_form_elements = '<center><b><p>Preview unavailable during a live stream.</p></b></center>'
+        hidden_form_elements = '<center><b><p style="color: #8b0000;">Preview unavailable during a live stream.</p></b></center>'
         server.serve_forever()
     except:
         pass

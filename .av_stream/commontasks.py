@@ -18,14 +18,6 @@ INVALID_FILENAME_CHARS = '\/:*?"<>|'
 
 todays_date = date.today()
 
-def check_for_updates():
-    settings_dict = get_settings()
-    last_updated = settings_dict['last_updated']
-    if todays_date-30 > last_updated:
-        os.popen('sudo apt-get update')
-        print('Updated!')
-#        os.popen('sudo apt-get upgrade') 
-
 def get_settings(path="config.ini"):
     # Open config settings
     config_object.read(path)

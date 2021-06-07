@@ -21,8 +21,9 @@ import time
 import os
 import atexit
 import socket
+import pygame
 from datetime import date
-from morse_code import MorseCode
+from morsecode import MorseCode
 import commontasks
 
 settings_dict = {}
@@ -73,7 +74,7 @@ def notification(interval=0.3, mode=None):
 def shutdown():
     # Shutdown the RPi
     # Speak through the headphone socket
-    speak('Shut down')
+    play_sound("shutting_down.mp3")
     # Flash the LED three times to indicate shutdown
     notification(interval=0.4, mode='s')
     # output shutdown message
@@ -115,7 +116,6 @@ def cleanup():
         if p_sec >= timeout_sec:
             p.kill()
     GPIO.cleanup()
-    print('\nCleaned up resources!')
 
 
 def push_button(channel):
@@ -157,7 +157,7 @@ def start_stop_stream():
 def stop_stream():
     # Stops audio & video stream
     # Speak through the headphone socket
-    speak('End stream')
+    play_sound("ending_stream.mp3")
     print('Stopping audio video stream ... ', end = '')
     kill_streams()
     kill_settings()
@@ -165,13 +165,13 @@ def stop_stream():
     notification(interval=0.4, mode='e')
     GPIO.output(LED_PIN, GPIO.LOW)
     time.sleep(1)
-    start_settings()
+    start_settings_webpage()
     print('stopped.')
 
 
 def start_stream():
     # Speak through the headphone socket
-    speak('Start stream')
+    play_sound("starting_stream.mp3")
     print('Starting audio video stream ... ', end = '')
     get_settings()
     url = ''
@@ -261,9 +261,17 @@ def start_stream():
     notification(interval=0.5, mode='v')
     GPIO.output(LED_PIN, GPIO.HIGH)
     time.sleep(1)
-    start_settings()
+    start_settings_webpage()
     print('started.')
 
+
+
+def play_sound(soundfile):
+    pygame.mixer.init()
+    pygame.mixer.music.load(soundfile)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy() == True:
+        continue
 
 def speak(msg=None):
     if msg:
@@ -286,10 +294,10 @@ def kill_settings():
         settings_status = subprocess.Popen.poll(settings_proc)
 
 
-def start_settings():
+def start_settings_webpage():
     global settings_proc
     global settings_status
-    settings_proc = subprocess.Popen(['python3', '/home/pi/Desktop/.av_stream/av_stream_settings.py'])
+    settings_proc = subprocess.Popen(['python3', '/home/pi/.av_stream/av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
 
@@ -300,7 +308,7 @@ if __name__ == '__main__':
             time.sleep(20)
         # Speak current IP address through the headphone socket
         speak_ip()
-        start_settings()
+        start_settings_webpage()
         time.sleep(10)
 
         # Display header

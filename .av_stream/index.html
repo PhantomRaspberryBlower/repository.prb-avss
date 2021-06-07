@@ -8,23 +8,27 @@
 <!-- Style below allows 2 images placed one above the other -->
 <style>
 .containerdiv { float: left; position: relative; } 
-.cornerimage { position: absolute; top: 0px; right: 9%; left 8%} 
+.cornerimage { position: absolute; top: 0px; right: 0%; left 0%} 
 </style>
+<center>
+<table style="border:0px solid black; width: 480px height: 270px;background-color:silver;"><tr><td>
 <div class="containerdiv width: 480px; height: 270px; ">
-    <center><img border="0" src="no_preview.png" width="480" height="270" alt=""></center>
-    <center><img class="cornerimage" border="0" src="stream.mjpg" width="480" height="270" alt=""></center>
+    <img border="0" src="no_preview.png" width="480" height="270" alt="">
+    <img class="cornerimage" border="0" src="stream.mjpg" width="480" height="270" alt="">
 <div>
+</td></tr></table>
+</center>
 <!--hidden-->
 <!-- End of Style -->
   <form action="/" method="POST">
   <label for="facebook_settings"><b>Facebook:</b></label>
   <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
     <label for="facebook_url">URL:</label>
-    <input type="text" id="facebook_url" name="facebook_url" value="<!--facebook_url-->" <!--startup_enabled--> style="width: 540px;"><br><br>
+    <input type="text hidden" id="facebook_url" name="facebook_url" value="<!--facebook_url-->" <!--startup_enabled--> style="width: 552px;"><br><br>
     <label for="facebook_stream_key">Stream ID:</label>
-    <input type="text" id="facebook_stream_key" name="facebook_stream_key" value="<!--facebook_stream_key-->" <!--startup_enabled--> style="width: 506px;">
+    <input type="text" id="facebook_stream_key" name="facebook_stream_key" value="<!--facebook_stream_key-->" <!--startup_enabled--> style="width: 518px;">
     <br>
-  </td></tr></table>	
+  </td></tr></table>  
   <br>
   <label for="audio_sttings"><b>Audio:</b></label>
   <br>
@@ -45,16 +49,16 @@
     <label for="video_in_bitrate">Bitrate:</label>
     <input type="text" id="video_in_bitrate" name="video_in_bitrate" value="<!--video_in_bitrate-->" style="width: 70px;">
     <label for="video_in_frames_per_second">Frames per Second:</label>
-    <select name="video_in_frames_per_second" id="video_in_frames_per_second" style="width: 38px;"> <!--video_in_frames_per_second_txt-->
+    <select name="video_in_frames_per_second" id="video_in_frames_per_second" style="width: 40px;"> <!--video_in_frames_per_second_txt-->
     </select>
     <label for="video_res">Resolution:</label>
-    <select name="video_res" id="video_res" style="width: 85px;"> <!--video_resolution_txt-->
+    <select name="video_res" id="video_res" style="width: 90px;"> <!--video_resolution_txt-->
     </select>
     <label for="video_out_codec">Codec:</label>
-    <select id="video_out_codec" name="video_out_codec" style="width: 65px;" > <!--video_out_codec_txt-->
+    <select id="video_out_codec" name="video_out_codec" style="width: 70px;" > <!--video_out_codec_txt-->
     </select><br><br>
     <label for="video_out_overlay_text">Text Overlay:</label>
-    <input type="text" id="video_out_overlay_text" name="video_out_overlay_text" value="<!--video_out_overlay_text-->" style="width: 488px;">
+    <input type="text" id="video_out_overlay_text" name="video_out_overlay_text" value="<!--video_out_overlay_text-->" style="width: 500px;">
   </td></tr></table>
   <br>
   <label for="sync_settings"><b>Sync:</b></label><br>
@@ -62,18 +66,18 @@
     <label for="itsoffset_seconds">Offset in Seconds:</label>
     <input type="text" id="itsoffset_seconds" name="itsoffset_seconds" value="<!--itsoffset_seconds-->" style="width: 60px;">
     <label for="itsoffset">Offset Type:</label>
-    <select name="itsoffset" id="itsoffset" style="width: 60px;"> <!--itsoffset_txt-->
+    <select name="itsoffset" id="itsoffset" style="width: 65px;"> <!--itsoffset_txt-->
     </select>
   </td></tr></table>
   <br>
   <label for="metadata_settings"><b>Metadata:</b></label><br>
-  <table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color:lightgrey"><tr><td>
+  <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
     <label for="metadata_title">Title:</label>
     <input type="text" id="metadata_title" name="metadata_title" value="<!--metadata_title-->" style="width: 418px;">
     <label for="metadata_year">Year:</label>
-    <input type="text" id="metadata_year" name="metadata_year" value="<!--metadata_year-->" style="width: 82px;"><br><br>
+    <input type="text" id="metadata_year" name="metadata_year" value="<!--metadata_year-->" style="width: 94px;"><br><br>
     <label for="metadata_description">Description:</label>
-    <input type="text" id="metadata_description" name="metadata_description" value="<!--metadata_description-->" style="width: 497px;">
+    <input type="text" id="metadata_description" name="metadata_description" value="<!--metadata_description-->" style="width: 509px;">
   </td></tr></table>
   <br>
   <label for="misc_settings"><b>Miscellaneous:</b></label><br>
