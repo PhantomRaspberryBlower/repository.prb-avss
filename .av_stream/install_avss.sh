@@ -47,12 +47,14 @@ rm -r /home/pi/.av_stream/.git
 sudo cp /home/pi/.av_stream/asound.conf /etc/asound.conf
 sudo cp /home/pi/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
 sudo systemctl enable /etc/systemd/system/av_stream.service
+cd /.av_stream
+sudo chown pi:pi *.*
 echo "-----------------------------------"
 echo "       Cleaning installation"
 echo "-----------------------------------"
 rm /home/pi/.av_stream/asound.conf
 rm /home/pi/.av_stream/av_stream.service
-sudo apt autoremove
+sudo apt -y autoremove
 echo "-----------------------------------"
 echo "           Enable camera"
 echo "-----------------------------------"
@@ -61,6 +63,7 @@ echo "==================================="
 echo "           Completed :)"
 echo "==================================="
 sudo shutdown -r
+echo ""
 echo "-----------------------------------"
 echo "           Rebooting"
 echo "-----------------------------------"
