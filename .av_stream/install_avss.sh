@@ -1,4 +1,4 @@
-#1/bin/bash
+#!/bin/bash
 # Audio Video Streaming Service (AVSS)
 # Script for installing AVSS onto a headless
 # Raspberry Pi installed with buster lite
@@ -32,25 +32,35 @@ echo "-----------------------------------"
 echo "         Installing git"
 echo "-----------------------------------"
 sudo apt-get -y install git
-WORK_DIR=~/.av_stream
 echo "-----------------------------------"
 echo "     Making working directory"
 echo "-----------------------------------"
-mkdir -p "$WORK_DIR"
+mkdir -p /home/pi/.av_stream
+cd /home/pi/.av_stream
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
-sudo git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss ~/.av_stream
+sudo git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss /home/pi/.av_stream
 sudo cp -r /home/pi/.av_stream/.av_stream/*.* /home/pi/.av_stream/
-cd .av_stream
-sudo rm -r .av_stream
-sudo rm -r .git
-sudo cp asound.conf /etc/asound.conf
-sudo cp av_stream.service /etc/systemd/system/av_stream.service
+sudo rm -r /home/pi/.av_stream/.av_stream
+sudo rm -r /home/pi/.av_stream/.git
+sudo cp /home/pi/.av_stream/asound.conf /etc/asound.conf
+sudo cp /home/pi/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
 sudo systemctl enable /etc/systemd/system/av_stream.service
-sudo rm asound.conf
-sudo rm av_stream.service
+echo "-----------------------------------"
+echo "       Cleaning installation"
+echo "-----------------------------------"
+sudo rm /home/pi/.av_stream/asound.conf
+sudo rm /home/pi/.av_stream/av_stream.service
+sudo apt autoremove
+echo "-----------------------------------"
+echo "           Enable camera"
+echo "-----------------------------------"
+sudo raspi-config nonint do_camera 0
 echo "==================================="
 echo "           Completed :)"
 echo "==================================="
-sudo reboot
+sudo shutdown -r
+echo "-----------------------------------"
+echo "           Rebooting"
+echo "-----------------------------------"

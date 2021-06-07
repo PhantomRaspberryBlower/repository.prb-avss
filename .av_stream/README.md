@@ -15,4 +15,4 @@ sudo chmod +x install_avss.sh
 
 Then type:
 
-sudo install_avss.sh
+sudo bash install_avss.sh
