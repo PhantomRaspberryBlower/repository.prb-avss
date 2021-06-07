@@ -28,21 +28,29 @@ echo "-----------------------------------"
 echo "         Installing PyGame"
 echo "-----------------------------------"
 sudo apt-get -y install python3-pygame
+echo "-----------------------------------"
+echo "         Installing git"
+echo "-----------------------------------"
+sudo apt-get -y install git
 WORK_DIR=~/.av_stream
 echo "-----------------------------------"
 echo "     Making working directory"
 echo "-----------------------------------"
 mkdir -p "$WORK_DIR"
-cd "$WORK_DIR"
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
-git clone --recursive https://github.com/PhantomRaspberryBlower/repository.prb-avss/tree/main/.av_stream
-sudo copy asound.conf /etc/asound.conf
-sudo copy av_stream.service /etc/systemd/system/av_stream.service
-sudo systemctl enable av_stream.service
+sudo git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss ~/.av_stream
+sudo cp -r /home/pi/.av_stream/.av_stream/*.* /home/pi/.av_stream/
+cd .av_stream
+sudo rm -r .av_stream
+sudo rm -r .git
+sudo cp asound.conf /etc/asound.conf
+sudo cp av_stream.service /etc/systemd/system/av_stream.service
+sudo systemctl enable /etc/systemd/system/av_stream.service
 sudo rm asound.conf
 sudo rm av_stream.service
 echo "==================================="
 echo "           Completed :)"
 echo "==================================="
+sudo reboot

@@ -13,4 +13,6 @@ To install just down install_avss.sh and allow it be executable by typing:
 
 sudo chmod +x install_avss.sh
 
-Then type sudo install_avss.sh
+Then type:
+
+sudo install_avss.sh
