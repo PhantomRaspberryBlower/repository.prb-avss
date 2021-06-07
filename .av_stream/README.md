@@ -9,7 +9,7 @@ When AVSS starts it uses the audio headphone socket to speak the Pi's IP address
 
 With the Pi being headless (no keyboard, no mouse or monitor) each time the Pi starts it beeps twice to notify the user that the Pi is ready. If the headphones are connected you will hear "Hello this is Raspberry Pi and my IP address is ...". To start a stream press the switch once; it now beeps 4 times and the LED remains on to inidicate that the Pi is streaming you will also hear "Starting Stream". To stop the stream press the switch again; it now beeps once and the LED goes out you will hear "Ending Stream". To shutdown the Pi press and hold the switch for four seconds; it beeps three times indicating it is safe to unplug and hear "Shutting Down".
 
-To install just down install_avss.sh and allow it be executable by typing:
+To install just download install_avss.sh and allow it be executable by typing:
 
 sudo chmod +x install_avss.sh
 

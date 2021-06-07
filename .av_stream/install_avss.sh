@@ -12,6 +12,7 @@ if [ "$EUID" -ne 0 ]
   then echo "Needs to be run as root! Type in: sudo bash install_avss.sh"
   exit
 fi
+WORK_DIR=/home/pi/.av_stream
 echo "-----------------------------------"
 echo "        Installing updates"
 echo "-----------------------------------"
@@ -44,19 +45,19 @@ apt-get -y install git
 echo "-----------------------------------"
 echo "     Making working directory"
 echo "-----------------------------------"
-mkdir -p /home/pi/.av_stream
-cd /home/pi/.av_stream
+mkdir -p "$WORK_DIR"
+cd "$WORK_DIR"
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
-git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss /home/pi/.av_stream
-cp -r /home/pi/.av_stream/.av_stream/*.* /home/pi/.av_stream/
-rm -r /home/pi/.av_stream/.av_stream
-rm -r /home/pi/.av_stream/.git
-cp /home/pi/.av_stream/asound.conf /etc/asound.conf
-cp /home/pi/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
+git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"
+cp -r "$WORK_DIR"/*.* "$WORK_DIR"
+rm -r "$WORK_DIR"/.av_stream
+rm -r "$WORK_DIR"/.git
+cp "$WORK_DIR"/asound.conf /etc/asound.conf
+cp "$WORK_DIR"/av_stream.service /etc/systemd/system/av_stream.service
 systemctl enable /etc/systemd/system/av_stream.service
-cd /.av_stream
+cd "$WORK_DIR"
 chown pi:pi *.*
 echo "-----------------------------------"
 echo "           Enable camera"
@@ -65,8 +66,8 @@ raspi-config nonint do_camera 0
 echo "-----------------------------------"
 echo "       Cleanup installation"
 echo "-----------------------------------"
-rm /home/pi/.av_stream/asound.conf
-rm /home/pi/.av_stream/av_stream.service
+rm "$WORK_DIR"/asound.conf
+rm "$WORK_DIR"/av_stream.service
 apt -y autoremove
 echo "==================================="
 echo "           Completed :)"
