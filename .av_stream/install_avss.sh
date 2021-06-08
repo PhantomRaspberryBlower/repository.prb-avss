@@ -51,7 +51,7 @@ echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
 git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"
-cp -r "$WORK_DIR"/*.* "$WORK_DIR"
+cp -r "$WORK_DIR"/.av_stream/*.* "$WORK_DIR"
 rm -r "$WORK_DIR"/.av_stream
 rm -r "$WORK_DIR"/.git
 cp "$WORK_DIR"/asound.conf /etc/asound.conf
@@ -76,4 +76,5 @@ echo ""
 echo "-----------------------------------"
 echo "           Rebooting"
 echo "-----------------------------------"
+sleep 3
 reboot
