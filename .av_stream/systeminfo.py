@@ -154,7 +154,6 @@ class SystemInfo():
         try:
             output = Popen(['vcgencmd', 'measure_clock arm'], stdout=PIPE).communicate()[0].decode('utf-8')
             return str(round(int(output[14:-1]) / 1000000)) + "Mhz"
-#            return str(round(int(output) / 1000,1)) + "Mhz"
         except:
             return 'Unable to get CPU clock speed! :('
 
@@ -163,7 +162,7 @@ class SystemInfo():
         # Return CPU temperature as a character string
         try:
             output = Popen(['cat', '/sys/class/thermal/thermal_zone0/temp'], stdout=PIPE).communicate()[0].decode('utf-8')
-            return str(round(int(output) / 10000 /,0)) + " Mhz"
+            return str(round(int(output) / 1000,0))
         except:
             return 'Unable to get CPU temperature! :('
 
