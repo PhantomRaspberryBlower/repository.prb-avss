@@ -33,7 +33,7 @@ def ProcessFetch(char, stdin):
         stdin.put("yourpassword\n")
 
 if __name__ == "__main__":    checkTimeSec = 60
-    gitDir = "/var/testupdate/"    while True:
+    gitDir = "/home/pi/"    while True:
         print("*********** Checking for code update **************")                                                     
     
         if CheckForUpdate(gitDir):
