@@ -149,11 +149,21 @@ class SystemInfo():
                 return int(os.popen2("sysctl -n hw.ncpu")[1].read())
 
     @property
+    def cpu_clock_speed(self):
+        # Return CPU clock speed as a character string
+        try:
+            output = Popen(['vcgencmd', 'measure_clock arm'], stdout=PIPE).communicate()[0].decode('utf-8')
+            return str(round(int(output[14:-1]) / 1000000)) + "Mhz"
+#            return str(round(int(output) / 1000,1)) + "Mhz"
+        except:
+            return 'Unable to get CPU clock speed! :('
+
+    @property
     def cpu_temp(self):
         # Return CPU temperature as a character string
         try:
             output = Popen(['cat', '/sys/class/thermal/thermal_zone0/temp'], stdout=PIPE).communicate()[0].decode('utf-8')
-            return str(round(int(output) / 1000,1))
+            return str(round(int(output) / 10000 /,0)) + " Mhz"
         except:
             return 'Unable to get CPU temperature! :('
 

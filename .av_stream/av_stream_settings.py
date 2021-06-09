@@ -119,6 +119,7 @@ def INFO_PAGE():
             "<!--cpu_model-->": si.cpu_model,
             "<!--cpu_cores-->": str(si.cpu_cores),
             "<!--cpu_temp-->": si.cpu_temp + "'C",
+            "<!--cpu_clock_speed-->": si.cpu_clock_speed,
             "<!--cpu_hardware-->": si.cpu_hardware,
             "<!--cpu_revision-->": si.cpu_revision,
             "<!--cpu_serial_number-->": si.cpu_serial_number,

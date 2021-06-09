@@ -13,6 +13,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 WORK_DIR=/home/pi/.av_stream
+USR_DIR=/home/pi
 echo "-----------------------------------"
 echo "        Installing updates"
 echo "-----------------------------------"
@@ -42,18 +43,18 @@ echo "-----------------------------------"
 echo "         Installing git"
 echo "-----------------------------------"
 apt-get -y install git
-echo "-----------------------------------"
-echo "     Making working directory"
-echo "-----------------------------------"
-mkdir -p "$WORK_DIR"
-cd "$WORK_DIR"
+#echo "-----------------------------------"
+#echo "     Making working directory"
+#echo "-----------------------------------"
+#mkdir -p "$WORK_DIR"
+#cd "$WORK_DIR"
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
-git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"
-cp -r "$WORK_DIR"/.av_stream/*.* "$WORK_DIR"
-rm -r "$WORK_DIR"/.av_stream
-rm -r "$WORK_DIR"/.git
+git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$USR_DIR"
+#cp -r "$WORK_DIR"/.av_stream/*.* "$WORK_DIR"
+#rm -r "$WORK_DIR"/.av_stream
+#rm -r "$WORK_DIR"/.git
 cp "$WORK_DIR"/asound.conf /etc/asound.conf
 cp "$WORK_DIR"/av_stream.service /etc/systemd/system/av_stream.service
 systemctl enable /etc/systemd/system/av_stream.service
