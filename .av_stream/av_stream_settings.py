@@ -247,9 +247,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             else:
                 settings_dict.update({items[0]:items[1].replace("'", '"').replace('+', ' ')})
         if post_data[0]=='update=update':
-            os.popen('python /home/pi/.av_stream/updateWorker.py')
-#            os.popen('sudo apt-get update')
-#            os.popen('sudo apt-get uprade')
+            os.popen('sudo apt-get update')
+            os.popen('sudo apt-get uprade')
+            print(os.popen('python /home/pi/.av_stream/updateWorker.py').read())
             settings_dict.update({'last_updated': dt.date.today().strftime('%d/%m/%Y')})
         else:
             if str(post_data).find('enable_speaker') < 0:
