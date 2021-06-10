@@ -27,7 +27,7 @@ def ProcessFetch(char, stdin):
     global aggregated
     sys.stdout.flush()
     aggregated += char
-    if aggregated.endswith("Password for 'https://yourrepo@bitbucket.org':"):
+    if aggregated.endswith("Password for 'https://PhantomRaspberryBlower/repository.prb-avss@github.com':"):
         print(mainLogger, "Entering password...", True)
         stdin.put("yourpassword\n")
 

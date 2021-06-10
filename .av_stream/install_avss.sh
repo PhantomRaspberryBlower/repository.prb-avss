@@ -39,9 +39,18 @@ echo "         Installing PyGame"
 echo "-----------------------------------"
 apt-get -y install python3-pygame
 echo "-----------------------------------"
-echo "         Installing git"
+echo "          Installing git"
 echo "-----------------------------------"
 apt-get -y install git
+echo "-----------------------------------"
+echo "          Installing pip"
+echo "-----------------------------------"
+apt-get -y install python-pip
+apt-get -y install python3-pip
+echo "-----------------------------------"
+echo "           Installing sh"
+echo "-----------------------------------"
+pip -y install sh
 echo "-----------------------------------"
 echo "     Making working directory"
 echo "-----------------------------------"
@@ -53,7 +62,7 @@ echo "-----------------------------------"
 git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"
 cp -r "$WORK_DIR"/.av_stream/*.* "$WORK_DIR"
 rm -r "$WORK_DIR"/.av_stream
-rm -r "$WORK_DIR"/.git
+#rm -r "$WORK_DIR"/.git
 cp "$WORK_DIR"/.av_stream/asound.conf /etc/asound.conf
 cp "$WORK_DIR"/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
 systemctl enable /etc/systemd/system/av_stream.service
