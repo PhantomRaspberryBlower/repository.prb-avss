@@ -13,7 +13,6 @@ import os
 import datetime as dt
 import time
 import commontasks
-import updateWorker
 
 si = SystemInfo()
 audio_codecs = ['aac', 'mp2', 'mp3']
