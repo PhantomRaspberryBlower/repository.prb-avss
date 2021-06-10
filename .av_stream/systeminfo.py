@@ -162,7 +162,7 @@ class SystemInfo():
         # Return CPU maximum clock speed as a character string
         try:
             output = Popen(['cat', '/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq'], stdout=PIPE).communicate()[0].decode('utf-8')
-            return str(round(int(output[14:-1]) / 1000)) + "Mhz"
+            return str(round(int(output) / 1000)) + "Mhz"
         except:
             return 'Unable to get CPU maximum clock speed! :('
 
