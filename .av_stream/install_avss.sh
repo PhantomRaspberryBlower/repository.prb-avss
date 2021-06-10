@@ -50,16 +50,16 @@ apt-get -y install python3-pip
 echo "-----------------------------------"
 echo "           Installing sh"
 echo "-----------------------------------"
-pip -y install sh
+pip install sh
 echo "-----------------------------------"
 echo "     Making working directory"
 echo "-----------------------------------"
-mkdir -p "$WORK_DIR"
+mkdir -p "$WORK_DIR"/.av_stream
 cd "$WORK_DIR"
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
-git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"
+git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"/.av_stream
 cp -r "$WORK_DIR"/.av_stream/*.* "$WORK_DIR"
 rm -r "$WORK_DIR"/.av_stream
 #rm -r "$WORK_DIR"/.git
