@@ -60,7 +60,6 @@ echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
 git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"/.av_stream
-#mv "$WORK_DIR"/.av_stream "$WORD_DIR"
 mv "$WORK_DIR"/.av_stream/.git "$WORK_DIR"
 mv "$WORK_DIR"/.av_stream/.gitattributes "$WORK_DIR"
 cp -r "$WORK_DIR"/.av_stream/.av_stream/*.* "$WORK_DIR"/.av_stream
@@ -68,7 +67,7 @@ rm -r "$WORK_DIR"/.av_stream/.av_stream
 cp "$WORK_DIR"/.av_stream/asound.conf /etc/asound.conf
 cp "$WORK_DIR"/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
 systemctl enable /etc/systemd/system/av_stream.service
-cd "$WORK_DIR"
+#cd "$WORK_DIR"
 chown pi:pi -R "$WORK_DIR"
 echo "-----------------------------------"
 echo "           Enable camera"

@@ -274,7 +274,7 @@ def play_sound(soundfile):
         while pygame.mixer.music.get_busy() == True:
             continue
     except:
-        print("ERROR - No USB sound card not connected!")
+        print("ERROR - USB sound card not connected!")
 
 
 def speak(msg=None):
