@@ -267,11 +267,15 @@ def start_stream():
 
 
 def play_sound(soundfile):
-    pygame.mixer.init()
-    pygame.mixer.music.load(soundfile)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy() == True:
-        continue
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load(soundfile)
+        pygame.mixer.music.play()
+        while pygame.mixer.music.get_busy() == True:
+            continue
+    except:
+        print("ERROR - No USB sound card not connected!")
+
 
 def speak(msg=None):
     if msg:

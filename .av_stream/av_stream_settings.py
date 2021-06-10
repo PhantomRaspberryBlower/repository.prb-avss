@@ -13,6 +13,7 @@ import os
 import datetime as dt
 import time
 import commontasks
+import updateWorker
 
 si = SystemInfo()
 audio_codecs = ['aac', 'mp2', 'mp3']
@@ -105,7 +106,7 @@ def INFO_PAGE():
                 item.path,
                 round(item.total / (1024**3), 2),
                 round(item.used / (1024**3), 2),
-                round(item.free / (1024**3), 2))
+                round(item.free / (1024**3), 2)) 
     tags = {"<!--username-->": si.username,
             "<!--hostname-->": si.hostname,
             "<!--platform-->": si.os_platform,
@@ -247,8 +248,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             else:
                 settings_dict.update({items[0]:items[1].replace("'", '"').replace('+', ' ')})
         if post_data[0]=='update=update':
-            os.popen('sudo apt-get update')
-            #os.popen('sudo apt-get uprade')
+            os.popen('python /home/pi/.av_stream/updateWorker.py')
+#            os.popen('sudo apt-get update')
+#            os.popen('sudo apt-get uprade')
             settings_dict.update({'last_updated': dt.date.today().strftime('%d/%m/%Y')})
         else:
             if str(post_data).find('enable_speaker') < 0:
