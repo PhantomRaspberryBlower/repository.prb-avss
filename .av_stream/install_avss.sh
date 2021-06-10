@@ -67,8 +67,12 @@ rm -r "$WORK_DIR"/.av_stream/.av_stream
 cp "$WORK_DIR"/.av_stream/asound.conf /etc/asound.conf
 cp "$WORK_DIR"/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
 systemctl enable /etc/systemd/system/av_stream.service
+cd "$WORK_DIR"/.av_stream
+chown pi:pi *.*
 cd "$WORK_DIR"
 chown pi:pi *.*
+chown pi:pi "$WORK_DIR"/.git
+chown pi:pi "$WORK_DIR"/.gitattributes
 echo "-----------------------------------"
 echo "           Enable camera"
 echo "-----------------------------------"
