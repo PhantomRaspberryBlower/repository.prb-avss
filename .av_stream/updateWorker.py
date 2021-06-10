@@ -7,6 +7,7 @@ aggregated = ""
 
 
 def CheckForUpdate(workingDir):
+    # This is the older one
     print("Fetching most recent code from source..." + workingDir)
     # Fetch most up to date version of code.
 #    p = git("--git-dir=" + workingDir + ".git/", "--work-tree=" + workingDir, "fetch", "origin", "master", _out=ProcessFetch, _out_bufsize=0, _tty_in=True)
