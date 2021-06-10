@@ -55,13 +55,13 @@ echo "-----------------------------------"
 echo "     Making working directory"
 echo "-----------------------------------"
 mkdir -p "$WORK_DIR"/.av_stream
-cd "$WORK_DIR"
+cd "$WORK_DIR"/.av_stream
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
 git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"/.av_stream
 cp -r "$WORK_DIR"/.av_stream/*.* "$WORK_DIR"
-rm -r "$WORK_DIR"/.av_stream
+rm -r "$WORK_DIR"/.av_stream/.av_stream
 #rm -r "$WORK_DIR"/.git
 cp "$WORK_DIR"/.av_stream/asound.conf /etc/asound.conf
 cp "$WORK_DIR"/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
