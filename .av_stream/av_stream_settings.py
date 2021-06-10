@@ -96,8 +96,7 @@ def INFO_PAGE():
     page = f.read()
     disk_info_txt = '<b>Storage:</b>'
     for item in si.disk_info:
-        if item.path != '/root/':
-            disk_info_txt = disk_info_txt + u'\n \
+        disk_info_txt = disk_info_txt + u'\n \
        Path: %s\n \
        Total: %sGB\n \
        Used: %sGB\n \

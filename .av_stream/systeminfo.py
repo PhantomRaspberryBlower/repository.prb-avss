@@ -152,7 +152,8 @@ class SystemInfo():
     def cpu_clock_speed(self):
         # Return CPU clock speed as a character string
         try:
-            output = Popen(['vcgencmd', 'measure_clock arm'], stdout=PIPE).communicate()[0].decode('utf-8')
+            output = Popen(['vcgencmd', 'measure_clock arm'],
+                           stdout=PIPE).communicate()[0].decode('utf-8')
             return str(round(int(output[14:-1]) / 1000000)) + "Mhz"
         except:
             return 'Unable to get CPU clock speed! :('
@@ -161,7 +162,8 @@ class SystemInfo():
     def cpu_max_clock_speed(self):
         # Return CPU maximum clock speed as a character string
         try:
-            output = Popen(['cat', '/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq'], stdout=PIPE).communicate()[0].decode('utf-8')
+            output = Popen(['cat', '/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq'],
+                           stdout=PIPE).communicate()[0].decode('utf-8')
             return str(round(int(output) / 1000)) + "Mhz"
         except:
             return 'Unable to get CPU maximum clock speed! :('
@@ -170,7 +172,8 @@ class SystemInfo():
     def cpu_temp(self):
         # Return CPU temperature as a character string
         try:
-            output = Popen(['cat', '/sys/class/thermal/thermal_zone0/temp'], stdout=PIPE).communicate()[0].decode('utf-8')
+            output = Popen(['cat', '/sys/class/thermal/thermal_zone0/temp'],
+                           stdout=PIPE).communicate()[0].decode('utf-8')
             return str(round(int(output) / 1000,0))
         except:
             return 'Unable to get CPU temperature! :('
@@ -181,7 +184,8 @@ class SystemInfo():
     def gpu_temp(self):
         # Return GPU temperature as a character string
         try:
-            output = Popen(['vcgencmd', 'measure_temp'], stdout=PIPE).communicate()[0].decode('utf-8')
+            output = Popen(['vcgencmd', 'measure_temp'],
+                           stdout=PIPE).communicate()[0].decode('utf-8')
             return str(output[5:len(output)-3])
         except:
             return 'Unable to get GPU temperature! :('
@@ -300,4 +304,4 @@ if __name__ == u'__main__':
         si = SystemInfo()
         print(si.get_lan_ip_addr('eth0'))
     else:
-        print(u'This script does not work with a Windows operating system. :( - Yet!')
+        print(u'This script does not work with a Windows operating system. :(')
