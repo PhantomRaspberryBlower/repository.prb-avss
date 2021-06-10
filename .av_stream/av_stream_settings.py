@@ -59,7 +59,7 @@ def INDEX_PAGE():
     if settings_dict['enable_speaker'] == 'True':
         enable_speaker_txt = 'checked="True"'
     if settings_dict['startup_udp'] == 'True':
-        startup_udp_txt = 'checked="True"'        
+        startup_udp_txt = 'checked="True"'
         disable_form_elements = 'disabled'
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
@@ -81,7 +81,7 @@ def INDEX_PAGE():
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description']}
     f = open("index.html", "r")
-    page = f.read()   
+    page = f.read()
     for tag, cmd in tags.items():
         page = page.replace(tag, cmd)
     return page
@@ -105,7 +105,7 @@ def INFO_PAGE():
                 item.path,
                 round(item.total / (1024**3), 2),
                 round(item.used / (1024**3), 2),
-                round(item.free / (1024**3), 2)) 
+                round(item.free / (1024**3), 2))
     tags = {"<!--username-->": si.username,
             "<!--hostname-->": si.hostname,
             "<!--platform-->": si.os_platform,
@@ -120,6 +120,7 @@ def INFO_PAGE():
             "<!--cpu_cores-->": str(si.cpu_cores),
             "<!--cpu_temp-->": si.cpu_temp + "'C",
             "<!--cpu_clock_speed-->": si.cpu_clock_speed,
+            "<!--cpu_max_clock_speed-->": si.cpu_max_clock_speed,
             "<!--cpu_hardware-->": si.cpu_hardware,
             "<!--cpu_revision-->": si.cpu_revision,
             "<!--cpu_serial_number-->": si.cpu_serial_number,
@@ -132,7 +133,7 @@ def INFO_PAGE():
             "<!--wlan0_lan_ip-->": si.get_lan_ip_addr('wlan0'),
             "<!--gateway_ip-->": si.default_gateway,
             "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8')}
-    
+
     for key, value in settings_dict.items():
         if len(str(value)) > 50:
             value = value[:50] + "..."
@@ -140,7 +141,7 @@ def INFO_PAGE():
 
     for tag, cmd in tags.items():
         page = page.replace(tag, "<b>%s</b>" % cmd)
-        
+
     return page
 
 class StreamingOutput(object):
@@ -287,4 +288,3 @@ except:
         server.serve_forever()
     except:
         pass
-    

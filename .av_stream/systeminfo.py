@@ -41,7 +41,7 @@ class SystemInfo():
 
     @property
     def os_platform(self):
-        return platform.platform()    
+        return platform.platform()
 
     @property
     def platform_system(self):
@@ -70,7 +70,7 @@ class SystemInfo():
     @property
     def platform_architecture(self):
         return platform.architecture()
-    
+
     @property
     def platform_python_build(self):
         return platform.python_build()
@@ -78,32 +78,32 @@ class SystemInfo():
     @property
     def platform_python_compiler(self):
         return platform.python_compiler()
-    
+
     @property
     def platform_python_branch(self):
         return platform.python_branch()
-    
+
     @property
     def platform_python_implementation(self):
         return platform.python_implementation()
-    
+
     @property
     def platform_python_revision(self):
         return platform.python_revision()
-    
+
     @property
     def platform_python_version(self):
         return platform.python_version()
-    
+
     @property
     def platform_python_version_tuple(self):
         return platform.python_version_tuple()
-    
+
     @property
     def platform_win32_ver(self):
         # Windows platforms
         return platform.win32_ver()
-    
+
     @property
     def platform_mac_ver(self):
         return platform.mac_ver()   
@@ -156,6 +156,15 @@ class SystemInfo():
             return str(round(int(output[14:-1]) / 1000000)) + "Mhz"
         except:
             return 'Unable to get CPU clock speed! :('
+
+    @property
+    def cpu_max_clock_speed(self):
+        # Return CPU maximum clock speed as a character string
+        try:
+            output = Popen(['cat', '/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq'], stdout=PIPE).communicate()[0].decode('utf-8')
+            return str(round(int(output[14:-1]) / 1000)) + "Mhz"
+        except:
+            return 'Unable to get CPU maximum clock speed! :('
 
     @property
     def cpu_temp(self):

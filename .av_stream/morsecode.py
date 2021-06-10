@@ -1,14 +1,14 @@
 #!/usr/bin/env python
- 
+
 # Encode message to Morse code and
 # flash the led. 
- 
+
 import RPi.GPIO as GPIO
 import time
- 
+
 TURN_ON = 1
 TURN_OFF = 0
- 
+
 CODE = {' ': ' ',
         "'": '.----.',
         '(': '-.--.-',
@@ -57,10 +57,10 @@ CODE = {' ': ' ',
         'Y': '-.--',
         'Z': '--..',
         '_': '..--.-'}
- 
- 
+
+
 class MorseCode():
- 
+
     def __init__(self, led_pin, speaker_pin=None, dot_length=0.2):
         self.LED_PIN = led_pin
         self.SPKR_PIN = speaker_pin
@@ -71,7 +71,7 @@ class MorseCode():
         GPIO.setup(self.LED_PIN, GPIO.OUT)
         if speaker_pin is not None:
             GPIO.setup(self.SPKR_PIN, GPIO.OUT)
- 
+
     def _dot(self):
         GPIO.output(self.LED_PIN, TURN_ON)
         if self.SPKR_PIN:
@@ -81,7 +81,7 @@ class MorseCode():
         if self.SPKR_PIN:
             GPIO.output(self.SPKR_PIN, TURN_OFF)
         time.sleep(self.DOT_LENGTH)
- 
+
     def _dash(self):
         GPIO.output(self.LED_PIN, TURN_ON)
         if self.SPKR_PIN:
@@ -91,7 +91,7 @@ class MorseCode():
         if self.SPKR_PIN:
             GPIO.output(self.SPKR_PIN, TURN_OFF)
         time.sleep(self.DOT_LENGTH)
- 
+
     def message(self, msg_txt):
         for letter in msg_txt:
             for symbol in CODE[letter.upper()]:
@@ -101,7 +101,7 @@ class MorseCode():
                     self._dot()
                 else:
                     time.sleep(self.DOT_LENGTH * 7)
- 
+
 # Check if running stand-alone or imported
 if __name__ == '__main__':
     LED_PIN = 12
@@ -118,6 +118,6 @@ if __name__ == '__main__':
                 quit()
     except KeyboardInterrupt:
         print('\nQuit')
- 
+
     # Tidy up and remaining connections.
     GPIO.cleanup()
