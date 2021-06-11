@@ -289,6 +289,17 @@ class SystemInfo():
         except:
             return 'Unable to get network status! :('
 
+    @property
+    def internet_detected(self):
+        try:
+            output = wan_ip_addr()
+            if len(output) > 0:
+                return 'True'
+            else:
+                return 'False'
+        except:
+            return 'Unable to get internet status! :('
+
     ## # Functions # ##
 
     # ## Software Information ## #
