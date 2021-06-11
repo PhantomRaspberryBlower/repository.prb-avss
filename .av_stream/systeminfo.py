@@ -174,11 +174,21 @@ class SystemInfo():
         try:
             output = Popen(['cat', '/sys/class/thermal/thermal_zone0/temp'],
                            stdout=PIPE).communicate()[0].decode('utf-8')
-            return str(round(int(output) / 1000,0))
+            return str(round(int(output) / 1000,0)) + "'C"
         except:
             return 'Unable to get CPU temperature! :('
 
     # ## GPU Information ## #
+
+    @property
+    def gpu_clock_speed(self):
+        # Return GPU clock speed as a character string
+        try:
+            output = Popen(['vcgencmd', 'measure_clock core'],
+                           stdout=PIPE).communicate()[0].decode('utf-8')
+            return str(output)
+        except:
+            return 'Unable to get GPU clock speed! :('
 
     @property
     def gpu_temp(self):
@@ -186,7 +196,7 @@ class SystemInfo():
         try:
             output = Popen(['vcgencmd', 'measure_temp'],
                            stdout=PIPE).communicate()[0].decode('utf-8')
-            return str(output[5:len(output)-3])
+            return str(output[5:len(output)-3]) + "'C"
         except:
             return 'Unable to get GPU temperature! :('
 
@@ -234,6 +244,26 @@ class SystemInfo():
                 if fields[1] != '00000000' or not int(fields[3], 16) and 2:
                     continue
                 return socket.inet_ntoa(struct.pack("<L", int(fields[2], 16)))
+
+    ## # Hardware Information ## #
+
+    @property
+    def camera_available(self):
+        # Returns the enabled and detected state of the Raspberry Pi camera
+        try:
+            var = {}
+            output = Popen(['vcgencmd', 'get_camera'],
+                           stdout=PIPE).communicate()[0].decode('utf-8')
+            for items in output.split('\n'):
+                for item in items.split(' '):
+                    try:
+                        key, value = item.split['=']
+                        var[key] = value
+                    except:
+                        pass
+            return var
+        except:
+            return 'Unable to get camera status! :('
 
     ## # Functions # ##
 
