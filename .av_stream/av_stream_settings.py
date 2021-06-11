@@ -117,13 +117,13 @@ def INFO_PAGE():
             "<!--platform_machine-->": si.platform_machine,
             "<!--cpu_model-->": si.cpu_model,
             "<!--cpu_cores-->": str(si.cpu_cores),
-            "<!--cpu_temp-->": si.cpu_temp + "'C",
+            "<!--cpu_temp-->": si.cpu_temp,
             "<!--cpu_clock_speed-->": si.cpu_clock_speed,
             "<!--cpu_max_clock_speed-->": si.cpu_max_clock_speed,
             "<!--cpu_hardware-->": si.cpu_hardware,
             "<!--cpu_revision-->": si.cpu_revision,
             "<!--cpu_serial_number-->": si.cpu_serial_number,
-            "<!--gpu_temp-->": si.gpu_temp + "'C",
+            "<!--gpu_temp-->": si.gpu_temp,
             "<!--total_mem-->": str(int(si.ram_info.total / 1024)),
             "<!--used_mem-->": str(int(si.ram_info.used / 1024)),
             "<!--free_mem-->": str(int(si.ram_info.free / 1024)),
@@ -131,7 +131,9 @@ def INFO_PAGE():
             "<!--eth0_lan_ip-->": si.get_lan_ip_addr('eth0'),
             "<!--wlan0_lan_ip-->": si.get_lan_ip_addr('wlan0'),
             "<!--gateway_ip-->": si.default_gateway,
-            "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8')}
+            "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8'),
+            "<!--camera_supported-->": si.camera_available['supported'],
+            "<!--camera_detected-->": si.camera_available['detected']}
 
     for key, value in settings_dict.items():
         if len(str(value)) > 50:
