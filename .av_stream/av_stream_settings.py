@@ -142,7 +142,7 @@ def INFO_PAGE():
 
     for key, value in settings_dict.items():
         if len(str(value)) > 50:
-            value = value[:50] + "..."
+            value = value[:50].replace('~', '%') + "..."
         tags.update({"<!--%s-->" % key: str(value)})
 
     for tag, cmd in tags.items():

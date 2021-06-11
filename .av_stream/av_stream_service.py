@@ -308,13 +308,6 @@ def start_settings_webpage():
 # Check if running stand-alone or imported
 if __name__ == '__main__':
     try:
-        if os.getpid() < 600:
-            time.sleep(20)
-        # Speak current IP address through the headphone socket
-        speak_ip()
-        start_settings_webpage()
-        time.sleep(10)
-
         # Display header
         print('-----------------------------------------------------')
         print('This program streams audio and video to facebook live')
@@ -322,6 +315,11 @@ if __name__ == '__main__':
         print('     Written by Phantom Raspberry Blower  (2021)     ')
         print('-----------------------------------------------------')
         print('\n')
+
+            time.sleep(20)
+        # Speak current IP address through the headphone socket
+        speak_ip()
+        time.sleep(10)
 
         # Add edge triggered event to audio & video stream switch
         GPIO.add_event_detect(SWITCH_PIN, GPIO.BOTH, callback=push_button)
