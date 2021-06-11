@@ -186,7 +186,7 @@ class SystemInfo():
         try:
             output = Popen(['vcgencmd', 'measure_clock core'],
                            stdout=PIPE).communicate()[0].decode('utf-8')
-            return  str(round(int(output[14:-1]) / (1000**2),0)) + "Mhz"
+            return  str(round(int(output[13:-1]) / (1000**2),0)) + "Mhz"
         except:
             return 'Unable to get GPU clock speed! :('
 
