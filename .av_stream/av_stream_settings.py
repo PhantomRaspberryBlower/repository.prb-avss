@@ -45,7 +45,7 @@ def options(opt, lst):
   return txt
 
 def INDEX_PAGE():
-    audio_out_codec_txt = options(settings_dict['audio_out_codec'], audio_codecs)
+    audio_out_codec_txt = options(settings_dict['audio_out_codec'],audio_codecs)
     audio_out_bitrate_txt = options(settings_dict['audio_out_bitrate'], audio_bitrates)
     audio_out_sample_rate_txt = options(settings_dict['audio_out_sample_rate'], audio_sample_rates)
     video_in_frames_per_second_txt = options(settings_dict['video_in_frames_per_second'], video_fps)
@@ -56,11 +56,13 @@ def INDEX_PAGE():
     enable_speaker_txt = ''
     startup_udp_txt = ''
     disable_form_elements = ''
+    # HTML form checkboxes
     if settings_dict['enable_speaker'] == 'True':
         enable_speaker_txt = 'checked="True"'
     if settings_dict['startup_udp'] == 'True':
         startup_udp_txt = 'checked="True"'
         disable_form_elements = 'disabled'
+    # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
             "<!--audio_out_codec_txt-->": audio_out_codec_txt,
@@ -75,7 +77,7 @@ def INDEX_PAGE():
             "<!--facebook_url-->": settings_dict['facebook_url'],
             "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
             "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
-            "<!--video_out_overlay_text-->": settings_dict['video_out_overlay_text'].replace('"', "'"),
+            "<!--video_out_overlay_text-->": settings_dict['video_out_overlay_text'].replace('"', "'").replace('~', '%'),
             "<!--itsoffset_seconds-->": settings_dict['itsoffset_seconds'],
             "<!--metadata_title-->": settings_dict['metadata_title'],
             "<!--metadata_year-->": settings_dict['metadata_year'],
@@ -100,11 +102,10 @@ def INFO_PAGE():
        Path: %s\n \
        Total: %sGB\n \
        Used: %sGB\n \
-       Free: %sGB\n' % (
-                item.path,
-                round(item.total / (1024**3), 2),
-                round(item.used / (1024**3), 2),
-                round(item.free / (1024**3), 2))
+       Free: %sGB\n' % (item.path,
+                        round(item.total / (1024**3), 2),
+                        round(item.used / (1024**3), 2),
+                        round(item.free / (1024**3), 2))
     tags = {"<!--username-->": si.username,
             "<!--hostname-->": si.hostname,
             "<!--platform-->": si.os_platform,
@@ -135,7 +136,9 @@ def INFO_PAGE():
             "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8'),
             "<!--camera_supported-->": si.camera_available['supported'],
             "<!--camera_detected-->": si.camera_available['detected'],
-            "<!--usb_sound_card_detected-->": si.usb_sound_card_detected}
+            "<!--usb_sound_card_detected-->": si.usb_sound_card_detected,
+            "<!--network_detected-->": si.network_detected,
+            "<!--internet_detected-->": si.internet_detected}
 
     for key, value in settings_dict.items():
         if len(str(value)) > 50:
@@ -211,7 +214,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Age', 0)
             self.send_header('Cache-Control', 'no-cache, private')
             self.send_header('Pragma', 'no-cache')
-            self.send_header('Content-Type', 'multipart/x-mixed-replace; boundary=FRAME')
+            self.send_header('Content-Type',
+                             'multipart/x-mixed-replace; boundary=FRAME')
             self.end_headers()
             try:
                 while True:
@@ -236,8 +240,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         # Post the settings to commit any changes
         import urllib.parse
         global settings_dict
-        content_length = int(self.headers['Content-Length'])    # Get the size of data
-        post_data = self.rfile.read(content_length).decode("utf-8")   # Get the data
+        content_length = int(self.headers['Content-Length']) # Get the size of data
+        post_data = self.rfile.read(content_length).decode("utf-8") # Get the data
         post_data = urllib.parse.unquote(str(post_data))
         post_data = post_data.split("&")
         for item in post_data:
@@ -249,11 +253,14 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             elif items[1] == 'on':
                 settings_dict.update({items[0]:items[1].replace('on', 'True')})
             else:
-                settings_dict.update({items[0]:items[1].replace("'", '"').replace('+', ' ')})
+                settings_dict.update({items[0]:items[1]
+                                     .replace("'", '"')
+                                     .replace('+', ' ')
+                                     .replace('%', '~')})
         if post_data[0]=='update=update':
             os.popen('sudo apt-get update')
-            os.popen('sudo apt-get uprade')
-            print(os.popen('python /home/pi/.av_stream/updateWorker.py').read())
+            os.popen('sudo apt-get upgrade')
+            response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
             settings_dict.update({'last_updated': dt.date.today().strftime('%d/%m/%Y')})
         else:
             if str(post_data).find('enable_speaker') < 0:
@@ -270,7 +277,9 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
-        camera.annotate_text = dt.datetime.now().strftime('Leicester Community Radio - %A, %d %B %Y %-I:%M %p')
+        txt = settings_dict['video_out_overlay_text'].replace('~','%')
+        txt = commontasks.regex_from_to(txt, ' "', '" ')
+        camera.annotate_text = dt.datetime.now().strftime(txt)
         camera.annotate_text_size = 12
         output = StreamingOutput()
         #Uncomment the next line to change your Pi's Camera rotation (in degrees)
