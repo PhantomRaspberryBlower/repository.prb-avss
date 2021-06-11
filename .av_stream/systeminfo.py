@@ -258,7 +258,7 @@ class SystemInfo():
                 for item in items.split(' '):
                     try:
                         key, value = item.split('=')
-                        var[key] = value
+                        var[key] = 'True' if value == '1' else 'False'
                     except:
                         pass
             return var
