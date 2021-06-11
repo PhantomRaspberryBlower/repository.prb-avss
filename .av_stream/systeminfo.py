@@ -257,7 +257,7 @@ class SystemInfo():
             for items in output.split('\n'):
                 for item in items.split(' '):
                     try:
-                        key, value = item.split['=']
+                        key, value = item.split('=')
                         var[key] = value
                     except:
                         pass
