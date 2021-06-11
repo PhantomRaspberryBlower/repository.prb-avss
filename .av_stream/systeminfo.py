@@ -265,6 +265,18 @@ class SystemInfo():
         except:
             return 'Unable to get camera status! :('
 
+    @property
+    def usb_sound_card_detected(self):
+        # Returns the enabled and detected state of the USB sound card
+        try:
+            output = os.popen('lsmod | grep snd_usb_audio').read()
+            if output:
+                return 'True'
+            else:
+                return 'False'
+        except:
+            return 'Unable to get USB sound card status! :('
+
     ## # Functions # ##
 
     # ## Software Information ## #

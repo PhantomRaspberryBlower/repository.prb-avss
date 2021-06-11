@@ -134,7 +134,8 @@ def INFO_PAGE():
             "<!--gateway_ip-->": si.default_gateway,
             "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8'),
             "<!--camera_supported-->": si.camera_available['supported'],
-            "<!--camera_detected-->": si.camera_available['detected']}
+            "<!--camera_detected-->": si.camera_available['detected'],
+            "<!--usb_sound_card_detected-->": si.usb_sound_card_detected}
 
     for key, value in settings_dict.items():
         if len(str(value)) > 50:
