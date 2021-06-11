@@ -277,6 +277,18 @@ class SystemInfo():
         except:
             return 'Unable to get USB sound card status! :('
 
+    @property
+    def network_detected(self):
+        # Returns the enabled and detected state of the network
+        try:
+            output default_gateway()
+            if output:
+                return 'True'
+            else:
+                return 'False'
+        except:
+            return 'Unable to get network status! :('
+
     ## # Functions # ##
 
     # ## Software Information ## #
