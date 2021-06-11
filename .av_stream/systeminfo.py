@@ -282,7 +282,7 @@ class SystemInfo():
         # Returns the enabled and detected state of the network
         try:
             output = default_gateway()
-            if output:
+            if len(output) > 0:
                 return 'True'
             else:
                 return 'False'
