@@ -316,6 +316,13 @@ if __name__ == '__main__':
         print('-----------------------------------------------------')
         print('\n')
 
+        start_settings_webpage()
+        # Perform startup checks
+#        while startup_checks():
+#            notification(0.4, 'sos')
+#            time.sleep(3)
+
+        if os.getpid() < 600:
             time.sleep(20)
         # Speak current IP address through the headphone socket
         speak_ip()
