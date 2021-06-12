@@ -270,8 +270,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('+', ' ')
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
-            os.popen('sudo apt-get update')
-            os.popen('sudo apt-get upgrade')
+            if settings_dict['update_os'] == 'True':
+                os.popen('sudo apt-get update')
+            if settings_dict['upgrade_os'] == 'True':
+                os.popen('sudo apt-get upgrade')
             response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
             settings_dict.update({'last_updated':
                                   dt.date.today().strftime('%d/%m/%Y')})
@@ -280,6 +282,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 settings_dict.update({'enable_speaker': 'False'})
             if str(post_data).find('startup_udp') < 0:
                 settings_dict.update({'startup_udp': 'False'})
+            if str(post_data).find('update_os') < 0:
+                settings_dict.update({'update_os': 'False'})
+            if str(post_data).find('upgrade_os') < 0:
+                settings_dict.update({'upgrade_os': 'False'})
         set_settings()
         self.do_GET()
 
