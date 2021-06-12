@@ -309,7 +309,7 @@ def start_settings_webpage():
 
 def startup_checks():
     # Check Camera is connected
-    if si.camera_detected == 'False':
+    if si.camera_available['detected'] == 'False':
         play_sound("warning_no_camera_detected.mp3")
         return True
     # Check USB sound card is connected
