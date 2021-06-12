@@ -80,18 +80,22 @@
     <input type="text" id="metadata_description" name="metadata_description" value="<!--metadata_description-->" style="width: 509px;">
   </td></tr></table>
   <br>
-  <label for="misc_settings"><b>Miscellaneous:</b></label><br>
+  <label for="update_settings"><b>Updates:</b></label><br>
   <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
-    <label for="enable_speaker">Enable Speaker </label>
-    <input type="checkbox" id="enable_speaker" name="enable_speaker" <!--enable_speaker_txt-->>
-    <label for="startup_udp">Startup UDP </label>
-    <input type="checkbox" id="startup_udp" name="startup_udp" onclick="EnableDisableTextBox(this)" <!--startup_udp_txt-->>
     <label for="update_os">Update OS </label>
     <input type="checkbox" id="update_os" name="update_os" <!--update_os_txt-->>
     <label for="upgrade_os">Upgrade OS </label>
     <input type="checkbox" id="upgrade_os" name="upgrade_os" <!--upgrade_os_txt-->>
     <label for="update_interval_days">Updated Interval (days):</label>
     <select id="update_interval_days" name="update_interval_days" style="width: 60px;"> <!--update_interval_days_txt-->>
+  </td></tr></table>
+  <br>
+  <label for="misc_settings"><b>Miscellaneous:</b></label><br>
+  <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
+    <label for="enable_speaker">Enable Speaker </label>
+    <input type="checkbox" id="enable_speaker" name="enable_speaker" <!--enable_speaker_txt-->>
+    <label for="startup_udp">Startup UDP </label>
+    <input type="checkbox" id="startup_udp" name="startup_udp" onclick="EnableDisableTextBox(this)" <!--startup_udp_txt-->>
   </td></tr></table>
   <br>
   <table style="black;margin-left:auto;margin-right:auto;"><tr><td>

@@ -270,11 +270,11 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('+', ' ')
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
+            response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
             if settings_dict['update_os'] == 'True':
                 os.popen('sudo apt-get update')
             if settings_dict['upgrade_os'] == 'True':
                 os.popen('sudo apt-get upgrade')
-            response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
             settings_dict.update({'last_updated':
                                   dt.date.today().strftime('%d/%m/%Y')})
         else:
