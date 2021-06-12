@@ -53,7 +53,7 @@ def INDEX_PAGE():
     video_resolution_txt = options(settings_dict['video_in_width'] + "x" + settings_dict['video_in_height'], video_resolutions)
     video_out_codec_txt = options(settings_dict['video_out_codec'], video_codecs)
     itsoffset_txt = options(settings_dict['itsoffset'], offset_types)
-    update_interval_days_txt = option(settings['update_interval_days'], update_intervals)
+    update_interval_days_txt = options(settings_dict['update_interval_days'], update_intervals)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -83,8 +83,9 @@ def INDEX_PAGE():
             "<!--itsoffset_txt-->": itsoffset_txt,
             "<!--enable_speaker_txt-->": enable_speaker_txt,
             "<!--startup_udp_txt-->": startup_udp_txt,
-            "<!--update_os-->": update_os_txt,
-            "<!--upgrade_os-->": upgrade_os_txt,
+            "<!--update_os_txt-->": update_os_txt,
+            "<!--upgrade_os_txt-->": upgrade_os_txt,
+            "<!--update_interval_days_txt": update_interval_days_txt,
             "<!--facebook_url-->": settings_dict['facebook_url'],
             "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
             "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
