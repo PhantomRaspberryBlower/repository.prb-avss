@@ -125,6 +125,7 @@ def INFO_PAGE():
             "<!--cpu_serial_number-->": si.cpu_serial_number,
             "<!--gpu_temp-->": si.gpu_temp,
             "<!--gpu_clock_speed-->": si.gpu_clock_speed,
+            "<!--gpu_memory-->": si.gpu_memory,
             "<!--total_mem-->": str(int(si.ram_info.total / 1024)),
             "<!--used_mem-->": str(int(si.ram_info.used / 1024)),
             "<!--free_mem-->": str(int(si.ram_info.free / 1024)),

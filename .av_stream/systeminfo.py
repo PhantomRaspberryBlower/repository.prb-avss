@@ -200,6 +200,14 @@ class SystemInfo():
         except:
             return 'Unable to get GPU temperature! :('
 
+    @property
+    def gpu_memory(self):
+        # Return GPU ram as a character string
+        try:
+            output = os.popen(' cat /boot/config.txt | grep gpu_mem').read()
+            return str(output[8:]) + "MB"
+        except:
+            return 'Unable to get GPU memory! :('
     # ## Memory Informtion ## #
 
     # Get memory info
