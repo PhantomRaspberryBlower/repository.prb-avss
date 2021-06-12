@@ -64,10 +64,10 @@ mv "$WORK_DIR"/.av_stream/.git "$WORK_DIR"
 mv "$WORK_DIR"/.av_stream/.gitattributes "$WORK_DIR"
 cp -r "$WORK_DIR"/.av_stream/.av_stream/*.* "$WORK_DIR"/.av_stream
 rm -r "$WORK_DIR"/.av_stream/.av_stream
+cp "$WORK_DIR"/.av_stream/config.bkp.ini "$WORK_DIR"/.av_stream/config.ini
 cp "$WORK_DIR"/.av_stream/asound.conf /etc/asound.conf
 cp "$WORK_DIR"/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
 systemctl enable /etc/systemd/system/av_stream.service
-#cd "$WORK_DIR"
 chown pi:pi -R "$WORK_DIR"
 echo "-----------------------------------"
 echo "           Enable camera"
@@ -76,8 +76,6 @@ raspi-config nonint do_camera 0
 echo "-----------------------------------"
 echo "       Cleanup installation"
 echo "-----------------------------------"
-#rm "$WORK_DIR"/.av_stream/asound.conf
-#rm "$WORK_DIR"/.av_stream/av_stream.service
 apt -y autoremove
 echo "==================================="
 echo "           Completed :)"

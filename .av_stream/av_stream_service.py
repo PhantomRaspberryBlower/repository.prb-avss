@@ -33,14 +33,15 @@ settings_dict = {}
 def get_settings():
     global settings_dict
     settings_dict = commontasks.get_settings('/home/pi/.av_stream/config.ini')
-    if settings_dict['metadata_year'] == 'current year': settings_dict['metadata_year'] = date.today().year
+    if settings_dict['metadata_year'] == 'current year':
+        settings_dict['metadata_year'] = date.today().year
 
 get_settings()
 
 # Setup GPIO (general purpose input output)
-LED_PIN = int(settings_dict['gpio_led_pin'])             # Default led pin 12
-SWITCH_PIN = int(settings_dict['gpio_switch_pin'])       # Default swtich pin 18
-SPKR_PIN = int(settings_dict['gpio_spkr_pin'])           # Default speaker pin 36
+LED_PIN = int(settings_dict['gpio_led_pin'])         # Default led pin 12
+SWITCH_PIN = int(settings_dict['gpio_switch_pin'])   # Default swtich pin 18
+SPKR_PIN = int(settings_dict['gpio_spkr_pin'])       # Default speaker pin 36
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 GPIO.setup(LED_PIN, GPIO.OUT)

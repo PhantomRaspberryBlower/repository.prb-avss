@@ -22,6 +22,7 @@ video_fps = ['15', '20', '25', '30']
 video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 video_codecs = ['mp4', 'mpegts']
 offset_types = ['audio', 'video', 'none']
+update_intervals = ['1', '7', '30']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -52,9 +53,12 @@ def INDEX_PAGE():
     video_resolution_txt = options(settings_dict['video_in_width'] + "x" + settings_dict['video_in_height'], video_resolutions)
     video_out_codec_txt = options(settings_dict['video_out_codec'], video_codecs)
     itsoffset_txt = options(settings_dict['itsoffset'], offset_types)
+    update_interval_days_txt = option(settings['update_interval_days'], update_intervals)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
+    update_os_txt = ''
+    upgrade_os_txt = ''
     disable_form_elements = ''
     # HTML form checkboxes
     if settings_dict['enable_speaker'] == 'True':
@@ -62,6 +66,11 @@ def INDEX_PAGE():
     if settings_dict['startup_udp'] == 'True':
         startup_udp_txt = 'checked="True"'
         disable_form_elements = 'disabled'
+    if settings_dict['update_os'] == 'True':
+        update_os_txt = 'checked="True"'
+    if settings_dict['upgrade_os'] == 'True':
+        upgrade_os_txt = 'checked="True"'
+
     # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
@@ -74,6 +83,8 @@ def INDEX_PAGE():
             "<!--itsoffset_txt-->": itsoffset_txt,
             "<!--enable_speaker_txt-->": enable_speaker_txt,
             "<!--startup_udp_txt-->": startup_udp_txt,
+            "<!--update_os-->": update_os_txt,
+            "<!--upgrade_os-->": upgrade_os_txt,
             "<!--facebook_url-->": settings_dict['facebook_url'],
             "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
             "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
@@ -261,7 +272,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             os.popen('sudo apt-get update')
             os.popen('sudo apt-get upgrade')
             response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
-            settings_dict.update({'last_updated': dt.date.today().strftime('%d/%m/%Y')})
+            settings_dict.update({'last_updated':
+                                  dt.date.today().strftime('%d/%m/%Y')})
         else:
             if str(post_data).find('enable_speaker') < 0:
                 settings_dict.update({'enable_speaker': 'False'})
@@ -282,8 +294,6 @@ try:
         camera.annotate_text = dt.datetime.now().strftime(txt)
         camera.annotate_text_size = 12
         output = StreamingOutput()
-        #Uncomment the next line to change your Pi's Camera rotation (in degrees)
-        #camera.rotation = 90
         camera.start_recording(output, format='mjpeg')
         try:
             address = ('', 8000)
@@ -296,7 +306,9 @@ except:
     try:
         address = ('', 8000)
         server = StreamingServer(address, StreamingHandler)
-        hidden_form_elements = '<center><b><p style="color: #8b0000;">Preview unavailable during a live stream.</p></b></center>'
+        hidden_form_elements = ('<center><b><p style="color: #8b0000;">Preview'
+                                ' unavailable during a live stream.</p></b>'
+                                '</center>')
         server.serve_forever()
     except:
         pass
