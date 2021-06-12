@@ -106,7 +106,7 @@ class SystemInfo():
 
     @property
     def platform_mac_ver(self):
-        return platform.mac_ver()   
+        return platform.mac_ver()
 
     @property
     def platform_linux_distribution(self):
@@ -205,7 +205,7 @@ class SystemInfo():
         # Return GPU ram as a character string
         try:
             output = os.popen('cat /boot/config.txt | grep gpu_mem').read()
-            return str(output[8:len(ouput)-1]) + "MB"
+            return str(output[8:-1]) + "MB"
         except:
             return 'Unable to get GPU memory! :('
 
