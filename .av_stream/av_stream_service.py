@@ -339,10 +339,6 @@ if __name__ == '__main__':
         print('\n')
 
         start_settings_webpage()
-        # Perform startup checks
-        while startup_checks():
-            notification(0.4, 'sos')
-            time.sleep(3)
 
         if os.getpid() < 600:
             time.sleep(20)
@@ -352,6 +348,11 @@ if __name__ == '__main__':
 
         # Add edge triggered event to audio & video stream switch
         GPIO.add_event_detect(SWITCH_PIN, GPIO.BOTH, callback=push_button)
+
+        # Perform startup checks
+        while startup_checks():
+            notification(0.4, 'sos')
+            time.sleep(3)
 
         # Notification program has started (initialized)
         notification(0.4, 'i')
