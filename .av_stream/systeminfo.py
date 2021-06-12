@@ -281,7 +281,7 @@ class SystemInfo():
     def network_detected(self):
         # Returns the enabled and detected state of the network
         try:
-            output = default_gateway().decode('utf-8')
+            output = self.default_gateway
             if output:
                 return 'True'
             else:
@@ -292,8 +292,8 @@ class SystemInfo():
     @property
     def internet_detected(self):
         try:
-            output = wan_ip_addr()
-            if len(output) > 0:
+            output = self.wan_ip_addr
+            if output:
                 return 'True'
             else:
                 return 'False'
