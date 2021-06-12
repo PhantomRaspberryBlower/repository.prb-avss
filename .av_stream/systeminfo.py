@@ -204,7 +204,7 @@ class SystemInfo():
     def gpu_memory(self):
         # Return GPU ram as a character string
         try:
-            output = os.popen(' cat /boot/config.txt | grep gpu_mem').read()
+            output = os.popen('cat /boot/config.txt | grep gpu_mem').read()
             return str(output[8:-1]) + "MB"
         except:
             return 'Unable to get GPU memory! :('
