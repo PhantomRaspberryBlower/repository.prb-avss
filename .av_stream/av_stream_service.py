@@ -25,7 +25,9 @@ import pygame
 from datetime import date
 from morsecode import MorseCode
 import commontasks
+from systeminfo import SystemInfo
 
+si = SystemInfo()
 settings_dict = {}
 
 def get_settings():
@@ -305,6 +307,26 @@ def start_settings_webpage():
     settings_status = subprocess.Popen.poll(settings_proc)
 
 
+def startup_checks():
+    # Check Camera is connected
+    if si.camera_detected == 'False':
+        play_sound("warning_no_camera_detected.mp3")
+        return True
+    # Check USB sound card is connected
+    if si.usb_sound_card_detected =='False':
+        play_sound("warning_no_usb_sound_card_detected.mp3")
+        return True
+    # Check network is connected
+    if si.network_detected == 'False':
+        play_sound("warning_no_network_detected.mp3")
+        return True
+    # Check Internet is connected
+    if si.internet_detected == 'False':
+        play_sound("warning_no internet_detected")
+        return True
+    return False
+
+
 # Check if running stand-alone or imported
 if __name__ == '__main__':
     try:
@@ -318,9 +340,9 @@ if __name__ == '__main__':
 
         start_settings_webpage()
         # Perform startup checks
-#        while startup_checks():
-#            notification(0.4, 'sos')
-#            time.sleep(3)
+        while startup_checks():
+            notification(0.4, 'sos')
+            time.sleep(3)
 
         if os.getpid() < 600:
             time.sleep(20)
