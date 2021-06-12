@@ -27,8 +27,7 @@ def ProcessFetch(char, stdin):
     global aggregated
     sys.stdout.flush()
     aggregated += char
-    if aggregated.endswith("Password for 'https://PhantomRaspberryBlower' \
-                           '/repository.prb-avss@github.com':"):
+    if aggregated.endswith("Password for 'https://PhantomRaspberryBlower/repository.prb-avss@github.com':"):
         print(mainLogger, "Entering password...", True)
         stdin.put("yourpassword\n")
 
@@ -48,6 +47,4 @@ if __name__ == "__main__":
 #        time.sleep(checkTimeSec)
     gitDir = "/home/pi/"
     if CheckForUpdate(gitDir):
-        resetCheck = git("--git-dir=" + gitDir + ".git/",
-                         "--work-tree=" + gitDir + ".av_stream/", "reset", "--hard",
-                         "origin/main")
+        resetCheck = git("--git-dir=" + gitDir + ".git/", "--work-tree=" + gitDir + ".av_stream/", "reset", "--hard", "origin/main")
