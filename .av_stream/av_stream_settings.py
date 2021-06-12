@@ -101,10 +101,10 @@ def INFO_PAGE():
         disk_info_txt = disk_info_txt + ('\n  Path: %s\n'
                                          '  Total: %sGB\n'
                                          '  Used: %sGB\n'
-                                         '  Free: %sGB\n' % (item.path,
-                                                             round(item.total / (1024**3), 2),
-                                                             round(item.used / (1024**3), 2),
-                                                             round(item.free / (1024**3), 2))
+                                         '  Free: %sGB\n') % (item.path,
+                                                              round(item.total / (1024**3), 2),
+                                                              round(item.used / (1024**3), 2),
+                                                              round(item.free / (1024**3), 2))
     tags = {"<!--username-->": si.username,
             "<!--hostname-->": si.hostname,
             "<!--platform-->": si.os_platform,
