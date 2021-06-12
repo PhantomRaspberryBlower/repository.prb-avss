@@ -18,7 +18,7 @@ INVALID_FILENAME_CHARS = '\/:*?"<>|'
 
 todays_date = date.today()
 
-def get_settings(path="config.ini"):
+def get_settings(path="~/.av_stream/config.ini"):
     # Open config settings
     config_object.read(path)
     # Get the SETTINGS section
@@ -61,7 +61,7 @@ def get_settings(path="config.ini"):
     return settings_dict
 
 
-def save_settings(settings_dict, path='config.ini'):
+def save_settings(settings_dict, path='~/.av_stream/config.ini'):
     for item in settings_dict:
         config_object.set('SETTINGS', item, settings_dict[item])
     # Writing our configuration file to 'config.ini'
