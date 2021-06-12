@@ -281,7 +281,7 @@ class SystemInfo():
     def network_detected(self):
         # Returns the enabled and detected state of the network
         try:
-            output = default_gateway()
+            output = default_gateway().decode('utf-8')
             if output:
                 return 'True'
             else:
