@@ -47,4 +47,4 @@ if __name__ == "__main__":
 #        time.sleep(checkTimeSec)
     gitDir = "/home/pi/"
     if CheckForUpdate(gitDir):
-        resetCheck = git("--git-dir=" + gitDir + ".git/", "--work-tree=" + gitDir + ".av_stream/", "reset", "--hard", "origin/main")
+        resetCheck = git("--git-dir=" + gitDir + ".git/", "--work-tree=" + gitDir, "reset", "--hard", "origin/main")
