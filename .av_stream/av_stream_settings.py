@@ -34,6 +34,7 @@ def set_settings():
     global settings_dict
     commontasks.save_settings(settings_dict, '/home/pi/.av_stream/config.ini')
 
+
 def options(opt, lst):
   txt = ''
   for item in lst: 
@@ -42,6 +43,7 @@ def options(opt, lst):
     else:
       txt += '\n  <option value="' + item + '">' + item + '</option>'
   return txt
+
 
 def INDEX_PAGE():
     audio_out_codec_txt = options(settings_dict['audio_out_codec'],audio_codecs)
@@ -98,10 +100,12 @@ def INDEX_PAGE():
         page = page.replace(tag, cmd)
     return page
 
+
 def HELP_PAGE():
     f = open("/home/pi/.av_stream/resources/templates/help.html", "r")
     page = f.read()
     return page
+
 
 def INFO_PAGE():
     f = open("/home/pi/.av_stream/resources/templates/info.html", "r")
@@ -159,6 +163,7 @@ def INFO_PAGE():
         page = page.replace(tag, "<b>%s</b>" % cmd)
 
     return page
+
 
 class StreamingOutput(object):
     def __init__(self):

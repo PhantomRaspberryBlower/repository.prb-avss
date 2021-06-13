@@ -71,23 +71,47 @@ settings_proc = None
 settings_status = None
 
 
-def notification(interval=0.3, mode=None):
-    # Create audible sound (morse code) to confirm chosen option
-    # 'v' = start_video; 'e' = end_video; 's' = shutdown
-    if mode != None:
-        mc.message(mode)
+def check_for_updates():
+    global settings_dict
+    date_format = "%d/%m/%Y"
+    last_updated = settings_dict['last_updated']
+    update_interval_days = int(settings_dict['update_interval_days'])
+    a = datetime.strptime(last_updated, date_format) + timedelta(days=update_interval_days)
+    b = datetime.today()
+    delta = b - a
+    if a < b:
+        play_sound("checking_for_updates.mp3")
+        response = os.popen('python updateWorker.py').read()
+        if settings_dict['update_os'] == 'True':
+            os.popen('sudo apt-get update')
+        if settings_dict['upgrade_os'] == 'True':
+            os.popen('sudo apt-get upgrade')
+        settings_dict.update({'last_updated':
+                              date.today().strftime('%d/%m/%Y')})
+        commontasks.save_settings(settings_dict, '/home/pi/.av_stream/config.ini')
 
 
-def shutdown():
-    # Shutdown the RPi
-    # Speak through the headphone socket
-    play_sound("shutting_down.mp3")
-    # Flash the LED three times to indicate shutdown
-    notification(interval=0.4, mode='s')
-    # output shutdown message
-    print('Shutting down ...')
-    # Shutdown now
-    os.system('sudo shutdown -h now')
+def cleanup():
+    # Cleanup all processes
+    timeout_sec = 5
+    # Iterate currently running processes
+    for p in all_processes: 
+        p_sec = 0
+        for second in range(timeout_sec):
+            if p.poll() == None:
+                time.sleep(1)
+                p_sec += 1
+        if p_sec >= timeout_sec:
+            p.kill()
+    GPIO.cleanup()
+
+
+def kill_settings():
+    global settings_status
+    global settings_proc
+    if settings_status == None:
+        subprocess.Popen.terminate(settings_proc)
+        settings_status = subprocess.Popen.poll(settings_proc)
 
 
 def kill_streams(processes=None):
@@ -110,19 +134,23 @@ def kill_streams(processes=None):
                 os.kill(pid, 9)
 
 
-def cleanup():
-    # Cleanup all processes
-    timeout_sec = 5
-    # Iterate currently running processes
-    for p in all_processes: 
-        p_sec = 0
-        for second in range(timeout_sec):
-            if p.poll() == None:
-                time.sleep(1)
-                p_sec += 1
-        if p_sec >= timeout_sec:
-            p.kill()
-    GPIO.cleanup()
+def notification(interval=0.3, mode=None):
+    # Create audible sound (morse code) to confirm chosen option
+    # 'v' = start_video; 'e' = end_video; 's' = shutdown
+    if mode != None:
+        mc.message(mode)
+
+
+def play_sound(soundfile):
+    media_dir = '/home/pi/.av_stream/resources/media/'
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load(media_dir + soundfile)
+        pygame.mixer.music.play()
+        while pygame.mixer.music.get_busy() == True:
+            continue
+    except:
+        print("ERROR - sound card not connected!")
 
 
 def push_button(channel):
@@ -142,6 +170,39 @@ def push_button(channel):
         start_stop_stream()
 
 
+def shutdown():
+    # Shutdown the RPi
+    # Speak through the headphone socket
+    play_sound("shutting_down.mp3")
+    # Flash the LED three times to indicate shutdown
+    notification(interval=0.4, mode='s')
+    # output shutdown message
+    print('Shutting down ...')
+    # Shutdown now
+    os.system('sudo shutdown -h now')
+
+
+def speak(msg=None):
+    if msg:
+      full_speech = "echo '" + msg + "' | festival --tts"
+      os.popen(full_speech)
+
+
+def speak_ip():
+    ip = os.popen("hostname -I | sed -e 's/\./ dot /g' -e 's/[0123456789]/ & /g'")
+    speech = 'Hello this is raspberry pi and my I P address is %s' % ip.read()
+    full_speech = "echo '" + speech + "' | festival --tts"
+    os.popen(full_speech)
+
+
+def start_settings_webpage():
+    global settings_proc
+    global settings_status
+    print('Starting webpage')
+    settings_proc = subprocess.Popen(['python3', '/home/pi/.av_stream/av_stream_settings.py'])
+    settings_status = subprocess.Popen.poll(settings_proc)
+
+
 def start_stop_stream():
     global previous_state
     global toggle_switch
@@ -159,21 +220,6 @@ def start_stop_stream():
         previous_state = True
     else:
         previous_state = current_state
-
-
-def stop_stream():
-    # Stops audio & video stream
-    # Speak through the headphone socket
-    play_sound("ending_stream.mp3")
-    print('Stopping audio video stream ... ', end = '')
-    kill_streams()
-    kill_settings()
-    # Notification audio & video stream has stopped (exit)
-    notification(interval=0.4, mode='e')
-    GPIO.output(LED_PIN, GPIO.LOW)
-    time.sleep(1)
-    start_settings_webpage()
-    print('stopped.')
 
 
 def start_stream():
@@ -272,47 +318,6 @@ def start_stream():
     print('started.')
 
 
-def play_sound(soundfile):
-    media_dir = '/home/pi/.av_stream/resources/media/'
-    try:
-        pygame.mixer.init()
-        pygame.mixer.music.load(media_dir + soundfile)
-        pygame.mixer.music.play()
-        while pygame.mixer.music.get_busy() == True:
-            continue
-    except:
-        print("ERROR - sound card not connected!")
-
-
-def speak(msg=None):
-    if msg:
-      full_speech = "echo '" + msg + "' | festival --tts"
-      os.popen(full_speech)
-
-
-def speak_ip():
-    ip = os.popen("hostname -I | sed -e 's/\./ dot /g' -e 's/[0123456789]/ & /g'")
-    speech = 'Hello this is raspberry pi and my I P address is %s' % ip.read()
-    full_speech = "echo '" + speech + "' | festival --tts"
-    os.popen(full_speech)
-
-
-def kill_settings():
-    global settings_status
-    global settings_proc
-    if settings_status == None:
-        subprocess.Popen.terminate(settings_proc)
-        settings_status = subprocess.Popen.poll(settings_proc)
-
-
-def start_settings_webpage():
-    global settings_proc
-    global settings_status
-    print('Starting webpage')
-    settings_proc = subprocess.Popen(['python3', '/home/pi/.av_stream/av_stream_settings.py'])
-    settings_status = subprocess.Popen.poll(settings_proc)
-
-
 def startup_checks():
     # Check Camera is connected
     print('Startup Checks')
@@ -334,23 +339,19 @@ def startup_checks():
     return False
 
 
-def check_for_updates():
-    global settings_dict
-    date_format = "%d/%m/%Y"
-    last_updated = settings_dict['last_updated']
-    update_interval_days = int(settings_dict['update_interval_days'])
-    a = datetime.strptime(last_updated, date_format) + timedelta(days=update_interval_days)
-    b = datetime.today()
-    delta = b - a
-    if a < b:
-        response = os.popen('python updateWorker.py').read()
-        if settings_dict['update_os'] == 'True':
-            os.popen('sudo apt-get update')
-        if settings_dict['upgrade_os'] == 'True':
-            os.popen('sudo apt-get upgrade')
-        settings_dict.update({'last_updated':
-                              date.today().strftime('%d/%m/%Y')})
-        commontasks.save_settings(settings_dict, '/home/pi/.av_stream/config.ini')
+def stop_stream():
+    # Stops audio & video stream
+    # Speak through the headphone socket
+    play_sound("ending_stream.mp3")
+    print('Stopping audio video stream ... ', end = '')
+    kill_streams()
+    kill_settings()
+    # Notification audio & video stream has stopped (exit)
+    notification(interval=0.4, mode='e')
+    GPIO.output(LED_PIN, GPIO.LOW)
+    time.sleep(1)
+    start_settings_webpage()
+    print('stopped.')
 
 
 # Check if running stand-alone or imported
@@ -387,7 +388,7 @@ if __name__ == '__main__':
         check_for_updates()
 
         # Notification program has started (initialized)
-        notification(0.4, 'i')
+        notification(0.3, 'i')
 
         while True:
             time.sleep(1)
