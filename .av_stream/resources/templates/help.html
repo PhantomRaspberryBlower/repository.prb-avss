@@ -78,20 +78,6 @@ a resolution of 960x540. The CPU will reach 75 degrees centigrade very rapidly. 
 should not be used for long periods or it will eventually damage the Pi. Like I said earlier only for 
 testing purposes.
 
-<b>GPIO Pin Configuration:</b>
-<b>-----------------------</b>
-The Raspberry Pi has a 40 pin connector some of which can be used as inputs or outputs. These connectors
-are called General Purpose Input Output pins. The following pin numbers have been allocated:
-
-    Pin 4 ...... Positive Cooling Fan + (red cable) 5v
-    Pin 6 ...... Negative Cooling Fan - (black cable)
-    Pin 12 ..... Streaming LED + (red cable)
-    Pin 14 ..... Streaming LED - (white cable)
-    Pin 17 ..... Streaming Switch + (red cable) 3v
-    Pin 18 ..... Streaming Switch - (black cable)
-    Pin 30 ..... Piezo Speaker - (black cable)
-    Pin 36 ..... Piezo Speaker + (red cable)
-
 <b>Config file:</b>
 <b>------------</b>
 The config file can be found in the <b>/home/pi/.av_stream</b> directory. Click onto Info button to see
@@ -121,6 +107,22 @@ If any of the above is set to False check that the cables are connected properly
 
 If the problem persists contact Phantom Raspberry Blower via email <b>ph4nt0mr45p83rry810w3r@gmail.com</b>
 or call: <b>07969860053</b>.
+
+<b>GPIO Pin Configuration:</b>
+<b>-----------------------</b>
+The Raspberry Pi has a 40 pin connector some of which can be used as inputs or outputs. These connectors
+are called General Purpose Input Output pins. The following pin numbers have been allocated:
+
+    Pin 4 ...... Positive Cooling Fan + (red cable) 5v
+    Pin 6 ...... Negative Cooling Fan - (black cable)
+    Pin 8 ...... PWM Cooling Fan Switch (blue cable)
+    Pin 12 ..... Streaming LED + (red cable)
+    Pin 14 ..... Streaming LED - (white cable)
+    Pin 17 ..... Streaming Switch + (red cable) 3v
+    Pin 18 ..... Streaming Switch - (black cable)
+    Pin 30 ..... Piezo Speaker - (black cable)
+    Pin 36 ..... Piezo Speaker + (red cable)
+
 </pre>
   <table style="black;margin-left:auto;margin-right:auto;"><tr><td>
     <input type="button" onclick="location.href='/index.html'" value="Back" style="width: 60px;">&nbsp&nbsp&nbsp
