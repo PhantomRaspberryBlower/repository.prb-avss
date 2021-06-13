@@ -22,7 +22,7 @@ import os
 import atexit
 import socket
 import pygame
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from morsecode import MorseCode
 import commontasks
 from systeminfo import SystemInfo
@@ -32,9 +32,9 @@ settings_dict = {}
 
 def get_settings():
     global settings_dict
-    settings_dict = commontasks.get_settings('/home/pi/.av_stream/config.ini')
+    settings_dict = commontasks.get_settings('config.ini')
     if settings_dict['metadata_year'] == 'current year':
-        settings_dict['metadata_year'] = date.today().year
+        metadata_year = date.today().year
 
 get_settings()
 
@@ -250,7 +250,7 @@ def start_stream():
                                    settings_dict['audio_hardware'],
                                    stream_codec,
                                    settings_dict['metadata_title'],
-                                   settings_dict['metadata_year'],
+                                   metadata_year,
                                    settings_dict['metadata_description'],
                                    settings_dict['metadata_copyright'],
                                    settings_dict['metadata_comment'],
@@ -269,7 +269,7 @@ def start_stream():
 
 
 def play_sound(soundfile):
-    media_dir = '~/.av_stream/media/'
+    media_dir = 'media/'
     try:
         pygame.mixer.init()
         pygame.mixer.music.load(media_dir + soundfile)
@@ -304,12 +304,14 @@ def kill_settings():
 def start_settings_webpage():
     global settings_proc
     global settings_status
-    settings_proc = subprocess.Popen(['python3', '~/.av_stream/av_stream_settings.py'])
+    print('Starting webpage')
+    settings_proc = subprocess.Popen(['python3', 'av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
 
 def startup_checks():
     # Check Camera is connected
+    print('Startup Checks')
     if si.camera_available['detected'] == 'False':
         play_sound("warning_no_camera_detected.mp3")
         return True
@@ -332,20 +334,19 @@ def check_for_updates():
     global settings_dict
     date_format = "%d/%m/%Y"
     last_updated = settings_dict['last_updated']
-    update_interval_days = settings_dict['update_interval_days']
+    update_interval_days = int(settings_dict['update_interval_days'])
     a = datetime.strptime(last_updated, date_format) + timedelta(days=update_interval_days)
     b = datetime.today()
-    #b = datetime.strptime('9/26/2008', date_format)
     delta = b - a
-    if delta > 0:
-        print(Updating)
-        response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
+    if a < b:
+        print('Check for updates')
+        response = os.popen('python updateWorker.py').read()
         if settings_dict['update_os'] == 'True':
             os.popen('sudo apt-get update')
         if settings_dict['upgrade_os'] == 'True':
             os.popen('sudo apt-get upgrade')
         settings_dict.update({'last_updated':
-                              dt.date.today().strftime('%d/%m/%Y')})
+                              date.today().strftime('%d/%m/%Y')})
         commontasks.save_settings(settings_dict, 'config.ini')
 
 
@@ -380,7 +381,7 @@ if __name__ == '__main__':
             time.sleep(3)
 
         # Check for updates
-        #check_for_updates()
+        check_for_updates()
 
         # Notification program has started (initialized)
         notification(0.4, 'i')
