@@ -17,6 +17,7 @@
 # Import dependencies
 import RPi.GPIO as GPIO
 import subprocess
+import threading
 import time
 import os
 import atexit
@@ -175,7 +176,9 @@ def push_button(channel):
 def shutdown():
     # Shutdown the RPi
     # Speak through the headphone socket
-    play_sound("shutting_down.mp3")
+    t = threading.Thread(target=play_sound, args=("shutting_down.mp3",))
+    t.start()
+#    play_sound("shutting_down.mp3")
     # Flash the LED three times to indicate shutdown
     notification(interval=0.4, mode='s')
     # output shutdown message
@@ -226,7 +229,9 @@ def start_stop_stream():
 
 def start_stream():
     # Speak through the headphone socket
-    play_sound("starting_stream.mp3")
+    t = threading.Thread(target=play_sound, args=("starting_stream.mp3",))
+    t.start()
+#    play_sound("starting_stream.mp3")
     print('Starting audio video stream ... ', end = '')
     get_settings()
     url = ''
@@ -344,7 +349,9 @@ def startup_checks():
 def stop_stream():
     # Stops audio & video stream
     # Speak through the headphone socket
-    play_sound("ending_stream.mp3")
+    t = threading.Thread(target=play_sound, args=("ending_stream.mp3",))
+    t.start()
+#    play_sound("ending_stream.mp3")
     print('Stopping audio video stream ... ', end = '')
     kill_streams()
     kill_settings()
@@ -387,7 +394,9 @@ if __name__ == '__main__':
             time.sleep(3)
 
         # Check for updates
-        check_for_updates()
+        t = threading.Thread(target=check_for_updates)
+        t.start()
+#        check_for_updates()
 
         # Notification program has started (initialized)
         notification(0.3, 'i')
