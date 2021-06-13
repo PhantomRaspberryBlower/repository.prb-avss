@@ -22,7 +22,7 @@ import os
 import atexit
 import socket
 import pygame
-from datetime import date
+from datetime import date, datetime
 from morsecode import MorseCode
 import commontasks
 from systeminfo import SystemInfo
@@ -268,16 +268,16 @@ def start_stream():
     print('started.')
 
 
-
 def play_sound(soundfile):
+    media_dir = '~/.av_stream/media/'
     try:
         pygame.mixer.init()
-        pygame.mixer.music.load(soundfile)
+        pygame.mixer.music.load(media_dir + soundfile)
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy() == True:
             continue
     except:
-        print("ERROR - USB sound card not connected!")
+        print("ERROR - sound card not connected!")
 
 
 def speak(msg=None):
@@ -304,7 +304,7 @@ def kill_settings():
 def start_settings_webpage():
     global settings_proc
     global settings_status
-    settings_proc = subprocess.Popen(['python3', '/home/pi/.av_stream/av_stream_settings.py'])
+    settings_proc = subprocess.Popen(['python3', '~/.av_stream/av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
 
@@ -328,6 +328,27 @@ def startup_checks():
     return False
 
 
+def check_for_updates():
+    global settings_dict
+    date_format = "%d/%m/%Y"
+    last_updated = settings_dict['last_updated']
+    update_interval_days = settings_dict['update_interval_days']
+    a = datetime.strptime(last_updated, date_format) + timedelta(days=update_interval_days)
+    b = datetime.today()
+    #b = datetime.strptime('9/26/2008', date_format)
+    delta = b - a
+    if delta > 0:
+        print(Updating)
+        response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
+        if settings_dict['update_os'] == 'True':
+            os.popen('sudo apt-get update')
+        if settings_dict['upgrade_os'] == 'True':
+            os.popen('sudo apt-get upgrade')
+        settings_dict.update({'last_updated':
+                              dt.date.today().strftime('%d/%m/%Y')})
+        commontasks.save_settings(settings_dict, 'config.ini')
+
+
 # Check if running stand-alone or imported
 if __name__ == '__main__':
     try:
@@ -339,10 +360,13 @@ if __name__ == '__main__':
         print('-----------------------------------------------------')
         print('\n')
 
+        # Display settings on web page 
         start_settings_webpage()
 
+        # At startup wait for usb sound card to be detected
         if os.getpid() < 600:
             time.sleep(20)
+
         # Speak current IP address through the headphone socket
         speak_ip()
         time.sleep(10)
@@ -352,8 +376,11 @@ if __name__ == '__main__':
 
         # Perform startup checks
         while startup_checks():
-            notification(0.4, 'sos')
+            notification(0.2, 'sos')
             time.sleep(3)
+
+        # Check for updates
+        #check_for_updates()
 
         # Notification program has started (initialized)
         notification(0.4, 'i')
