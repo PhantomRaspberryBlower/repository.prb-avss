@@ -33,10 +33,13 @@ si = SystemInfo()
 settings_dict = {}
 metadata_year = ''
 
+WORK_DIR = os.path.abspath(os.path.dirname(__file__))
+MEDIA_DIR = WORK_DIR + '/resources/media'
+
 def get_settings():
     global settings_dict
     global metadata_year
-    settings_dict = commontasks.get_settings('/home/pi/.av_stream/config.ini')
+    settings_dict = commontasks.get_settings(WORK_DIR + '/config.ini')
     if settings_dict['metadata_year'] == 'current year':
         metadata_year = date.today().year
 
@@ -88,7 +91,7 @@ def check_for_updates():
             os.popen('sudo apt-get upgrade')
         settings_dict.update({'last_updated':
                               date.today().strftime('%d/%m/%Y')})
-        commontasks.save_settings(settings_dict, '/home/pi/.av_stream/config.ini')
+        commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
 
 
 def cleanup():
@@ -142,10 +145,9 @@ def notification(interval=0.3, mode=None):
 
 
 def play_sound(soundfile):
-    media_dir = '/home/pi/.av_stream/resources/media/'
     try:
         pygame.mixer.init()
-        pygame.mixer.music.load(media_dir + soundfile)
+        pygame.mixer.music.load(MEDIA_DIR + '/' + soundfile)
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy() == True:
             continue
@@ -199,7 +201,7 @@ def start_settings_webpage():
     global settings_proc
     global settings_status
     print('Starting webpage')
-    settings_proc = subprocess.Popen(['python3', '/home/pi/.av_stream/av_stream_settings.py'])
+    settings_proc = subprocess.Popen(['python3', WORK_DIR + '/av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
 

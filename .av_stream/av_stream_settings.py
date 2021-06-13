@@ -24,15 +24,18 @@ update_intervals = ['1', '7', '30']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
+WORK_DIR = os.path.abspath(os.path.dirname(__file__))
+HTML_DIR = WORK_DIR + '/resources/templates'
+
 def get_settings():
     global settings_dict
-    settings_dict = commontasks.get_settings('/home/pi/.av_stream/config.ini')
+    settings_dict = commontasks.get_settings(WORK_DIR + '/config.ini')
 
 get_settings()
 
 def set_settings():
     global settings_dict
-    commontasks.save_settings(settings_dict, '/home/pi/.av_stream/config.ini')
+    commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
 
 
 def options(opt, lst):
@@ -94,7 +97,7 @@ def INDEX_PAGE():
             "<!--metadata_title-->": settings_dict['metadata_title'],
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description']}
-    f = open("/home/pi/.av_stream/resources/templates/index.html", "r")
+    f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
         page = page.replace(tag, cmd)
@@ -102,13 +105,13 @@ def INDEX_PAGE():
 
 
 def HELP_PAGE():
-    f = open("/home/pi/.av_stream/resources/templates/help.html", "r")
+    f = open(HTML_DIR + "/help.html", "r")
     page = f.read()
     return page
 
 
 def INFO_PAGE():
-    f = open("/home/pi/.av_stream/resources/templates/info.html", "r")
+    f = open(HTML_DIR + "/info.html", "r")
     page = f.read()
     disk_info_txt = '<b>Storage:</b>'
     for item in si.disk_info:
@@ -216,9 +219,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         elif self.path == '/no_preview.png':
             # Display no prview image
             self.send_response(200)
-            file = open('no_preview.png', 'rb')
+            file = open(HTML_DIR + '/no_preview.png', 'rb')
             img = file.read()
-            size = str(os.stat('no_preview.png').st_size)
+            size = str(os.stat(HTML_DIR + '/no_preview.png').st_size)
             self.send_header('Content-Type', 'image/png')
             self.send_header('Content-Length', size)
             self.end_headers()
@@ -273,7 +276,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('+', ' ')
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
-            response = os.popen('python /home/pi/.av_stream/updateWorker.py').read()
+            response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
             if settings_dict['update_os'] == 'True':
                 os.popen('sudo apt-get update')
             if settings_dict['upgrade_os'] == 'True':
