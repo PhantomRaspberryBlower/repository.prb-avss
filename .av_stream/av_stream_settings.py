@@ -1,6 +1,4 @@
 # Web streaming example
-# Source code from the official PiCamera package
-# http://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming
 
 import io
 import picamera
@@ -8,11 +6,11 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
-from systeminfo import SystemInfo
 import os
 import datetime as dt
 import time
-import commontasks
+from resources.lib.systeminfo import SystemInfo
+import resources.lib.commontasks
 
 si = SystemInfo()
 audio_codecs = ['aac', 'mp2', 'mp3']
@@ -94,19 +92,19 @@ def INDEX_PAGE():
             "<!--metadata_title-->": settings_dict['metadata_title'],
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description']}
-    f = open("index.html", "r")
+    f = open("/home/pi/.av_stream/resources/templates/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
         page = page.replace(tag, cmd)
     return page
 
 def HELP_PAGE():
-    f = open("help.html", "r")
+    f = open("/home/pi/.av_stream/resources/templates/help.html", "r")
     page = f.read()
     return page
 
 def INFO_PAGE():
-    f = open("info.html", "r")
+    f = open("/home/pi/.av_stream/resources/templates/info.html", "r")
     page = f.read()
     disk_info_txt = '<b>Storage:</b>'
     for item in si.disk_info:

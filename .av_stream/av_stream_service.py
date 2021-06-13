@@ -25,9 +25,9 @@ import socket
 #os.putenv('SDL_AUDIODRIVER', 'alsa')
 import pygame
 from datetime import date, datetime, timedelta
-from morsecode import MorseCode
-import commontasks
-from systeminfo import SystemInfo
+import resources.lib.commontasks
+from resources.lib.systeminfo import SystemInfo
+from resources.lib.morsecode import MorseCode
 
 si = SystemInfo()
 settings_dict = {}
@@ -273,7 +273,7 @@ def start_stream():
 
 
 def play_sound(soundfile):
-    media_dir = '/home/pi/.av_stream/media/'
+    media_dir = '/home/pi/.av_stream/resources/media/'
     try:
         pygame.mixer.init()
         pygame.mixer.music.load(media_dir + soundfile)
