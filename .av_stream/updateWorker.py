@@ -36,19 +36,6 @@ def ProcessFetch(char, stdin):
         stdin.put("yourpassword\n")
 
 if __name__ == "__main__":
-#    checkTimeSec = 60
-#    gitDir = "/home/pi/"
-#    while True:
-#        print("*********** Checking for code update **************")
-#        if CheckForUpdate(gitDir):
-#            print("Resetting code...")
-#            resetCheck = git("--git-dir=" + gitDir + ".git/",
-#                              "--work-tree=" + gitDir, "reset", "--hard",
-#                              "origin/main")
-#            print(str(resetCheck))
-#        print("Check complete. Waiting for " + str(checkTimeSec) + 
-#               "seconds until next check...", True)
-#        time.sleep(checkTimeSec)
     gitDir = "/home/pi/"
     if CheckForUpdate(gitDir):
         resetCheck = git("--git-dir=" + gitDir + ".git/",

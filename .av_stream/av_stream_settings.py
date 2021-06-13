@@ -28,13 +28,13 @@ hidden_form_elements = '<br>'
 
 def get_settings():
     global settings_dict
-    settings_dict = commontasks.get_settings('config.ini')
+    settings_dict = commontasks.get_settings('/home/pi/.av_stream/config.ini')
 
 get_settings()
 
 def set_settings():
     global settings_dict
-    commontasks.save_settings(settings_dict, 'config.ini')
+    commontasks.save_settings(settings_dict, '/home/pi/.av_stream/config.ini')
 
 def options(opt, lst):
   txt = ''

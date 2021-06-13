@@ -21,6 +21,8 @@ import time
 import os
 import atexit
 import socket
+#os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+#os.putenv('SDL_AUDIODRIVER', 'alsa')
 import pygame
 from datetime import date, datetime, timedelta
 from morsecode import MorseCode
@@ -29,10 +31,12 @@ from systeminfo import SystemInfo
 
 si = SystemInfo()
 settings_dict = {}
+metadata_year = ''
 
 def get_settings():
     global settings_dict
-    settings_dict = commontasks.get_settings('config.ini')
+    global metadata_year
+    settings_dict = commontasks.get_settings('/home/pi/.av_stream/config.ini')
     if settings_dict['metadata_year'] == 'current year':
         metadata_year = date.today().year
 
@@ -269,7 +273,7 @@ def start_stream():
 
 
 def play_sound(soundfile):
-    media_dir = 'media/'
+    media_dir = '/home/pi/.av_stream/media/'
     try:
         pygame.mixer.init()
         pygame.mixer.music.load(media_dir + soundfile)
@@ -305,7 +309,7 @@ def start_settings_webpage():
     global settings_proc
     global settings_status
     print('Starting webpage')
-    settings_proc = subprocess.Popen(['python3', 'av_stream_settings.py'])
+    settings_proc = subprocess.Popen(['python3', '/home/pi/.av_stream/av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
 
@@ -339,7 +343,6 @@ def check_for_updates():
     b = datetime.today()
     delta = b - a
     if a < b:
-        print('Check for updates')
         response = os.popen('python updateWorker.py').read()
         if settings_dict['update_os'] == 'True':
             os.popen('sudo apt-get update')
@@ -347,7 +350,7 @@ def check_for_updates():
             os.popen('sudo apt-get upgrade')
         settings_dict.update({'last_updated':
                               date.today().strftime('%d/%m/%Y')})
-        commontasks.save_settings(settings_dict, 'config.ini')
+        commontasks.save_settings(settings_dict, '/home/pi/.av_stream/config.ini')
 
 
 # Check if running stand-alone or imported
