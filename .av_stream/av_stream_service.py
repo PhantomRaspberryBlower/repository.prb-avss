@@ -25,7 +25,7 @@ import socket
 #os.putenv('SDL_AUDIODRIVER', 'alsa')
 import pygame
 from datetime import date, datetime, timedelta
-import resources.lib.commontasks
+from resources.lib import commontasks
 from resources.lib.systeminfo import SystemInfo
 from resources.lib.morsecode import MorseCode
 

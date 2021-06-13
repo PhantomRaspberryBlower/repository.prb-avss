@@ -10,7 +10,7 @@ import os
 import datetime as dt
 import time
 from resources.lib.systeminfo import SystemInfo
-import resources.lib.commontasks
+from resources.lib import commontasks
 
 si = SystemInfo()
 audio_codecs = ['aac', 'mp2', 'mp3']
