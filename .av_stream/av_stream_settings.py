@@ -38,6 +38,19 @@ def get_settings():
 
 get_settings()
 
+if settings_dict['logging_level'] == 'NONE':
+    logging.disable(level=CRITICAL)
+elif settings_dict['logging_level'] == 'DEBUG':
+    logging.getLogger().setLevel(logging.DEBUG)
+elif settings_dict['logging_level'] == 'INFO':
+    logging.getLogger().setLevel(logging.INFO)
+elif settings_dict['logging_level'] == 'WARNING':
+    logging.getLogger().setLevel(logging.WARNING)
+elif settings_dict['logging_level'] == 'ERROR':
+    logging.getLogger().setLevel(logging.ERROR)
+elif settings_dict['logging_level'] == 'CRITICAL':
+    logging.getLogger().setLevel(logging.CRITICAL)
+
 def set_settings():
     global settings_dict
     commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')

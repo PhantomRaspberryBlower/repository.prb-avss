@@ -49,6 +49,19 @@ def get_settings():
 
 get_settings()
 
+if settings_dict['logging_level'] == 'NONE':
+    logging.disable(level=CRITICAL)
+elif settings_dict['logging_level'] == 'DEBUG':
+    logging.getLogger().setLevel(logging.DEBUG)
+elif settings_dict['logging_level'] == 'INFO':
+    logging.getLogger().setLevel(logging.INFO)
+elif settings_dict['logging_level'] == 'WARNING':
+    logging.getLogger().setLevel(logging.WARNING)
+elif settings_dict['logging_level'] == 'ERROR':
+    logging.getLogger().setLevel(logging.ERROR)
+elif settings_dict['logging_level'] == 'CRITICAL':
+    logging.getLogger().setLevel(logging.CRITICAL)
+
 # Setup GPIO (general purpose input output)
 LED_PIN = int(settings_dict['gpio_led_pin'])         # Default led pin 12
 SWITCH_PIN = int(settings_dict['gpio_switch_pin'])   # Default swtich pin 18
