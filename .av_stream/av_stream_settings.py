@@ -27,6 +27,8 @@ hidden_form_elements = '<br>'
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 HTML_DIR = WORK_DIR + '/resources/templates'
 
+logging.basicConfig(format='%(asctime)s %(message)s', filename='%s/avss.log' % WORK_DIR, level=logging.DEBUG)
+
 def get_settings():
     global settings_dict
     settings_dict = commontasks.get_settings(WORK_DIR + '/config.ini')

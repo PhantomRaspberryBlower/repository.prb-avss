@@ -22,7 +22,6 @@ import os
 import atexit
 import socket
 import logging
-#os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 #os.putenv('SDL_AUDIODRIVER', 'alsa')
 import pygame
 from datetime import date, datetime, timedelta
@@ -37,7 +36,7 @@ metadata_year = ''
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 MEDIA_DIR = WORK_DIR + '/resources/media'
 
-logging.basicConfig(format='%(asctime)s %(message)s', filename='/home/pi/.av_stream/avss.log')
+logging.basicConfig(format='%(asctime)s %(message)s', filename='/home/pi/.av_stream/avss.log', level=logging.DEBUG)
 
 def get_settings():
     global settings_dict
@@ -156,8 +155,7 @@ def play_sound(soundfile):
         while pygame.mixer.music.get_busy() == True:
             continue
     except:
-        logging.warning('ERROR - sound card not present!')
-        print("ERROR - sound card not present!")
+        logging.warning('Sound card not present!')
 
 
 def push_button(channel):
@@ -186,7 +184,6 @@ def shutdown():
     notification(interval=0.4, mode='s')
     # output shutdown message
     logging.info('Shutting down')
-    print('Shutting down ...')
     # Shutdown now
     os.system('sudo shutdown -h now')
 
@@ -235,7 +232,6 @@ def start_stream():
     t = threading.Thread(target=play_sound, args=("starting_stream.mp3",))
     t.start()
     logging.info('Starting audio video stream')
-    print('Starting audio video stream ... ', end = '')
     get_settings()
     url = ''
     audio_offset = ''
@@ -325,12 +321,10 @@ def start_stream():
     GPIO.output(LED_PIN, GPIO.HIGH)
     time.sleep(1)
     start_settings_webpage()
-    print('started.')
 
 
 def startup_checks():
     # Check Camera is connected
-    print('Startup Checks')
     if si.camera_available['detected'] == 'False':
         logging.warning('No camera detected!')
         play_sound("warning_no_camera_detected.mp3")
@@ -359,7 +353,6 @@ def stop_stream():
     t = threading.Thread(target=play_sound, args=("ending_stream.mp3",))
     t.start()
     logging.info('Stopping audio video stream')
-    print('Stopping audio video stream ... ', end = '')
     kill_streams()
     kill_settings()
     # Notification audio & video stream has stopped (exit)
@@ -367,7 +360,6 @@ def stop_stream():
     GPIO.output(LED_PIN, GPIO.LOW)
     time.sleep(1)
     start_settings_webpage()
-    print('stopped.')
 
 
 # Check if running stand-alone or imported
@@ -380,7 +372,7 @@ if __name__ == '__main__':
         print('     Written by Phantom Raspberry Blower  (2021)     ')
         print('-----------------------------------------------------')
         print('\n')
-        logging.info('Started AVSS')
+        logging.info('*** Starting AVSS ***')
 
         # Display settings on web page 
         start_settings_webpage()
@@ -396,14 +388,14 @@ if __name__ == '__main__':
         # Add edge triggered event to audio & video stream switch
         GPIO.add_event_detect(SWITCH_PIN, GPIO.BOTH, callback=push_button)
 
+        # Check for updates
+        t = threading.Thread(target=check_for_updates)
+        t.start()
+
         # Perform startup checks
         while startup_checks():
             notification(0.2, 'sos')
             time.sleep(3)
-
-        # Check for updates
-        t = threading.Thread(target=check_for_updates)
-        t.start()
 
         # Notification program has started (initialized)
         notification(0.3, 'i')
