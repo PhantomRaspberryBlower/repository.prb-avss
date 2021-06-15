@@ -28,7 +28,7 @@ hidden_form_elements = '<br>'
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 HTML_DIR = WORK_DIR + '/resources/templates'
 
-logging.basicConfig(format='%(asctime)s %(message)s', filename='%s/avss.log' % WORK_DIR, level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(message)s', filename='%s/avss.log' % WORK_DIR, level=logging.DEBUG)
 client_ip_addr = ''
 
 def get_settings():
