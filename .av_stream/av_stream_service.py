@@ -156,6 +156,7 @@ def play_sound(soundfile):
         while pygame.mixer.music.get_busy() == True:
             continue
     except:
+        logging.warning('ERROR - sound card not present!')
         print("ERROR - sound card not present!")
 
 
