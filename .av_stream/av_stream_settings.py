@@ -21,14 +21,16 @@ video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 video_codecs = ['mp4', 'mpegts']
 offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
-logging_level = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+logging_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 HTML_DIR = WORK_DIR + '/resources/templates'
 
-logging.basicConfig(format='%(asctime)s - %(message)s', filename='%s/avss.log' % WORK_DIR, level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(message)s',
+                    filename='%s/avss.log' % WORK_DIR,
+                    level=logging.DEBUG)
 
 def get_settings():
     global settings_dict
@@ -39,7 +41,6 @@ get_settings()
 def set_settings():
     global settings_dict
     commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
-    logging.info('Config Settings Saved')
 
 
 def options(opt, lst):
@@ -61,6 +62,7 @@ def INDEX_PAGE():
     video_out_codec_txt = options(settings_dict['video_out_codec'], video_codecs)
     itsoffset_txt = options(settings_dict['itsoffset'], offset_types)
     update_interval_days_txt = options(settings_dict['update_interval_days'], update_intervals)
+    logging_level_txt = options(settings_dict['logging_level'], logging_levels)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -100,7 +102,8 @@ def INDEX_PAGE():
             "<!--itsoffset_seconds-->": settings_dict['itsoffset_seconds'],
             "<!--metadata_title-->": settings_dict['metadata_title'],
             "<!--metadata_year-->": settings_dict['metadata_year'],
-            "<!--metadata_description-->": settings_dict['metadata_description']}
+            "<!--metadata_description-->": settings_dict['metadata_description'],
+            "<!--logging_level_txt-->": logging_level_txt}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():

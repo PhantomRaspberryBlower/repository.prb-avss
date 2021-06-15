@@ -9,6 +9,7 @@ Description: Common Tasks
 import os
 import re
 import time
+import logging
 from datetime import date
 from configparser import ConfigParser
 
@@ -67,6 +68,7 @@ def save_settings(settings_dict, path='~/.av_stream/config.ini'):
     # Writing our configuration file to 'config.ini'
     with open(path, 'w') as configfile:
         config_object.write(configfile)
+    logging.info('Config Settings Saved')
 
 
 def regex_from_to(text, from_string, to_string, excluding=True):
