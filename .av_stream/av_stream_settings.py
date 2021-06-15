@@ -233,6 +233,16 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', size)
             self.end_headers()
             self.wfile.write(img)
+        elif self.path == '/favicon.ico':
+            # Display no prview image
+            self.send_response(200)
+            file = open(HTML_DIR + '/favicon.ico', 'rb')
+            img = file.read()
+            size = str(os.stat(HTML_DIR + '/favicon.ico').st_size)
+            self.send_header('Content-Type', 'image/png')
+            self.send_header('Content-Length', size)
+            self.end_headers()
+            self.wfile.write(img)
         elif self.path == '/stream.mjpg':
             # Video stream
             self.send_response(200)
