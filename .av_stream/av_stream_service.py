@@ -86,7 +86,7 @@ def check_for_updates():
     b = datetime.today()
     delta = b - a
     if a < b:
-    logging.info('Checking for updates')
+        logging.info('Checking for updates')
         play_sound("checking_for_updates.mp3")
         response = os.popen('python updateWorker.py').read()
         if settings_dict['update_os'] == 'True':
