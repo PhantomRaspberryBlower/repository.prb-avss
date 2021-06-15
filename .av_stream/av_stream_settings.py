@@ -191,7 +191,7 @@ class StreamingOutput(object):
         return self.buffer.write(buf)
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
-    global client_ap_addr
+    global client_ip_addr
     client_ip_addr = self.client_address
     def do_GET(self):
         if self.path == '/':
