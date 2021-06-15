@@ -40,7 +40,7 @@ get_settings()
 def set_settings():
     global settings_dict
     commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
-    logging.info('Config Settings Saved by %s' % client_ip_address)
+    logging.info('Config Settings Saved by %s' % client_ip_addr)
 
 
 def options(opt, lst):
