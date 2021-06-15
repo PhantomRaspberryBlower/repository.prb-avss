@@ -21,7 +21,7 @@ video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 video_codecs = ['mp4', 'mpegts']
 offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
-logging_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
