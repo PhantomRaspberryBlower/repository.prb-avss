@@ -192,8 +192,8 @@ class StreamingOutput(object):
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
     global client_ap_addr
+    client_ip_addr = self.client_address
     def do_GET(self):
-        client_ip_addr = self.client_address
         if self.path == '/':
             # Redirect to the defalt settings page
             self.send_response(301)
