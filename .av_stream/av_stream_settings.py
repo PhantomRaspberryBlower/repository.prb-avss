@@ -40,7 +40,7 @@ get_settings()
 def set_settings():
     global settings_dict
     commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
-#    logging.info('Config Settings Saved by %s' % client_ip_address)
+    logging.info('Config Settings Saved by %s' % client_ip_address)
 
 
 def options(opt, lst):
@@ -283,14 +283,14 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('+', ' ')
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
-#            logging.info('Manual update started')
+            logging.info('Manual update started')
             response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
             if settings_dict['update_os'] == 'True':
                 os.popen('sudo apt-get update')
-#                logging.info('OS updated manually')
+                logging.info('OS updated manually')
             if settings_dict['upgrade_os'] == 'True':
                 os.popen('sudo apt-get upgrade')
-#                logging.info('OS upgraded manually')
+                logging.info('OS upgraded manually')
             settings_dict.update({'last_updated':
                                   dt.date.today().strftime('%d/%m/%Y')})
         else:
