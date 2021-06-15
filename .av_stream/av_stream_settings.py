@@ -29,7 +29,6 @@ WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 HTML_DIR = WORK_DIR + '/resources/templates'
 
 logging.basicConfig(format='%(asctime)s - %(message)s', filename='%s/avss.log' % WORK_DIR, level=logging.DEBUG)
-client_ip_addr = ''
 
 def get_settings():
     global settings_dict
@@ -40,7 +39,7 @@ get_settings()
 def set_settings():
     global settings_dict
     commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
-    logging.info('Config Settings Saved by %s' % client_ip_addr)
+    logging.info('Config Settings Saved')
 
 
 def options(opt, lst):
@@ -192,8 +191,6 @@ class StreamingOutput(object):
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
-        global client_ip_addr
-        client_ip_addr = self.client_address
         if self.path == '/':
             # Redirect to the defalt settings page
             self.send_response(301)
