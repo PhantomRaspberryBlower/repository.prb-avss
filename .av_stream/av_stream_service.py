@@ -103,7 +103,9 @@ def check_for_updates():
     delta = b - a
     if a < b:
         logging.info('Checking for updates')
-        play_sound("checking_for_updates.mp3")
+        t = threading.Thread(target=play_sound,
+                             args=("checking_for_updates.mp3",))
+        t.start()
         response = os.popen('python updateWorker.py').read()
         if settings_dict['update_os'] == 'True':
             os.popen('sudo apt-get update')
@@ -344,22 +346,30 @@ def startup_checks():
     # Check Camera is connected
     if si.camera_available['detected'] == 'False':
         logging.warning('No camera detected!')
-        play_sound("warning_no_camera_detected.mp3")
+        t = threading.Thread(target=play_sound,
+                             args=("warning_no_camera_detected.mp3",))
+        t.start()
         return True
     # Check USB sound card is connected
     if si.usb_sound_card_detected =='False':
         logging.warning('No USB sound card detected!')
-        play_sound("warning_no_usb_sound_card_detected.mp3")
+        t = threading.Thread(target=play_sound,
+                             args=("warning_no_usb_sound_card_detected.mp3",))
+        t.start()
         return True
     # Check network is connected
     if si.network_detected == 'False':
         logging.warning('No network detected!')
-        play_sound("warning_no_network_detected.mp3")
+        t = threading.Thread(target=play_sound,
+                             args=("warning_no_network_detected.mp3",))
+        t.start()
         return True
     # Check Internet is connected
     if si.internet_detected == 'False':
         logging.warning('No internet detected!')
-        play_sound("warning_no internet_detected")
+        t = threading.Thread(target=play_sound,
+                             args=("warning_no internet_detected",))
+        t.start()
         return True
     return False
 
