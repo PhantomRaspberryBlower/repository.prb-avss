@@ -4,9 +4,8 @@
 # Headless installation on RPi 4. Fitted an LED, switch and speaker to
 # the GPIO pins for user inputs.
 # Press the switch to start streaming; the LED flashes 3 times then lights
-# up when connected and stream begins. If the LED blinks this indicates an error occurred.
-# Rapid flashing indicates a network connection issue, a slow flashing
-# indicates an authentication issue.flashes
+# up when connected and stream begins. If the LED repeatedly blinks this 
+# indicates an error occurred.
 # Press the switch again to stop the stream. To shutdown the RPi press
 # and hold the switch for more than 3 seconds the LED flashes 3 times
 # before the shutdown process begins.
@@ -22,6 +21,7 @@ import time
 import os
 import atexit
 import socket
+import logging
 #os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 #os.putenv('SDL_AUDIODRIVER', 'alsa')
 import pygame
@@ -36,6 +36,8 @@ metadata_year = ''
 
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 MEDIA_DIR = WORK_DIR + '/resources/media'
+
+loggin.basicConfig(filename=WORK_DIR + '/avss.log', encoding='utf-8', level=logging.INFO, format='%(asctime)s %(message)s')
 
 def get_settings():
     global settings_dict
@@ -84,6 +86,7 @@ def check_for_updates():
     b = datetime.today()
     delta = b - a
     if a < b:
+    logging.info('Checking for updates')
         play_sound("checking_for_updates.mp3")
         response = os.popen('python updateWorker.py').read()
         if settings_dict['update_os'] == 'True':
@@ -153,7 +156,7 @@ def play_sound(soundfile):
         while pygame.mixer.music.get_busy() == True:
             continue
     except:
-        print("ERROR - sound card not connected!")
+        print("ERROR - sound card not present!")
 
 
 def push_button(channel):
@@ -178,10 +181,10 @@ def shutdown():
     # Speak through the headphone socket
     t = threading.Thread(target=play_sound, args=("shutting_down.mp3",))
     t.start()
-#    play_sound("shutting_down.mp3")
     # Flash the LED three times to indicate shutdown
     notification(interval=0.4, mode='s')
     # output shutdown message
+    logging.info('Shutting down')
     print('Shutting down ...')
     # Shutdown now
     os.system('sudo shutdown -h now')
@@ -203,7 +206,6 @@ def speak_ip():
 def start_settings_webpage():
     global settings_proc
     global settings_status
-    print('Starting webpage')
     settings_proc = subprocess.Popen(['python3', WORK_DIR + '/av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
@@ -231,7 +233,7 @@ def start_stream():
     # Speak through the headphone socket
     t = threading.Thread(target=play_sound, args=("starting_stream.mp3",))
     t.start()
-#    play_sound("starting_stream.mp3")
+    logging.info('Starting audio video stream')
     print('Starting audio video stream ... ', end = '')
     get_settings()
     url = ''
@@ -329,18 +331,22 @@ def startup_checks():
     # Check Camera is connected
     print('Startup Checks')
     if si.camera_available['detected'] == 'False':
+        logging.warning('No camera detected!')
         play_sound("warning_no_camera_detected.mp3")
         return True
     # Check USB sound card is connected
     if si.usb_sound_card_detected =='False':
+        logging.warning('No USB sound card detected!')
         play_sound("warning_no_usb_sound_card_detected.mp3")
         return True
     # Check network is connected
     if si.network_detected == 'False':
+        logging.warning('No network detected!')
         play_sound("warning_no_network_detected.mp3")
         return True
     # Check Internet is connected
     if si.internet_detected == 'False':
+        logging.warning('No internet detected!')
         play_sound("warning_no internet_detected")
         return True
     return False
@@ -351,7 +357,7 @@ def stop_stream():
     # Speak through the headphone socket
     t = threading.Thread(target=play_sound, args=("ending_stream.mp3",))
     t.start()
-#    play_sound("ending_stream.mp3")
+    logging.info('Stopping audio video stream')
     print('Stopping audio video stream ... ', end = '')
     kill_streams()
     kill_settings()
@@ -373,6 +379,7 @@ if __name__ == '__main__':
         print('     Written by Phantom Raspberry Blower  (2021)     ')
         print('-----------------------------------------------------')
         print('\n')
+        logging.info('Started AVSS')
 
         # Display settings on web page 
         start_settings_webpage()
@@ -396,7 +403,6 @@ if __name__ == '__main__':
         # Check for updates
         t = threading.Thread(target=check_for_updates)
         t.start()
-#        check_for_updates()
 
         # Notification program has started (initialized)
         notification(0.3, 'i')
