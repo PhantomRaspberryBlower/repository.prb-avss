@@ -37,7 +37,7 @@ metadata_year = ''
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 MEDIA_DIR = WORK_DIR + '/resources/media'
 
-loggin.basicConfig(filename=WORK_DIR + '/avss.log', encoding='utf-8', level=logging.INFO, format='%(asctime)s %(message)s')
+logging.basicConfig(filename=WORK_DIR + '/avss.log', encoding='utf-8', level=logging.INFO, format='%(asctime)s %(message)s')
 
 def get_settings():
     global settings_dict
