@@ -39,7 +39,7 @@ def get_settings():
 get_settings()
 
 if settings_dict['logging_level'] == 'NONE':
-    logging.disable(level=CRITICAL)
+    logging.getLogger().disable(level=CRITICAL)
 elif settings_dict['logging_level'] == 'DEBUG':
     logging.getLogger().setLevel(logging.DEBUG)
 elif settings_dict['logging_level'] == 'INFO':
