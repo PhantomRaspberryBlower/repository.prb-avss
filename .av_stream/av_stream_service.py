@@ -36,7 +36,7 @@ metadata_year = ''
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 MEDIA_DIR = WORK_DIR + '/resources/media'
 
-logging.basicConfig(format='%(asctime)s %(message)s', filename='/home/pi/.av_stream/avss.log', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s  - %(message)s', filename='%s/avss.log' % WORK_DIR, level=logging.DEBUG)
 
 def get_settings():
     global settings_dict
@@ -155,7 +155,7 @@ def play_sound(soundfile):
         while pygame.mixer.music.get_busy() == True:
             continue
     except:
-        logging.warning('Sound card not present!')
+        logging.warning('Unable to play sound file!')
 
 
 def push_button(channel):

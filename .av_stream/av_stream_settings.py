@@ -21,6 +21,7 @@ video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 video_codecs = ['mp4', 'mpegts']
 offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
+logging_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -28,6 +29,7 @@ WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 HTML_DIR = WORK_DIR + '/resources/templates'
 
 logging.basicConfig(format='%(asctime)s %(message)s', filename='%s/avss.log' % WORK_DIR, level=logging.DEBUG)
+client_ip_addr = ''
 
 def get_settings():
     global settings_dict
@@ -38,6 +40,7 @@ get_settings()
 def set_settings():
     global settings_dict
     commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
+    logging.info('Config settings saved by %s' % client_ip_address)
 
 
 def options(opt, lst):
@@ -188,7 +191,9 @@ class StreamingOutput(object):
         return self.buffer.write(buf)
 
 class StreamingHandler(server.BaseHTTPRequestHandler):
+    global client_ap_addr
     def do_GET(self):
+        client_ip_addr = self.client_address
         if self.path == '/':
             # Redirect to the defalt settings page
             self.send_response(301)
@@ -278,11 +283,14 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('+', ' ')
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
+            logging.info('Manual update started')
             response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
             if settings_dict['update_os'] == 'True':
                 os.popen('sudo apt-get update')
+                logging.info('OS updated manually')
             if settings_dict['upgrade_os'] == 'True':
                 os.popen('sudo apt-get upgrade')
+                logging.info('OS upgraded manually')
             settings_dict.update({'last_updated':
                                   dt.date.today().strftime('%d/%m/%Y')})
         else:
