@@ -42,6 +42,7 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'itsoffset_seconds': settings['itsoffset_seconds'],
                      'itsoffset': settings['itsoffset'],
                      'last_updated': settings['last_updated'],
+                     'logging_level': settings['logging_level'],
                      'metadata_comment': settings['metadata_comment'],
                      'metadata_copyright': settings['metadata_copyright'],
                      'metadata_description': settings['metadata_description'],
