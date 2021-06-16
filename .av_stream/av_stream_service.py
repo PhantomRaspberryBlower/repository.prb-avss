@@ -400,10 +400,8 @@ if __name__ == '__main__':
         print('-----------------------------------------------------')
         print('\n')
         logging.info('*** Starting AVSS ***')
-
         # Display settings on web page 
         start_settings_webpage()
-
         # At startup wait for usb sound card to be detected
         if os.getpid() < 600:
             time.sleep(20)
@@ -411,14 +409,11 @@ if __name__ == '__main__':
         # Speak current IP address through the headphone socket
         speak_ip()
         time.sleep(10)
-
         # Add edge triggered event to audio & video stream switch
         GPIO.add_event_detect(SWITCH_PIN, GPIO.BOTH, callback=push_button)
-
         # Check for updates
         t = threading.Thread(target=check_for_updates)
         t.start()
-
         # Perform startup checks
         while startup_checks():
             notification(0.2, 'sos')
@@ -426,7 +421,6 @@ if __name__ == '__main__':
 
         # Notification program has started (initialized)
         notification(0.3, 'i')
-
         while True:
             time.sleep(1)
 
