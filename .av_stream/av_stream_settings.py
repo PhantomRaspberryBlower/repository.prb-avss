@@ -4,11 +4,11 @@ import io
 import picamera
 import logging
 import socketserver
-from threading import Condition
-from http import server
 import os
 import datetime as dt
 import time
+from http import server
+from threading import Condition
 from resources.lib.systeminfo import SystemInfo
 from resources.lib import commontasks
 
@@ -205,6 +205,7 @@ class StreamingOutput(object):
             self.buffer.seek(0)
         return self.buffer.write(buf)
 
+
 class StreamingHandler(server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
@@ -328,10 +329,12 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         set_settings()
         self.do_GET()
 
+
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     global hidden_form_elements
     allow_reuse_address = True
     daemon_threads = True
+
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:

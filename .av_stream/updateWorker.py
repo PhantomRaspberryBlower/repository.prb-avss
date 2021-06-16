@@ -2,27 +2,28 @@ import sh
 from sh import git
 import time
 import os, sys
+import logging
 
 aggregated = ""
 
 
 def CheckForUpdate(workingDir):
-    print("Fetching most recent code from source..." + workingDir)
+    logging.info("Fetching most recent code from source..." + workingDir)
     # Fetch most up to date version of code.
     p = git("--git-dir=" + workingDir + ".git/",
             "--work-tree=" + workingDir, "fetch", "origin", "main",
              _out=ProcessFetch, _out_bufsize=0, _tty_in=True)
-    print("Fetch complete.")
+    logging.info("Fetch complete.")
     time.sleep(2)
-    print("Checking status for " + workingDir + "...")
+    logging.info("Checking status for " + workingDir + "...")
     statusCheck = git("--git-dir=" + workingDir + ".git/",
                       "--work-tree=" + workingDir, "status")
     if "Your branch is up to date" in statusCheck:
-        print("Status check passes.")
-        print("Code up to date.")
+        logging.info("Status check passes.")
+        logging.info("Code up to date.")
         return False
     else:
-        print("Code update available.")
+        logging.info("Code update available.")
         return True
 
 
