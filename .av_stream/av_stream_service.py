@@ -22,7 +22,6 @@ import os
 import atexit
 import socket
 import logging
-#os.putenv('SDL_AUDIODRIVER', 'alsa')
 import pygame
 from datetime import date, datetime, timedelta
 from resources.lib import commontasks
@@ -421,6 +420,9 @@ if __name__ == '__main__':
 
         # Notification program has started (initialized)
         notification(0.3, 'i')
+        t = threading.Thread(target=play_sound, args=("ready_and_waiting.mp3",))
+        t.start()
+
         while True:
             time.sleep(1)
 
