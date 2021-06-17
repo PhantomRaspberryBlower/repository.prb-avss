@@ -339,9 +339,10 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
         txt = settings_dict['video_out_overlay_text'].replace('~','%')
+        font_size = commontasks.regex_from_to(txt, '-a ', ' -a')
         txt = commontasks.regex_from_to(txt, ' "', '" ')
         camera.annotate_text = dt.datetime.now().strftime(txt)
-        camera.annotate_text_size = 12
+        camera.annotate_text_size = int(font_size)
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
         try:
