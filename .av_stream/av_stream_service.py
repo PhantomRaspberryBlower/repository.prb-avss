@@ -50,8 +50,6 @@ get_settings()
 
 if settings_dict['logging_level'] == 'NONE':
     logging.disable(level=logging.CRITICAL)
-elif settings_dict['logging_level'] == 'NONE':
-    logging.disable(level=CRITICAL)
 elif settings_dict['logging_level'] == 'DEBUG':
     logging.getLogger().setLevel(logging.DEBUG)
 elif settings_dict['logging_level'] == 'INFO':
@@ -367,7 +365,7 @@ def startup_checks():
     if si.internet_detected == 'False':
         logging.warning('No internet detected!')
         t = threading.Thread(target=play_sound,
-                             args=("warning_no internet_detected",))
+                             args=("warning_no internet_detected.mp3",))
         t.start()
         return True
     return False
