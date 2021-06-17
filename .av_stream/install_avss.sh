@@ -66,9 +66,9 @@ echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
 git clone --recursive https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"/.av_stream
+mv "$WORK_DIR"/.av_stream/.av_stream/* "$WORK_DIR"/.av_stream/
 mv "$WORK_DIR"/.av_stream/.git "$WORK_DIR"
 mv "$WORK_DIR"/.av_stream/.gitattributes "$WORK_DIR"
-cp -r "$WORK_DIR"/.av_stream/.av_stream/*.* "$WORK_DIR"/.av_stream
 rm -r "$WORK_DIR"/.av_stream/.av_stream
 cp "$WORK_DIR"/.av_stream/config.bkp.ini "$WORK_DIR"/.av_stream/config.ini
 cp "$WORK_DIR"/.av_stream/asound.conf /etc/asound.conf
