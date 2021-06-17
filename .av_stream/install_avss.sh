@@ -14,37 +14,43 @@ if [ "$EUID" -ne 0 ]
 fi
 WORK_DIR=/home/pi
 echo "-----------------------------------"
-echo "        Installing updates"
+echo "       Installing OS updates"
 echo "-----------------------------------"
 apt-get -y update
 echo "-----------------------------------"
-echo "      Upgrading installation"
+echo "     Upgrading OS installation"
 echo "-----------------------------------"
 apt-get -y upgrade
 echo "-----------------------------------"
 echo "         Installing FFmpeg"
 echo "-----------------------------------"
+# Encodes audio & videos files
 apt-get -y install ffmpeg
 echo "-----------------------------------"
 echo "        Installing festival"
 echo "-----------------------------------"
+# Used for text to speech
 apt-get -y install festival
 echo "-----------------------------------"
 echo "        Installing PiCamera"
 echo "-----------------------------------"
+# Official Raspberry Pi camera module
 apt-get -y install python-picamera
 apt-get -y install python3-picamera
 echo "-----------------------------------"
 echo "         Installing PyGame"
 echo "-----------------------------------"
+# Used to play audio files (mp3)
 apt-get -y install python3-pygame
 echo "-----------------------------------"
 echo "          Installing git"
 echo "-----------------------------------"
+# Used to clone and update repository
 apt-get -y install git
 echo "-----------------------------------"
 echo "          Installing pip"
 echo "-----------------------------------"
+# Used to install sh
 apt-get -y install python-pip
 apt-get -y install python3-pip
 echo "-----------------------------------"
@@ -59,7 +65,7 @@ cd "$WORK_DIR"/.av_stream
 echo "-----------------------------------"
 echo "        Getting AVSS source"
 echo "-----------------------------------"
-git clone https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"/.av_stream
+git clone --recursive https://github.com/PhantomRaspberryBlower/repository.prb-avss "$WORK_DIR"/.av_stream
 mv "$WORK_DIR"/.av_stream/.git "$WORK_DIR"
 mv "$WORK_DIR"/.av_stream/.gitattributes "$WORK_DIR"
 cp -r "$WORK_DIR"/.av_stream/.av_stream/*.* "$WORK_DIR"/.av_stream
@@ -84,5 +90,4 @@ echo ""
 echo "-----------------------------------"
 echo "           Rebooting"
 echo "-----------------------------------"
-sleep 3
 reboot
