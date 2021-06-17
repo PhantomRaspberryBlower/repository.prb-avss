@@ -12,7 +12,6 @@ import time
 import logging
 from datetime import date
 from configparser import ConfigParser
-from morsecode import MorseCode
 
 config_object = ConfigParser()
 

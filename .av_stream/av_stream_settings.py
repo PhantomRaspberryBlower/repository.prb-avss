@@ -83,6 +83,7 @@ def INDEX_PAGE():
     startup_udp_txt = ''
     update_os_txt = ''
     upgrade_os_txt = ''
+    video_out_overlay_bg_color_enabled_txt = ''
     disable_form_elements = ''
     # HTML form checkboxes
     if settings_dict['enable_speaker'] == 'True':
@@ -122,7 +123,9 @@ def INDEX_PAGE():
             "<!--metadata_description-->": settings_dict['metadata_description'],
             "<!--logging_level_txt-->": logging_level_txt,
             "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
-            "<!--video_our_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt}
+            "<!--video_out_overlay_text_color-->": settings_dict['video_out_overlay_text_color'],
+            "<!--video_our_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt,
+            "<!--video_out_overlay_bg_color-->": settings_dict['video_out_overlay_bg_color']}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
