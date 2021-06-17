@@ -19,6 +19,7 @@ audio_sample_rates = ['44100', '48000']
 video_fps = ['15', '20', '25', '30']
 video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 video_codecs = ['mp4', 'mpegts']
+video_out_overlay_text_sizes = ['8', '10', '12', '14', '16']
 offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
 logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
@@ -76,6 +77,7 @@ def INDEX_PAGE():
     itsoffset_txt = options(settings_dict['itsoffset'], offset_types)
     update_interval_days_txt = options(settings_dict['update_interval_days'], update_intervals)
     logging_level_txt = options(settings_dict['logging_level'], logging_levels)
+    video_out_overlay_text_size_txt = options(settings_dict['video_out_overlay_text_size'],video_out_overlay_text_sizes)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -116,7 +118,8 @@ def INDEX_PAGE():
             "<!--metadata_title-->": settings_dict['metadata_title'],
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description'],
-            "<!--logging_level_txt-->": logging_level_txt}
+            "<!--logging_level_txt-->": logging_level_txt,
+            "<!--video_out_overlay_text_size-->": video_out_overlay_text_size_txt}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
