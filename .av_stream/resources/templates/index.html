@@ -2,19 +2,24 @@
 <head>
 <title>Audio Video Streaming Service Settings</title>
 </head>
+<style>
+  input[type="color"] {-webkit-appearance: none; border: none; background-color: lightgrey; width: 22px; height: 22px;}
+  input[type="color"]::-webkit-color-swatch-wrapper {padding: 0;}
+  input[type="color"]::-webkit-color-swatch {border: none;}
+</style>
 <body style="background-color:white;">
 <table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color:silver;"><tr><td>
 <center><h1>Audio Video Streaming Service Settings</h1></center>
 <!-- Style below allows 2 images placed one above the other -->
 <style>
-.containerdiv { float: left; position: relative; } 
-.cornerimage { position: absolute; top: 0px; right: 0%; left 0%} 
+  .containerdiv { float: left; position: relative;}
+  .cornerimage { position: absolute; top: 0px; right: 0%; left 0%}
 </style>
 <center>
 <table style="border:0px solid black; width: 480px height: 270px;background-color:silver;"><tr><td>
 <div class="containerdiv width: 480px; height: 270px; ">
-    <img border="0" src="no_preview.png" width="480" height="270" alt="">
-    <img class="cornerimage" border="0" src="stream.mjpg" width="480" height="270" alt="">
+  <img border="0" src="no_preview.png" width="480" height="270" alt="">
+  <img class="cornerimage" border="0" src="stream.mjpg" width="480" height="270" alt="">
 <div>
 </td></tr></table>
 </center>
@@ -59,6 +64,16 @@
     </select><br><br>
     <label for="video_out_overlay_text">Text Overlay:</label>
     <input type="text" id="video_out_overlay_text" name="video_out_overlay_text" value="<!--video_out_overlay_text-->" style="width: 500px;">
+    <br><br>
+    <label for="video_out_overlay_text_size">Text Size:</label>
+    <select id="video_out_overlay_text_size" name="video_out_overlay_text_size" style="width: 40px;" > <!--video_out_overlay_text_size_txt-->
+    </select>
+    <label for="video_out_overlay_text_color">Text Colour:</label>
+    <input type=color id="video_our_overlay_text_color" onchange="clickColor(0, -1, -1, 5)" value="#ffffff">
+    <label for="video_our_overlay_bg_color_enabled">Enable Background Colour:</label>
+    <input type="checkbox" id="video_our_overlay_bg_color_enabled" name="video_our_overlay_bg_color_enabled" <!--video_our_overlay_bg_color_enabled_txt-->>
+    <label for="video_our_overlay_bg_color">Background Colour:</label>
+    <input type=color id="video_our_overlay_bg_color" onchange="clickColor(0, -1, -1, 5)" value="#ffffff">
   </td></tr></table>
   <br>
   <label for="sync_settings"><b>Sync:</b></label><br>
@@ -113,10 +128,9 @@
 </body>
  <script type="text/javascript">
     function EnableDisableTextBox(startup_udp) {
-        var facebook_url = document.getElementById("facebook_url");
-        facebook_url.disabled = startup_udp.checked ? true : false;
-        var facebook_stream_key = document.getElementById("facebook_stream_key");
-        facebook_stream_key.disabled = startup_udp.checked ? true : false;
-    }
+      var facebook_url = document.getElementById("facebook_url");
+      facebook_url.disabled = startup_udp.checked ? true : false;
+      var facebook_stream_key = document.getElementById("facebook_stream_key");
+      facebook_stream_key.disabled = startup_udp.checked ? true : false;}
 </script>
 </html>
