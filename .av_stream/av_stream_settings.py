@@ -121,7 +121,7 @@ def INDEX_PAGE():
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description'],
             "<!--logging_level_txt-->": logging_level_txt,
-            "<!--video_out_overlay_text_size-->": video_out_overlay_text_size_txt,
+            "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
             "<!--video_our_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()

@@ -158,7 +158,7 @@ def kill_streams(processes=None):
 
 def notification(interval=0.3, mode=None):
     # Create audible sound (morse code) to confirm chosen option
-    # 'v' = start_video; 'e' = end_video; 's' = shutdown
+    # 'v' = start_video; 'e' = end_video; 's' = shutdown; 'sos' = warning
     if mode != None:
         mc.message(mode)
 

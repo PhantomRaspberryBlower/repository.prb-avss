@@ -12,6 +12,7 @@ import time
 import logging
 from datetime import date
 from configparser import ConfigParser
+from morsecode import MorseCode
 
 config_object = ConfigParser()
 
@@ -59,7 +60,11 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'video_in_height': settings['video_in_height'],
                      'video_in_width': settings['video_in_width'],
                      'video_out_codec': settings['video_out_codec'],
-                     'video_out_overlay_text': settings['video_out_overlay_text']}
+                     'video_out_overlay_text': settings['video_out_overlay_text'],
+                     'video_out_overlay_bg_color_enabled': settings['video_out_overlay_bg_color_enabled'],
+                     'video_out_overlay_bg_color': settings['video_out_overlay_bg_color'],
+                     'video_out_overlay_text_size': settings['video_out_overlay_text_size'],
+                     'video_out_overlay_text_color': settings['video_out_overlay_text_color']}
     return settings_dict
 
 
