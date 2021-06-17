@@ -94,6 +94,8 @@ def INDEX_PAGE():
         update_os_txt = 'checked="True"'
     if settings_dict['upgrade_os'] == 'True':
         upgrade_os_txt = 'checked="True"'
+    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+        video_out_overlay_bg_color_enabled_txt = 'checked="True"'
 
     # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
@@ -119,7 +121,8 @@ def INDEX_PAGE():
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description'],
             "<!--logging_level_txt-->": logging_level_txt,
-            "<!--video_out_overlay_text_size-->": video_out_overlay_text_size_txt}
+            "<!--video_out_overlay_text_size-->": video_out_overlay_text_size_txt,
+            "<!--video_our_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
