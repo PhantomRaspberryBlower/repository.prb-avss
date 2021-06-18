@@ -23,6 +23,7 @@ offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
 logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 video_out_overlay_text_sizes = ['6', '8', '10', '12', '14', '16', '18', '20']
+video_image_resolutions = ['0', '90', '180', '270']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -78,6 +79,7 @@ def INDEX_PAGE():
     update_interval_days_txt = options(settings_dict['update_interval_days'], update_intervals)
     logging_level_txt = options(settings_dict['logging_level'], logging_levels)
     video_out_overlay_text_size_txt = options(settings_dict['video_out_overlay_text_size'], video_out_overlay_text_sizes)
+    video_image_rotation_txt = options(settings_dict['videi_image_rotation'], video_image_resolutions)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -97,6 +99,10 @@ def INDEX_PAGE():
         upgrade_os_txt = 'checked="True"'
     if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
         video_out_overlay_bg_color_enabled_txt = 'checked="True"'
+    if settings_dict['video_image_horizontal_flip'] == 'True':
+        video_image_horizontal_flip_txt = 'checked="True"'
+    if settings_dict['video_image_vertical_flip'] == 'True':
+        video_image_vertical_flip_txt = 'checked="True"'
 
     # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
@@ -125,7 +131,10 @@ def INDEX_PAGE():
             "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
             "<!--video_out_overlay_text_color-->": settings_dict['video_out_overlay_text_color'],
             "<!--video_out_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt,
-            "<!--video_out_overlay_bg_color-->": settings_dict['video_out_overlay_bg_color']}
+            "<!--video_out_overlay_bg_color-->": settings_dict['video_out_overlay_bg_color'],
+            "<!--video_image_horizontal_flip_txt-->": video_image_horizontal_flip_txt,
+            "<!--video_image_rotation_txt-->": video_image_rotation_txt,
+            "<!--video_image_vertical_flip_txt-->": video_image_vertical_flip_txt}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
@@ -337,6 +346,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 settings_dict.update({'upgrade_os': 'False'})
             if str(post_data).find('video_out_overlay_bg_color_enabled') < 0:
                 settings_dict.update({'video_out_overlay_bg_color_enabled': 'False'})
+            if str(post_data).find('video_image_horizontal_flip') < 0:
+                settings_dict.update({'video_image_horizontal_flip': 'False'})
+            if str(post_data).find('video_image_vertical_flip') < 0:
+                settings_dict.update({'video_image_vertical_flip': 'False'})
         set_settings()
         txt = settings_dict['video_out_overlay_text'].replace('~','%')
         font_size = settings_dict['video_out_overlay_text_size']
