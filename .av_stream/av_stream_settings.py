@@ -23,7 +23,7 @@ offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
 logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 video_out_overlay_text_sizes = ['6', '8', '10', '12', '14', '16', '18', '20']
-video_image_resolutions = ['0', '90', '180', '270']
+video_image_rotations = ['0', '90', '180', '270']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -79,7 +79,7 @@ def INDEX_PAGE():
     update_interval_days_txt = options(settings_dict['update_interval_days'], update_intervals)
     logging_level_txt = options(settings_dict['logging_level'], logging_levels)
     video_out_overlay_text_size_txt = options(settings_dict['video_out_overlay_text_size'], video_out_overlay_text_sizes)
-    video_image_rotation_txt = options(settings_dict['video_image_rotation'], video_image_resolutions)
+    video_image_rotation_txt = options(settings_dict['video_image_rotation'], video_image_rotations)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
