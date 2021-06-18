@@ -124,7 +124,7 @@ def INDEX_PAGE():
             "<!--logging_level_txt-->": logging_level_txt,
             "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
             "<!--video_out_overlay_text_color-->": settings_dict['video_out_overlay_text_color'],
-            "<!--video_our_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt,
+            "<!--video_out_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt,
             "<!--video_out_overlay_bg_color-->": settings_dict['video_out_overlay_bg_color']}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
@@ -335,6 +335,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 settings_dict.update({'update_os': 'False'})
             if str(post_data).find('upgrade_os') < 0:
                 settings_dict.update({'upgrade_os': 'False'})
+            if str(post_data).find('video_out_overlay_bg_color_enabled') < 0:
+                settings_dict.update({'video_out_overlay_bg_color_enabled': 'False'})
         set_settings()
         self.do_GET()
 
