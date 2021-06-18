@@ -270,7 +270,14 @@ def start_stream():
     kill_settings()
 
     if len(settings_dict['video_out_overlay_text']) > 0:
-        overlay_text = settings_dict['video_out_overlay_text'].replace('~','%') + ' '
+        overlay_text = '-a %s -a %s -ae 36,0x%s' % (settings_dict['video_out_overlay_text_size'],
+                                                    settings_dict['video_out_overlay_text'].replace('~','%'),
+                                                    settings_dict['video_out_overlay_text_color'].replace('#',''))
+        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+            overlay_text +=',0x%s ' % settings_dict['video_out_overlay_bg_color'].replace('#', '')
+        else:
+            overlay_text +=',0x8080FF '
+#        overlay_text = settings_dict['video_out_overlay_text'].replace('~','%') + ' '
     cmd = ('raspivid '
            '-t 0 '
            '%s'
