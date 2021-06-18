@@ -353,7 +353,7 @@ try:
         font_size = settings_dict['video_out_overlay_text_size']
         txt = commontasks.regex_from_to(txt, ' "', '" ')
         camera.annotate_text = dt.datetime.now().strftime(txt)
-        camera.annotate_foreground = settings_dict['video_out_overlay_text_color']
+        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
         camera.annotate_text_size = int(font_size)
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
