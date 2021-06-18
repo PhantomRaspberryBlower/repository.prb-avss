@@ -86,6 +86,8 @@ def INDEX_PAGE():
     update_os_txt = ''
     upgrade_os_txt = ''
     video_out_overlay_bg_color_enabled_txt = ''
+    video_image_horizontal_flip_txt = ''
+    video_image_vertical_flip_txt = ''
     disable_form_elements = ''
     # HTML form checkboxes
     if settings_dict['enable_speaker'] == 'True':
