@@ -79,7 +79,7 @@ def INDEX_PAGE():
     update_interval_days_txt = options(settings_dict['update_interval_days'], update_intervals)
     logging_level_txt = options(settings_dict['logging_level'], logging_levels)
     video_out_overlay_text_size_txt = options(settings_dict['video_out_overlay_text_size'], video_out_overlay_text_sizes)
-    video_image_rotation_txt = options(settings_dict['videi_image_rotation'], video_image_resolutions)
+    video_image_rotation_txt = options(settings_dict['video_image_rotation'], video_image_resolutions)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
