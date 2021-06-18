@@ -338,6 +338,16 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             if str(post_data).find('video_out_overlay_bg_color_enabled') < 0:
                 settings_dict.update({'video_out_overlay_bg_color_enabled': 'False'})
         set_settings()
+        txt = settings_dict['video_out_overlay_text'].replace('~','%')
+        font_size = settings_dict['video_out_overlay_text_size']
+        txt = commontasks.regex_from_to(txt, ' "', '" ')
+        camera.annotate_text = dt.datetime.now().strftime(txt)
+        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
+        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+            camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
+        else:
+            camera.annotate_background = None
+        camera.annotate_text_size = int(font_size)
         self.do_GET()
 
 
