@@ -22,7 +22,7 @@ video_codecs = ['mp4', 'mpegts']
 offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
 logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
-video_out_overlay_text_sizes = ['8', '10', '12', '14', '16']
+video_out_overlay_text_sizes = ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
