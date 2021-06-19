@@ -87,20 +87,27 @@
       <label for="video_image_brightness">Brigthness:</label>
       <input type="text" id="video_image_brightness_input" value="<!--video_image_brightness-->" style="width: 30px;"><br>
       </center>
-      <input type="range" id="video_image_brightness" name="video_image_brightness" min="0" max="100" onchange="updateBrightnessInput(this.value);" value="<!--video_image_brightness-->" style="width: 188px;"><br>
+      <input type="range" id="video_image_brightness" name="video_image_brightness" min="0" max="100" onchange="updateBrightnessInput(this.value);" value="<!--video_image_brightness-->" style="width: 141px;"><br>
     </td>
     <td>
       <center>
       <label for="video_image_contrast">Contrast:</label>
       <input type="text" id="video_image_contrast_input" value="<!--video_image_contrast-->" style="width: 30px;"><br>
       </center>
-      <input type="range" id="video_image_contrast" name="video_image_contrast" min="-100" max="100" onchange="updateContrastInput(this.value);" value="<!--video_image_contrast-->" style="width: 188px;"><br>
+      <input type="range" id="video_image_contrast" name="video_image_contrast" min="-100" max="100" onchange="updateContrastInput(this.value);" value="<!--video_image_contrast-->" style="width: 141px;"><br>
+    </td>
+    <td>
+      <center>
+      <label for="video_image_saturation">Saturation:</label>
+      <input type="text" id="video_image_saturation_input" value="<!--video_image_saturation-->" style="width: 30px;"><br>
+      <input type="range" id="video_image_saturation" name="video_image_saturation" min="-100" max="100" onchange="updateSaturationInput(this.value);" value="<!--video_image_saturation-->" style="width: 141px;"><br>
+      </center>
     </td>
     <td>
       <center>
       <label for="video_image_sharpness">Sharpness:</label>
       <input type="text" id="video_image_sharpness_input" value="<!--video_image_sharpness-->" style="width: 30px;"><br>
-      <input type="range" id="video_image_sharpness" name="video_image_sharpness" min="-100" max="100" onchange="updateSharpnessInput(this.value);" value="<!--video_image_sharpness-->" style="width: 188px;">
+      <input type="range" id="video_image_sharpness" name="video_image_sharpness" min="-100" max="100" onchange="updateSharpnessInput(this.value);" value="<!--video_image_sharpness-->" style="width: 141px;">
       </center>
     </td>
     </tr></table>
@@ -174,6 +181,8 @@
           document.getElementById('video_image_brightness_input').value=val;}
     function updateContrastInput(val) {
           document.getElementById('video_image_contrast_input').value=val;}
+    function updateSaturationInput(val) {
+          document.getElementById('video_image_saturation_input').value=val;}
     function updateSharpnessInput(val) {
           document.getElementById('video_image_sharpness_input').value=val;}
     function EnableDisableTextBox(startup_udp) {

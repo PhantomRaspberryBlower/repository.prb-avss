@@ -59,6 +59,7 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'video_image_profile': settings['video_image_profile'],
                      'video_image_horizontal_flip': settings['video_image_horizontal_flip'],
                      'video_image_rotation': settings['video_image_rotation'],
+                     'video_image_saturation': settings['video_image_saturation'],
                      'video_image_sharpness': settings['video_image_sharpness'],
                      'video_image_vertical_flip': settings['video_image_vertical_flip'],
                      'video_in_bitrate': settings['video_in_bitrate'],
