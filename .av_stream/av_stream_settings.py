@@ -27,6 +27,7 @@ video_image_rotations = ['0', '90', '180', '270']
 video_image_exposures = ['auto', 'night', 'nightpreview', 'backlight',
                         'spotlight', 'sports', 'snow', 'beach', 'verylong',
                         'fixedfps', 'antishake', 'fireworks']
+video_image_profiles = ['baseline', 'main', 'high']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -84,6 +85,7 @@ def INDEX_PAGE():
     video_out_overlay_text_size_txt = options(settings_dict['video_out_overlay_text_size'], video_out_overlay_text_sizes)
     video_image_rotation_txt = options(settings_dict['video_image_rotation'], video_image_rotations)
     video_image_exposure_txt = options(settings_dict['video_image_exposure'], video_image_exposures)
+    video_image_profile_txt = options(settings_dict['video_image_profile'], video_miage_profiles)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -137,6 +139,7 @@ def INDEX_PAGE():
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
             "<!--video_image_exposure_txt-->": video_image_exposure_txt,
+            "<!--video_image_profile_txt-->": video_image_profile_txt,
             "<!--video_image_sharpness-->": settings_dict['video_image_sharpness'],
             "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
             "<!--video_out_overlay_text_color-->": settings_dict['video_out_overlay_text_color'],
