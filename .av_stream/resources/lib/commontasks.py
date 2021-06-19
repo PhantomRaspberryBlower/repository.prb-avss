@@ -52,6 +52,7 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'update_interval_days': settings['update_interval_days'],
                      'update_os': settings['update_os'],
                      'upgrade_os': settings['upgrade_os'],
+                     'video_image_automatic_white_balance': settings['video_image_automatic_white_balance'],
                      'video_image_brightness': settings['video_image_brightness'],
                      'video_image_contrast': settings['video_image_contrast'],
                      'video_image_exposure': settings['video_image_exposure'],

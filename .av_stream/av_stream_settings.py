@@ -28,6 +28,9 @@ video_image_exposures = ['auto', 'night', 'nightpreview', 'backlight',
                         'spotlight', 'sports', 'snow', 'beach', 'verylong',
                         'fixedfps', 'antishake', 'fireworks']
 video_image_profiles = ['baseline', 'main', 'high']
+video_image_automatic_white_balances = ['off', 'auto', 'sun', 'cloud', 'shade',
+                                        'tungsten', 'fluorescent', 'incandescent',
+                                        'flash', 'horizon', 'greyworld']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -86,6 +89,7 @@ def INDEX_PAGE():
     video_image_rotation_txt = options(settings_dict['video_image_rotation'], video_image_rotations)
     video_image_exposure_txt = options(settings_dict['video_image_exposure'], video_image_exposures)
     video_image_profile_txt = options(settings_dict['video_image_profile'], video_image_profiles)
+    video_image_automatic_white_balance_txt = options(settings_dict['video_image_automatic_white_balance'], video_image_automatic_white_balances)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -136,6 +140,7 @@ def INDEX_PAGE():
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description'],
             "<!--logging_level_txt-->": logging_level_txt,
+            "<!--video_image_automatic_white_balance_txt-->": video_image_automatic_white_balance_txt,
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
             "<!--video_image_exposure_txt-->": video_image_exposure_txt,
