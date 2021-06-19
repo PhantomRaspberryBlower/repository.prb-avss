@@ -54,6 +54,7 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'upgrade_os': settings['upgrade_os'],
                      'video_image_brightness': settings['video_image_brightness'],
                      'video_image_contrast': settings['video_image_contrast'],
+                     'video_image_exposure': settings['video_image_exposure'],
                      'video_image_horizontal_flip': settings['video_image_horizontal_flip'],
                      'video_image_rotation': settings['video_image_rotation'],
                      'video_image_sharpness': settings['video_image_sharpness'],
