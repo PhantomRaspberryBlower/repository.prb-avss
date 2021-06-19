@@ -210,7 +210,7 @@ def INFO_PAGE():
             "<!--eth0_lan_ip-->": si.get_lan_ip_addr('eth0'),
             "<!--wlan0_lan_ip-->": si.get_lan_ip_addr('wlan0'),
             "<!--gateway_ip-->": si.default_gateway,
-            "<!--wan_ip-->": si.wan_ip_addr.decode('utf-8'),
+            "<!--wan_ip-->": si.wan_ip_addr,
             "<!--camera_supported-->": si.camera_available['supported'],
             "<!--camera_detected-->": si.camera_available['detected'],
             "<!--usb_sound_card_detected-->": si.usb_sound_card_detected,
