@@ -136,7 +136,7 @@ def INDEX_PAGE():
             "<!--logging_level_txt-->": logging_level_txt,
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
-            "<!--video_image_exposure-->": video_image_exposure_txt,
+            "<!--video_image_exposure_txt-->": video_image_exposure_txt,
             "<!--video_image_sharpness-->": settings_dict['video_image_sharpness'],
             "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
             "<!--video_out_overlay_text_color-->": settings_dict['video_out_overlay_text_color'],
