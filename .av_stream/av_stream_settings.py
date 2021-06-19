@@ -145,7 +145,7 @@ def INDEX_PAGE():
             "<!--video_image_automatic_white_balance_txt-->": video_image_automatic_white_balance_txt,
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
-            "<!--video_image_dynamic_range_compression-->": settings_dict['video_image_dynamic_range_compression'],
+            "<!--video_image_dynamic_range_compression_txt-->": video_image_dynamic_range_compression_txt,
             "<!--video_image_exposure_txt-->": video_image_exposure_txt,
             "<!--video_image_profile_txt-->": video_image_profile_txt,
             "<!--video_image_saturation-->": settings_dict['video_image_saturation'],
