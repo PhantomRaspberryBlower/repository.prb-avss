@@ -81,14 +81,15 @@
     </td>
     <td>
       <center>
-      <label for="video_image_contrast">Contrast:</label><br>
+      <label for="video_image_contrast">Contrast:</label>
       <input type="text" id="video_image_contrast_input" value="<!--video_image_contrast-->" style="width: 30px;"><br>
       </center>
       <input type="range" id="video_image_contrast" name="video_image_contrast" min="-100" max="100" value="<!--video_image_contrast-->" style="width: 188px;"><br>
     </td>
     <td>
       <center>
-      <label for="video_image_sharpness">Sharpness:</label><br>
+      <label for="video_image_sharpness">Sharpness:</label>
+      <input type="text" id="video_image_sharpness_input" value="<!--video_image_sharpness-->" style="width: 30px;"><br>
       <input type="range" id="video_image_sharpness" name="video_image_sharpness" min="-100" max="100" value="<!--video_image_sharpness-->" style="width: 188px;">
       </center>
     </td>
@@ -159,7 +160,7 @@
 </td></tr></table>
 </body>
  <script type="text/javascript">
-    function updateBrigtnessInput(val) {
+    function updateBrightnessInput(val) {
           document.getElementById('video_image_brightness_input').value=val;}
     function EnableDisableTextBox(startup_udp) {
       var facebook_url = document.getElementById("facebook_url");
