@@ -75,13 +75,14 @@
     <td>
       <center>
       <label for="video_image_brightness">Brigthness:</label>
-      <input type="text" id="textInput" value="<!--video_image_brightness-->" style="width: 30px;"><br>
+      <input type="text" id="video_image_brightness_input" value="<!--video_image_brightness-->" style="width: 30px;"><br>
       </center>
-      <input type="range" id="video_image_brightness" name="video_image_brightness" min="0" max="100" onchange="updateTextInput(this.value);" value="<!--video_image_brightness-->" style="width: 188px;"><br>
+      <input type="range" id="video_image_brightness" name="video_image_brightness" min="0" max="100" onchange="updateBrightnessInput(this.value);" value="<!--video_image_brightness-->" style="width: 188px;"><br>
     </td>
     <td>
       <center>
       <label for="video_image_contrast">Contrast:</label><br>
+      <input type="text" id="video_image_contrast_input" value="<!--video_image_contrast-->" style="width: 30px;"><br>
       </center>
       <input type="range" id="video_image_contrast" name="video_image_contrast" min="-100" max="100" value="<!--video_image_contrast-->" style="width: 188px;"><br>
     </td>
@@ -158,8 +159,8 @@
 </td></tr></table>
 </body>
  <script type="text/javascript">
-    function updateTextInput(val) {
-          document.getElementById('textInput').value=val;}
+    function updateBrigtnessInput(val) {
+          document.getElementById('video_image_brightness_input').value=val;}
     function EnableDisableTextBox(startup_udp) {
       var facebook_url = document.getElementById("facebook_url");
       facebook_url.disabled = startup_udp.checked ? true : false;
