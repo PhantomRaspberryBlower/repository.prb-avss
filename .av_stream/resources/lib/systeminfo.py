@@ -240,7 +240,7 @@ class SystemInfo():
     def wan_ip_addr(self):
         # Get the WAN IP address
         try:
-            return urlopen('http://ip.42.pl/raw').read()
+            return urlopen('http://ip.42.pl/raw').read().decode('utf-8')
         except:
             return 'Unable to get WAN IP Address! :('
 
