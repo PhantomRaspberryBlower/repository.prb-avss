@@ -85,7 +85,7 @@ def INDEX_PAGE():
     video_out_overlay_text_size_txt = options(settings_dict['video_out_overlay_text_size'], video_out_overlay_text_sizes)
     video_image_rotation_txt = options(settings_dict['video_image_rotation'], video_image_rotations)
     video_image_exposure_txt = options(settings_dict['video_image_exposure'], video_image_exposures)
-    video_image_profile_txt = options(settings_dict['video_image_profile'], video_miage_profiles)
+    video_image_profile_txt = options(settings_dict['video_image_profile'], video_image_profiles)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
