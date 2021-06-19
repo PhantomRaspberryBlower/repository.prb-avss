@@ -31,6 +31,7 @@ video_image_profiles = ['baseline', 'main', 'high']
 video_image_automatic_white_balances = ['off', 'auto', 'sun', 'cloud', 'shade',
                                         'tungsten', 'fluorescent', 'incandescent',
                                         'flash', 'horizon', 'greyworld']
+video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -90,6 +91,7 @@ def INDEX_PAGE():
     video_image_exposure_txt = options(settings_dict['video_image_exposure'], video_image_exposures)
     video_image_profile_txt = options(settings_dict['video_image_profile'], video_image_profiles)
     video_image_automatic_white_balance_txt = options(settings_dict['video_image_automatic_white_balance'], video_image_automatic_white_balances)
+    video_image_dynamic_range_compression_txt = options(settings_dict['video_image_dynamic_range_compression'], video_image_dynamic_range_compressions)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -143,6 +145,7 @@ def INDEX_PAGE():
             "<!--video_image_automatic_white_balance_txt-->": video_image_automatic_white_balance_txt,
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
+            "<!--video_image_dynamic_range_compression-->": settings_dict['video_image_dynamic_range_compression'],
             "<!--video_image_exposure_txt-->": video_image_exposure_txt,
             "<!--video_image_profile_txt-->": video_image_profile_txt,
             "<!--video_image_saturation-->": settings_dict['video_image_saturation'],
