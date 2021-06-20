@@ -108,6 +108,7 @@ def INDEX_PAGE():
     video_out_overlay_bg_color_enabled_txt = ''
     video_image_horizontal_flip_txt = ''
     video_image_vertical_flip_txt = ''
+    video_stabilisation_txt = ''
     disable_form_elements = ''
     # HTML form checkboxes
     if settings_dict['enable_speaker'] == 'True':
