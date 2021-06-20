@@ -17,22 +17,22 @@ audio_codecs = ['aac', 'mp2', 'mp3']
 audio_bitrates = ['32k', '64k', '96k', '128k']
 audio_sample_rates = ['44100', '48000']
 logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
-offset_types = ['audio', 'video', 'none']
+offset_types = ['none', 'audio', 'video']
 update_intervals = ['1', '7', '30']
 video_codecs = ['mp4', 'mpegts']
 video_fps = ['15', '20', '25', '30']
-video_image_automatic_white_balances = ['off', 'auto', 'sun', 'cloud', 'shade',
-                                        'tungsten', 'fluorescent', 'incandescent',
-                                        'flash', 'horizon', 'greyworld']
+video_image_automatic_white_balances = ['off', 'auto', 'cloud', 'flash', 
+                                        'fluorescent', 'greyworld', 'horizon', 
+                                        'incandescent', 'sun', 'shade', 'tungsten']
 video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
 video_image_effects = ['none', 'blur', 'cartoon', 'colorbalance', 'colorswap',
                        'colorpoint', 'deinterlace1', 'deinterlace2', 'denoise', 
                        'emboss', 'film', 'gpen', 'hatch', 'negative', 'oilpaint', 
                        'pastel', 'posterise', 'saturation', 'sketch', 'solarize', 
                        'watercolor', 'washedout']
-video_image_exposures = ['auto', 'night', 'nightpreview', 'backlight',
-                        'spotlight', 'sports', 'snow', 'beach', 'verylong',
-                        'fixedfps', 'antishake', 'fireworks']
+video_image_exposures = ['auto', 'antishake', 'backlight', 'beach', 'fireworks',
+                         'fixedfps', 'night', 'nightpreview', 'spotlight', 
+                         'sports', 'snow', 'verylong']
 video_image_flicker_avoidances = ['off', 'auto', '50hz', '60hz']
 video_image_profiles = ['baseline', 'main', 'high']
 video_image_rotations = ['0', '90', '180', '270']
