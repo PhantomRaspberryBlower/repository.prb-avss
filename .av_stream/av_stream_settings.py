@@ -421,27 +421,27 @@ def set_camera_settings():
     else:
         camera.annotate_background = None
     camera.annotate_text_size = int(font_size)
-    camera.awb_mode = settings_dict['video_image_automatic_white_balance']
-    camera.brightness = int(settings_dict['video_image_brightness'])
-    camera.contrast = int(settings_dict['video_image_contrast'])
-    camera.saturation = int(settings_dict['video_image_saturation'])
-    camera.sharpness = int(settings_dict['video_image_sharpness'])
-    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
-    camera.exposure_mode = settings_dict['video_image_exposure']
-    if settings_dict['video_image_horizontal_flip'] == 'True':
-        camera.hflip = True
-    else:
-        camera.hflip = False
-    if settings_dict['video_image_vertical_flip'] == 'True':
-        camera.vflip = True
-    else:
-        camera.vflip = False
-    camera.image_effect = settings_dict['video_image_effect']
-    camera.rotation = int(settings_dict['video_image_rotation'])
-    if settings_dict['video_stabilisation'] == 'True':
-        camera.video_stabilization = True
-    else:
-        camera.video_stabilization = False
+#    camera.awb_mode = settings_dict['video_image_automatic_white_balance']
+#    camera.brightness = int(settings_dict['video_image_brightness'])
+#    camera.contrast = int(settings_dict['video_image_contrast'])
+#    camera.saturation = int(settings_dict['video_image_saturation'])
+#    camera.sharpness = int(settings_dict['video_image_sharpness'])
+#    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
+#    camera.exposure_mode = settings_dict['video_image_exposure']
+#    if settings_dict['video_image_horizontal_flip'] == 'True':
+#        camera.hflip = True
+#    else:
+#        camera.hflip = False
+#    if settings_dict['video_image_vertical_flip'] == 'True':
+#        camera.vflip = True
+#    else:
+#        camera.vflip = False
+#    camera.image_effect = settings_dict['video_image_effect']
+#    camera.rotation = int(settings_dict['video_image_rotation'])
+#    if settings_dict['video_stabilisation'] == 'True':
+#        camera.video_stabilization = True
+#    else:
+#        camera.video_stabilization = False
 
 
 try:
