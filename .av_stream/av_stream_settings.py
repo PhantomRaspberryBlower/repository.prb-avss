@@ -394,15 +394,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
         set_settings()
         set_camera_settings()
-#        txt = settings_dict['video_out_overlay_text'].replace('~','%')
-#        font_size = settings_dict['video_out_overlay_text_size']
-#        camera.annotate_text = dt.datetime.now().strftime(txt)
-#        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
-#        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-#            camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
-#        else:
-#            camera.annotate_background = None
-#        camera.annotate_text_size = int(font_size)
         self.do_GET()
 
 
@@ -446,13 +437,7 @@ def set_camera_settings():
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
-        txt = settings_dict['video_out_overlay_text'].replace('~','%')
-        font_size = settings_dict['video_out_overlay_text_size']
-        camera.annotate_text = dt.datetime.now().strftime(txt)
-        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
-        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-            camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
-        camera.annotate_text_size = int(font_size)
+        set_camera_settings()
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
         try:
