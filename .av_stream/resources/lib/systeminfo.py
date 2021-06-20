@@ -1,6 +1,6 @@
 #!/bin/python
 
-from urllib.request import Request, urlopen
+from urllib.request import urlopen
 from collections import namedtuple
 from subprocess import check_call, Popen, PIPE
 import socket
