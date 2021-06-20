@@ -125,6 +125,8 @@ def INDEX_PAGE():
         video_image_horizontal_flip_txt = 'checked="True"'
     if settings_dict['video_image_vertical_flip'] == 'True':
         video_image_vertical_flip_txt = 'checked="True"'
+    if settings_dict['video_stabilisation'] == 'True':
+        video_stabilisation_txt = 'checked="True"'
 
     # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
@@ -169,7 +171,8 @@ def INDEX_PAGE():
             "<!--video_image_sharpness-->": settings_dict['video_image_sharpness'],
             "<!--video_image_horizontal_flip_txt-->": video_image_horizontal_flip_txt,
             "<!--video_image_rotation_txt-->": video_image_rotation_txt,
-            "<!--video_image_vertical_flip_txt-->": video_image_vertical_flip_txt}
+            "<!--video_image_vertical_flip_txt-->": video_image_vertical_flip_txt,
+            "<!--video_stabilisation_txt-->": video_stabilisation_txt}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
@@ -385,6 +388,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 settings_dict.update({'video_image_horizontal_flip': 'False'})
             if str(post_data).find('video_image_vertical_flip') < 0:
                 settings_dict.update({'video_image_vertical_flip': 'False'})
+            if str(post_data).find('video_stabilisation') < 0:
+                settings_dict.update({'video_stabilisation': 'False'})
+
         set_settings()
         txt = settings_dict['video_out_overlay_text'].replace('~','%')
         font_size = settings_dict['video_out_overlay_text_size']
