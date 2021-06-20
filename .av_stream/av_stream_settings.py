@@ -27,9 +27,9 @@ video_image_automatic_white_balances = ['off', 'auto', 'sun', 'cloud', 'shade',
 video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
 video_image_effects = ['none', 'negative', 'solarise', 'posterise', 'whiteboard',
                        'blackboard', 'sketch', 'denoise', 'emboss', 'oilpaint', 
-                       'hatch', 'gpen', 'pastel', 'watercolour', 'film', 'blur', 
-                       'saturation', 'colourswap', 'washedout', 'colourpoint', 
-                       'colourbalance', 'cartoon']
+                       'hatch', 'gpen', 'pastel', 'watercolor', 'film', 'blur', 
+                       'saturation', 'colorswap', 'washedout', 'colorpoint', 
+                       'colorbalance', 'cartoon']
 video_image_exposures = ['auto', 'night', 'nightpreview', 'backlight',
                         'spotlight', 'sports', 'snow', 'beach', 'verylong',
                         'fixedfps', 'antishake', 'fireworks']
