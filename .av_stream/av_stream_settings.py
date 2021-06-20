@@ -436,7 +436,7 @@ def set_camera_settings():
         camera.vflip = True
     else:
         camera.vflip = False
-#    camera.image_effect = settings_dict['video_image_effect']
+    camera.image_effect = settings_dict['video_image_effect']
     camera.rotation = int(settings_dict['video_image_rotation'])
     if settings_dict['video_stabilisation'] == 'True':
         camera.video_stabilization = True
