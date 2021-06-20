@@ -422,17 +422,27 @@ def set_camera_settings():
         camera.annotate_background = None
     camera.annotate_text_size = int(font_size)
     camera.awb_mode = settings_dict['video_image_automatic_white_balance']
-    camera.brightness = settings_dict['video_image_brightness']
-    camera.contrast = settings_dict['video_image_contrast']
-    camera.saturation = settings_dict['video_image_saturation']
-    camera.sharpness = settings_dict['video_image_sharpness']
+    camera.brightness = int(settings_dict['video_image_brightness'])
+    camera.contrast = int(settings_dict['video_image_contrast'])
+    camera.saturation = int(settings_dict['video_image_saturation'])
+    camera.sharpness = int(settings_dict['video_image_sharpness'])
     camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
     camera.exposure_mode = settings_dict['video_image_exposure']
-    camera.hflip = settings_dict['video_image_horizontal_flip']
-    camera.vflip = settings_dict['video_image_vertical_flip']
+    if settings_dict['video_image_horizontal_flip'] == 'True':
+        camera.hflip = True
+    else:
+        camera.hflip = False
+    if settings_dict['video_image_vertical_flip'] == 'True':
+        camera.vflip = True
+    else:
+        camera.vflip = False
     camera.image_effect = settings_dict['video_image_effect']
-    camera.rotation = settings_dict['video_image_rotation']
-    camera.video_stabilization = settings_dict['video_stabilisation']
+    camera.rotation = int(settings_dict['video_image_rotation'])
+    if settings_dict['video_stabilisation'] == 'True':
+        camera.video_stabilization = True
+    else:
+        camera.video_stabilization = False
+
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
