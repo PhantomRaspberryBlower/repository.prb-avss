@@ -25,7 +25,7 @@ video_image_automatic_white_balances = ['off', 'auto', 'sun', 'cloud', 'shade',
                                         'tungsten', 'fluorescent', 'incandescent',
                                         'flash', 'horizon', 'greyworld']
 video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
-video_image_effects = ['none', 'negative', 'solarise', 'posterise', 'whiteboard',
+video_image_effects = ['none', 'negative', 'solarize', 'posterise', 'whiteboard',
                        'blackboard', 'sketch', 'denoise', 'emboss', 'oilpaint', 
                        'hatch', 'gpen', 'pastel', 'watercolor', 'film', 'blur', 
                        'saturation', 'colorswap', 'washedout', 'colorpoint', 
