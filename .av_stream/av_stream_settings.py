@@ -16,28 +16,28 @@ si = SystemInfo()
 audio_codecs = ['aac', 'mp2', 'mp3']
 audio_bitrates = ['32k', '64k', '96k', '128k']
 audio_sample_rates = ['44100', '48000']
-video_fps = ['15', '20', '25', '30']
-video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
-video_codecs = ['mp4', 'mpegts']
+logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 offset_types = ['audio', 'video', 'none']
 update_intervals = ['1', '7', '30']
-logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
-video_out_overlay_text_sizes = ['6', '8', '10', '12', '14', '16', '18', '20']
-video_image_rotations = ['0', '90', '180', '270']
-video_image_exposures = ['auto', 'night', 'nightpreview', 'backlight',
-                        'spotlight', 'sports', 'snow', 'beach', 'verylong',
-                        'fixedfps', 'antishake', 'fireworks']
-video_image_profiles = ['baseline', 'main', 'high']
+video_codecs = ['mp4', 'mpegts']
+video_fps = ['15', '20', '25', '30']
 video_image_automatic_white_balances = ['off', 'auto', 'sun', 'cloud', 'shade',
                                         'tungsten', 'fluorescent', 'incandescent',
                                         'flash', 'horizon', 'greyworld']
 video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
-video_image_flicker_avoidances = ['off', 'auto', '50hz', '60hz']
 video_image_effects = ['none', 'negative', 'solarise', 'posterise', 'whiteboard',
                        'blackboard', 'sketch', 'denoise', 'emboss', 'oilpaint', 
                        'hatch', 'gpen', 'pastel', 'watercolour', 'film', 'blur', 
                        'saturation', 'colourswap', 'washedout', 'colourpoint', 
                        'colourbalance', 'cartoon']
+video_image_exposures = ['auto', 'night', 'nightpreview', 'backlight',
+                        'spotlight', 'sports', 'snow', 'beach', 'verylong',
+                        'fixedfps', 'antishake', 'fireworks']
+video_image_flicker_avoidances = ['off', 'auto', '50hz', '60hz']
+video_image_profiles = ['baseline', 'main', 'high']
+video_image_rotations = ['0', '90', '180', '270']
+video_out_overlay_text_sizes = ['6', '8', '10', '12', '14', '16', '18', '20']
+video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -393,15 +393,16 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 settings_dict.update({'video_stabilisation': 'False'})
 
         set_settings()
-        txt = settings_dict['video_out_overlay_text'].replace('~','%')
-        font_size = settings_dict['video_out_overlay_text_size']
-        camera.annotate_text = dt.datetime.now().strftime(txt)
-        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
-        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-            camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
-        else:
-            camera.annotate_background = None
-        camera.annotate_text_size = int(font_size)
+        set_camera_settings()
+#        txt = settings_dict['video_out_overlay_text'].replace('~','%')
+#        font_size = settings_dict['video_out_overlay_text_size']
+#        camera.annotate_text = dt.datetime.now().strftime(txt)
+#        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
+#        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+#            camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
+#        else:
+#            camera.annotate_background = None
+#        camera.annotate_text_size = int(font_size)
         self.do_GET()
 
 
@@ -410,6 +411,28 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
+def set_camera_settings():
+    txt = settings_dict['video_out_overlay_text'].replace('~','%')
+    font_size = settings_dict['video_out_overlay_text_size']
+    camera.annotate_text = dt.datetime.now().strftime(txt)
+    camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
+    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+        camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
+        else:
+            camera.annotate_background = None
+    camera.annotate_text_size = int(font_size)
+    camera.awb_mode = settings_dict['video_image_automatic_white_balance']
+    camera.brightness = settings_dict['video_image_brightness']
+    camera.contrast = settings_dict['video_image_contrast']
+    camera.saturation = settings_dict['video_image_saturation']
+    camera.sharpness = settings_dict['video_image_sharpness']
+    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
+    camera.exposure_mode = settings_dict['video_image_exposure']
+    camera.hflip = settings_dict['video_image_horizontal_flip']
+    camera.vflip = settings_dict['video_image_vertical_flip']
+    camera.image_effect = settings_dict['video_image_effect']
+    camera.rotation = settings_dict['video_image_rotation']
+    camera.video_stabilization = settings_dict['video_stabilisation']
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
