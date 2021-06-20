@@ -422,7 +422,7 @@ def set_camera_settings():
         camera.annotate_background = None
     camera.annotate_text_size = int(font_size)
 #    camera.awb_mode = settings_dict['video_image_automatic_white_balance']
-#    camera.brightness = int(settings_dict['video_image_brightness'])
+    camera.brightness = int(settings_dict['video_image_brightness'])
 #    camera.contrast = int(settings_dict['video_image_contrast'])
 #    camera.saturation = int(settings_dict['video_image_saturation'])
 #    camera.sharpness = int(settings_dict['video_image_sharpness'])
