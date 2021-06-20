@@ -418,8 +418,8 @@ def set_camera_settings():
     camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
     if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
         camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
-        else:
-            camera.annotate_background = None
+    else:
+        camera.annotate_background = None
     camera.annotate_text_size = int(font_size)
     camera.awb_mode = settings_dict['video_image_automatic_white_balance']
     camera.brightness = settings_dict['video_image_brightness']
