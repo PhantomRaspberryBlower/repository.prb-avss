@@ -427,7 +427,7 @@ def set_camera_settings():
     camera.saturation = int(settings_dict['video_image_saturation'])
     camera.sharpness = int(settings_dict['video_image_sharpness'])
 #    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
-#    camera.exposure_mode = settings_dict['video_image_exposure']
+    camera.exposure_mode = settings_dict['video_image_exposure']
     if settings_dict['video_image_horizontal_flip'] == 'True':
         camera.hflip = True
     else:
