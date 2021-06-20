@@ -22,8 +22,8 @@ update_intervals = ['1', '7', '30']
 video_codecs = ['mp4', 'mpegts']
 video_fps = ['15', '20', '25', '30']
 video_image_automatic_white_balances = ['off', 'auto', 'cloudy', 'flash', 
-                                        'fluorescent', 'greyworld', 'horizon', 
-                                        'incandescent', 'sunlight', 'shade', 'tungsten']
+                                        'fluorescent', 'horizon','incandescent',
+                                        'sunlight', 'shade', 'tungsten']
 video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
 video_image_effects = ['none', 'blur', 'cartoon', 'colorbalance', 'colorswap',
                        'colorpoint', 'deinterlace1', 'deinterlace2', 'denoise', 
@@ -426,7 +426,7 @@ def set_camera_settings():
     camera.contrast = int(settings_dict['video_image_contrast'])
     camera.saturation = int(settings_dict['video_image_saturation'])
     camera.sharpness = int(settings_dict['video_image_sharpness'])
-#    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
+    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
     camera.exposure_mode = settings_dict['video_image_exposure']
     if settings_dict['video_image_horizontal_flip'] == 'True':
         camera.hflip = True
