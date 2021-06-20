@@ -241,8 +241,7 @@ class SystemInfo():
     def wan_ip_addr(self):
         # Get the WAN IP address
         try:
-            html = urlopen('http://bulis.co.uk/?page_id=1723').read().decode('utf-8')
-            return regex_from_to(html, '<h1>Your IP Address is: ', '</h1>')
+            return urlopen('https://api.ipify.org').read().decode('utf8')
         except:
             return 'Unable to get WAN IP Address! :('
 
