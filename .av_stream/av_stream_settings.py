@@ -33,7 +33,11 @@ video_image_automatic_white_balances = ['off', 'auto', 'sun', 'cloud', 'shade',
                                         'flash', 'horizon', 'greyworld']
 video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
 video_image_flicker_avoidances = ['off', 'auto', '50hz', '60hz']
-
+video_image_effects = ['none', 'negative', 'solarise', 'posterise', 'whiteboard',
+                       'blackboard', 'sketch', 'denoise', 'emboss', 'oilpaint', 
+                       'hatch', 'gpen', 'pastel', 'watercolour', 'film', 'blur', 
+                       'saturation', 'colourswap', 'washedout', 'colourpoint', 
+                       'colourbalance', 'cartoon']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
@@ -95,6 +99,7 @@ def INDEX_PAGE():
     video_image_automatic_white_balance_txt = options(settings_dict['video_image_automatic_white_balance'], video_image_automatic_white_balances)
     video_image_dynamic_range_compression_txt = options(settings_dict['video_image_dynamic_range_compression'], video_image_dynamic_range_compressions)
     video_image_flicker_avoidance_txt = options(settings_dict['video_image_flicker_avoidance'], video_image_flicker_avoidances)
+    video_image_effect_txt = options(settings_dict['video_image_effect'], video_image_effects)
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -149,6 +154,7 @@ def INDEX_PAGE():
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
             "<!--video_image_dynamic_range_compression_txt-->": video_image_dynamic_range_compression_txt,
+            "<!--video_image_effect_txt-->": video_image_effect_txt,
             "<!--video_image_exposure_txt-->": video_image_exposure_txt,
             "<!--video_image_flicker_avoidance_txt-->": video_image_flicker_avoidance_txt,
             "<!--video_image_profile_txt-->": video_image_profile_txt,

@@ -243,7 +243,6 @@ class SystemInfo():
         try:
             html = urlopen('http://bulis.co.uk/?page_id=1723').read().decode('utf-8')
             return regex_from_to(html, '<h1>Your IP Address is: ', '</h1>')
-#            return urlopen('http://ip.42.pl/raw').read().decode('utf-8')
         except:
             return 'Unable to get WAN IP Address! :('
 

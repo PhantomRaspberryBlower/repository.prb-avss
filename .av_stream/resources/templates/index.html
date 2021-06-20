@@ -79,6 +79,10 @@
     <select name="video_image_flicker_avoidance" id="video_image_flicker_avoidance" style="width: 54px;"> <!--video_image_flicker_avoidance_txt-->
     </select>
     <br><br>
+    <label for="video_image_effect">Image Effect:</label>
+    <select name="video_image_effect" id="video_image_effect" style="width: 100px;"> <!--video_image_effect_txt-->
+    </select>    
+    <br><br>
     <label for="video_image_rotation">Rotation:</label>
     <select name="video_image_rotation" id="video_image_rotation" style="width: 50px;"> <!--video_image_rotation_txt-->
     </select>
@@ -86,7 +90,7 @@
     <input type="checkbox" id="video_image_horizontal_flip" name="video_image_horizontal_flip" <!--video_image_horizontal_flip_txt-->>
     <label for="video_image_vertical_flip">Vertical Flip </label>
     <input type="checkbox" id="video_image_vertical_flip" name="video_image_vertical_flip" <!--video_image_vertical_flip_txt-->>
-    <br>
+    <br><br>
     <center>
     <table><tr>
     <td>
@@ -119,6 +123,19 @@
     </td>
     </tr></table>
     </center>
+  </td></tr></table>
+  <br>
+  <label for="sync_settings"><b>Sync:</b></label><br>
+  <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
+    <label for="itsoffset_seconds">Offset in Seconds:</label>
+    <input type="text" id="itsoffset_seconds" name="itsoffset_seconds" value="<!--itsoffset_seconds-->" style="width: 60px;">
+    <label for="itsoffset">Offset Type:</label>
+    <select name="itsoffset" id="itsoffset" style="width: 65px;"> <!--itsoffset_txt-->
+    </select>
+  </td></tr></table>
+  <br>
+  <label for="text_overlay_settings"><b>Text Overlay:</b></label><br>
+  <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
     <label for="video_out_overlay_text">Text Overlay:</label>
     <input type="text" id="video_out_overlay_text" name="video_out_overlay_text" value="<!--video_out_overlay_text-->" style="width: 500px;">
     <br><br>
@@ -131,15 +148,6 @@
     <input type="checkbox" id="video_out_overlay_bg_color_enabled" name="video_out_overlay_bg_color_enabled" <!--video_out_overlay_bg_color_enabled_txt-->>
     <label for="video_out_overlay_bg_color">Background Colour:</label>
     <input type="color" id="video_out_overlay_bg_color" name="video_out_overlay_bg_color" onchange="clickColor(0, -1, -1, 5)" value="<!--video_out_overlay_bg_color-->">
-  </td></tr></table>
-  <br>
-  <label for="sync_settings"><b>Sync:</b></label><br>
-  <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
-    <label for="itsoffset_seconds">Offset in Seconds:</label>
-    <input type="text" id="itsoffset_seconds" name="itsoffset_seconds" value="<!--itsoffset_seconds-->" style="width: 60px;">
-    <label for="itsoffset">Offset Type:</label>
-    <select name="itsoffset" id="itsoffset" style="width: 65px;"> <!--itsoffset_txt-->
-    </select>
   </td></tr></table>
   <br>
   <label for="metadata_settings"><b>Metadata:</b></label><br>
