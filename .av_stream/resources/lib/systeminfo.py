@@ -2,14 +2,13 @@
 
 from urllib.request import urlopen
 from collections import namedtuple
-from subprocess import check_call, Popen, PIPE
+from subprocess import Popen, PIPE
 import socket
 import fcntl
 import struct
 import platform
 import getpass
 import os
-import re
 
 # Written by: Phantom Raspberry Blower (The PRB)
 # Date: 01-10-2018
@@ -371,20 +370,6 @@ class SystemInfo():
                                     )[20:24])
         except:
                 return 'Unable to get LAN IP address! :('
-
-
-def regex_from_to(text, from_string, to_string, excluding=True):
-    if excluding:
-        r = re.search("(?i)" + from_string +
-                      "([\S\s]+?)" +
-                      to_string, text).group(1)
-    else:
-        r = re.search("(?i)(" +
-                      from_string +
-                      "[\S\s]+?" +
-                      to_string +
-                      ")", text).group(1)
-    return r
 
 
 # Check if running stand-alone or imported
