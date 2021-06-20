@@ -15,7 +15,7 @@ import re
 # Date: 01-10-2018
 # Description: Script for displaying system information
 #              about software, CPU, hardware, memory,
-#              storage, networks and addons installed.
+#              storage, networks and settings.
 #              Tested on Raspberry Pi.
 
 class SystemInfo():
