@@ -131,7 +131,7 @@ def cleanup():
 def kill_settings():
     global settings_status
     global settings_proc
-    if settings_status == None:
+    if settings_status != None:
         subprocess.Popen.terminate(settings_proc)
         settings_status = subprocess.Popen.poll(settings_proc)
 
@@ -281,6 +281,7 @@ def build_raspivid_cmd():
     raspivid_cmd += ' -b %s' % settings_dict['video_in_bitrate']
     return raspivid_cmd
 
+
 def build_ffmpeg_cmd():
     url = ''
     port_or_key = ''
@@ -325,6 +326,7 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' %s%s' % (url, port_or_key)
     ffmpeg_cmd += ' -hide_banner -nostats -loglevel "quiet"'
     return ffmpeg_cmd
+
 
 def start_stream():
     # Speak through the headphone socket
