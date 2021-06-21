@@ -286,9 +286,12 @@ def build_ffmpeg_cmd():
     port_or_key = ''
     audio_offset = ''
     video_offset = ''
-    if settings_dict['itsoffset'] == 'audio':
-        settings_dict['audio_offset'] = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
-        settings_dict['video_offset'] = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
+    ffmpeg_cmd = 'ffmpeg -thread_queue_size 1024'
+    if settings_dict['itsoffset'] != 'none':
+        if settings_dict['itsoffset'] == 'audio':
+            audio_offset = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
+        if settings_dict['itoffset'] == 'video':
+            video_offset = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
 
     if settings_dict['startup_udp'] == 'True':
         url = settings_dict['broadcast_url']
@@ -298,8 +301,6 @@ def build_ffmpeg_cmd():
         url = settings_dict['facebook_url']
         stream_codec = settings_dict['video_out_codec']
 
-    ffmpeg_cmd = ''
-    ffmpeg_cmd += 'ffmpeg -thread_queue_size 1024'
     ffmpeg_cmd += ' -f %s' % settings_dict['video_in_codec']
     ffmpeg_cmd += ' -vsync 2'
     ffmpeg_cmd += video_offset
