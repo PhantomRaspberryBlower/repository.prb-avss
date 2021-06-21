@@ -447,6 +447,7 @@ try:
             server.serve_forever()
         finally:
             camera.stop_recording()
+            camera.close()
 except:
     output = StreamingOutput()
     try:
@@ -457,4 +458,4 @@ except:
                                 '</center>')
         server.serve_forever()
     except:
-        pass
+        camera.close()
