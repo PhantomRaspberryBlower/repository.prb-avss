@@ -402,7 +402,7 @@ def start_stream():
 #                                   url,
 #                                   port_or_key)
 
-#    os.popen(cmd)
+    os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
     GPIO.output(LED_PIN, GPIO.HIGH)
