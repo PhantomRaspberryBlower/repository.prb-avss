@@ -7,6 +7,7 @@ import socketserver
 import os
 import datetime as dt
 import time
+import math
 from http import server
 from threading import Condition
 from resources.lib.systeminfo import SystemInfo
@@ -36,7 +37,8 @@ video_image_exposures = ['auto', 'antishake', 'backlight', 'beach', 'fireworks',
 video_image_flicker_avoidances = ['off', 'auto', '50hz', '60hz']
 video_image_profiles = ['baseline', 'main', 'high']
 video_image_rotations = ['0', '90', '180', '270']
-video_out_overlay_text_sizes = ['6', '8', '10', '12', '14', '16', '18', '20']
+video_out_overlay_text_sizes = ['8', '10', '12', '14', '16', '18', '20', '22',
+                                '24', '26', '28', '30', '32', '34', '36', '38']
 video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 settings_dict = {}
 hidden_form_elements = '<br>'
@@ -402,39 +404,48 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
-def set_camera_settings():
-    txt = settings_dict['video_out_overlay_text'].replace('~','%')
-    font_size = settings_dict['video_out_overlay_text_size']
-    camera.annotate_text = dt.datetime.now().strftime(txt)
-    camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
-    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-        camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
-    else:
-        camera.annotate_background = None
-    camera.annotate_text_size = int(font_size)
-    if settings_dict['video_image_automatic_white_balance'] != 'off':
-        camera.awb_mode = settings_dict['video_image_automatic_white_balance']
-    camera.brightness = int(settings_dict['video_image_brightness'])
-    camera.contrast = int(settings_dict['video_image_contrast'])
-    camera.saturation = int(settings_dict['video_image_saturation'])
-    camera.sharpness = int(settings_dict['video_image_sharpness'])
-    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
-    camera.exposure_mode = settings_dict['video_image_exposure']
-    if settings_dict['video_image_horizontal_flip'] == 'True':
-        camera.hflip = True
-    else:
-        camera.hflip = False
-    if settings_dict['video_image_vertical_flip'] == 'True':
-        camera.vflip = True
-    else:
-        camera.vflip = False
-    camera.image_effect = settings_dict['video_image_effect']
-    camera.rotation = int(settings_dict['video_image_rotation'])
-    if settings_dict['video_stabilisation'] == 'True':
-        camera.video_stabilization = True
-    else:
-        camera.video_stabilization = False
 
+def round_up_to_even(f):
+    return math.ceil(f / 2.) * 2
+
+
+def set_camera_settings():
+    MAX_RES = 1080
+    try:
+        txt = settings_dict['video_out_overlay_text'].replace('~','%')
+        font_size = settings_dict['video_out_overlay_text_size']
+        camera.annotate_text = dt.datetime.now().strftime(txt)
+        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
+        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+            camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
+        else:
+            camera.annotate_background = None
+        ratio = MAX_RES / settings_dict['video_in_height']
+        camera.annotate_text_size = round_up_to_even(int(font_size) / ratio)
+        if settings_dict['video_image_automatic_white_balance'] != 'off':
+            camera.awb_mode = settings_dict['video_image_automatic_white_balance']
+        camera.brightness = int(settings_dict['video_image_brightness'])
+        camera.contrast = int(settings_dict['video_image_contrast'])
+        camera.saturation = int(settings_dict['video_image_saturation'])
+        camera.sharpness = int(settings_dict['video_image_sharpness'])
+        camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
+        camera.exposure_mode = settings_dict['video_image_exposure']
+        if settings_dict['video_image_horizontal_flip'] == 'True':
+            camera.hflip = True
+        else:
+            camera.hflip = False
+        if settings_dict['video_image_vertical_flip'] == 'True':
+            camera.vflip = True
+        else:
+            camera.vflip = False
+        camera.image_effect = settings_dict['video_image_effect']
+        camera.rotation = int(settings_dict['video_image_rotation'])
+        if settings_dict['video_stabilisation'] == 'True':
+            camera.video_stabilization = True
+        else:
+            camera.video_stabilization = False
+    except e as Exception:
+        print(e)
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
@@ -458,4 +469,4 @@ except:
                                 '</center>')
         server.serve_forever()
     except:
-        camera.close()
+        pass
