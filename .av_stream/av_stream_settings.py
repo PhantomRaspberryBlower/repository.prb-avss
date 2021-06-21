@@ -414,8 +414,10 @@ def set_camera_settings():
     print("Working to here :)")
     txt = settings_dict['video_out_overlay_text'].replace('~','%')
     font_size = settings_dict['video_out_overlay_text_size']
+    print("Working to here 2 :)")
     camera.annotate_text = dt.datetime.now().strftime(txt)
     camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
+    print("Working to here 3 :)")
     if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
         camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
     else:
