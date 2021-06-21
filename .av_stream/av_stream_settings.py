@@ -411,6 +411,7 @@ def round_up_to_even(f):
 
 def set_camera_settings():
     MAX_RES = 1080
+    PREVIEW_RES = 270
     txt = settings_dict['video_out_overlay_text'].replace('~','%')
     font_size = settings_dict['video_out_overlay_text_size']
     camera.annotate_text = dt.datetime.now().strftime(txt)
@@ -419,7 +420,7 @@ def set_camera_settings():
         camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
     else:
         camera.annotate_background = None
-    ratio = int(settings_dict['video_in_height']) / MAX_RES
+    ratio = PREVIEW_RES / MAX_RES
     print(str(ratio))
     camera.annotate_text_size = round_up_to_even(int(font_size) * ratio)
     print(str(camera.annotate_text_size))
