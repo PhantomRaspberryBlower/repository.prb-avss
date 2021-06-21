@@ -419,9 +419,9 @@ def set_camera_settings():
         camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
     else:
         camera.annotate_background = None
-    ratio = MAX_RES / int(settings_dict['video_in_height'])
+    ratio = int(settings_dict['video_in_height']) / MAX_RES
     print(str(ratio))
-    camera.annotate_text_size = round_up_to_even(int(font_size) / ratio)
+    camera.annotate_text_size = round_up_to_even(int(font_size) * ratio)
     print(str(camera.annotate_text_size))
     if settings_dict['video_image_automatic_white_balance'] != 'off':
         camera.awb_mode = settings_dict['video_image_automatic_white_balance']
