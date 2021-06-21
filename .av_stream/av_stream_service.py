@@ -312,7 +312,7 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' -sample_rate %s' % settings_dict['audio_in_sample_rate']
     ffmpeg_cmd += ' -i %s' % settings_dict['audio_hardware']
     ffmpeg_cmd += ' -vcodec copy'
-    ffmpeg_cmd += ' -f %s' + stream_codec
+    ffmpeg_cmd += ' -f %s' % stream_codec
     ffmpeg_cmd += ' -metadata title="%s"' % settings_dict['metadata_title']
     ffmpeg_cmd += ' -metadata year="%s"' % metadata_year
     ffmpeg_cmd += ' -metadata description="%s"' % settings_dict['metadata_description']
