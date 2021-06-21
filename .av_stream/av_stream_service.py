@@ -279,7 +279,7 @@ def build_raspivid_cmd():
     raspivid_cmd += ' -h %s' % settings_dict['video_in_height']
     raspivid_cmd += ' -fps %s' % settings_dict['video_in_frames_per_second']
     raspivid_cmd += ' -b %s' % settings_dict['video_in_bitrate']
-    print(raspivid_cmd)
+    return raspivid_cmd
 
 def build_ffmpeg_cmd():
     url = ''
@@ -303,7 +303,7 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' -f %s' % settings_dict['video_in_codec']
     ffmpeg_cmd += ' -vsync 2'
     ffmpeg_cmd += video_offset
-    ffmpeg_cmd += ' -i - '
+    ffmpeg_cmd += ' -i -'
     ffmpeg_cmd += ' -thread_queue_size 1024'
     ffmpeg_cmd += ' -f %s' % settings_dict['audio_in_codec']
     ffmpeg_cmd += ' -guess_layout_max 0'
@@ -321,9 +321,9 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' -acodec %s' % settings_dict['audio_out_codec']
     ffmpeg_cmd += ' -ar %s' % settings_dict['audio_out_sample_rate']
     ffmpeg_cmd += ' -b:a %s' % settings_dict['audio_out_bitrate']
-    ffmpeg_cmd += ' %s%s ' % (url, port_or_key)
-    ffmpeg_cmd += '-hide_banner -nostats -loglevel "quiet"'
-    print(ffmpeg_cmd)
+    ffmpeg_cmd += ' %s%s' % (url, port_or_key)
+    ffmpeg_cmd += ' -hide_banner -nostats -loglevel "quiet"'
+    return ffmpeg_cmd
 
 def start_stream():
     print("Working to here :)")
