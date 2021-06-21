@@ -423,7 +423,8 @@ def set_camera_settings():
         camera.annotate_background = None
     ratio = PREVIEW_RES / MAX_RES
     print(str(ratio))
-    camera.annotate_text_size = round_up_to_even(int(font_size) * ratio)
+    print(str(round_up_to_even((int(font_size) * ratio))))
+    camera.annotate_text_size = round_up_to_even((int(font_size) * ratio))
     print(str(camera.annotate_text_size))
     if settings_dict['video_image_automatic_white_balance'] != 'off':
         camera.awb_mode = settings_dict['video_image_automatic_white_balance']
