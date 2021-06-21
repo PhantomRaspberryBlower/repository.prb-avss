@@ -243,21 +243,52 @@ def start_stop_stream():
         previous_state = current_state
 
 
-def start_stream():
-    # Speak through the headphone socket
-    t = threading.Thread(target=play_sound, args=("starting_stream.mp3",))
-    t.start()
-    logging.info('Starting audio video stream')
-    get_settings()
+def build_raspivid_cmd():
+    overlay_text = ''
+    raspivid_cmd = 'raspivid -t 0'
+    if len(settings_dict['video_out_overlay_text']) > 0:
+        overlay_text = ' -a %s -a %s -ae 36,0x%s' % (settings_dict['video_out_overlay_text_size'],
+                                                    settings_dict['video_out_overlay_text'].replace('~','%'),
+                                                    settings_dict['video_out_overlay_text_color'].replace('#',''))
+        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+            overlay_text +=',0x%s ' % settings_dict['video_out_overlay_bg_color'].replace('#', '')
+        else:
+            overlay_text +=',0x8080FF'
+    raspivid_cmd += overlay_text
+    raspivid_cmd += ' -g %s' % settings_dict['video_in_intra_refresh_period']
+    raspivid_cmd += ' -roi 0,0,0.998,1'
+    if settings_dict['video_image_horitzontal_flip'] == 'True':
+        raspivid_cmd += ' -hf'
+    if settings_dict['video_image_vertical_flip'] == 'True':
+        raspivid_cmd += ' -vf'
+    if settings_dict['video_stabilisation'] == 'True':
+        raspivid_cmd += ' -vs'
+    raspivid_cmd += ' -rot %s' % settings_dict['video_image_rotation']
+    raspivid_cmd += ' -br %s' % settings_dict['video_image_brightness']
+    raspivid_cmd += ' -co %s' % settings_dict['video_image_contrast']
+    raspivid_cmd += ' -sa %s' % settings_dict['video_image_saturation']
+    raspivid_cmd += ' -sh %s' % settings_dict['video_image_sharpness']
+    raspivid_cmd += ' -ex %s' % settings_dict['video_image_exposure']
+    raspivid_cmd += ' -pf %s' % settings_dict['video_image_profile']
+    raspivid_cmd += ' -awb %s' % settings_dict['video_image_automatic_white_balance']
+    raspivid_cmd += ' -drc %s' % settings_dict['video_image_dynamic_range_compression']
+    raspivid_cmd += ' -fli %s' % settings_dict['video_image_flicker_avoidance']
+    raspivid_cmd += ' -ifx %s' % settings_dict['video_image_effect']
+    raspivid_cmd += ' -o -'
+    raspivid_cmd += ' -w %s' % settings_dict['video_in_width']
+    raspivid_cmd += ' -h %s' % settings_dict['video_in_height']
+    raspivid_cmd += ' -fps %s' % settings_dict['video_in_frames_per_second']
+    raspivid_cmd += ' -b %s' % settings_dict['video_in_bitrate']
+    print(raspivid_cmd)
+
+def build_ffmpeg_cmd():
     url = ''
+    port_or_key = ''
     audio_offset = ''
     video_offset = ''
-    port_or_key = ''
-    overlay_text = ''
-
     if settings_dict['itsoffset'] == 'audio':
-        settings_dict['audio_offset'] = '-itsoffset %s ' % settings_dict['itsoffset_seconds']
-        settings_dict['video_offset'] = '-itsoffset %s ' % settings_dict['itsoffset_seconds']
+        settings_dict['audio_offset'] = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
+        settings_dict['video_offset'] = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
 
     if settings_dict['startup_udp'] == 'True':
         url = settings_dict['broadcast_url']
@@ -266,78 +297,108 @@ def start_stream():
     else:
         url = settings_dict['facebook_url']
         stream_codec = settings_dict['video_out_codec']
+
+    ffmpeg_cmd = ''
+    ffmpeg_cmd += 'ffmpeg -thread_queue_size 1024'
+    ffmpeg_cmd += ' -f %s' % settings_dict['video_in_codec']
+    ffmpeg_cmd += ' -vsync 2'
+    ffmpeg_cmd += video_offset
+    ffmpeg_cmd += ' -i - '
+    ffmpeg_cmd += ' -thread_queue_size 1024'
+    ffmpeg_cmd += ' -f %s' % settings_dict['audio_in_codec']
+    ffmpeg_cmd += ' -guess_layout_max 0'
+    ffmpeg_cmd += audio_offset
+    ffmpeg_cmd += ' -channels %s' % settings_dict['audio_in_channels']
+    ffmpeg_cmd += ' -sample_rate %s' % settings_dict['audio_in_sample_rate']
+    ffmpeg_cmd += ' -i %s' % settings_dict['audio_hardware']
+    ffmpeg_cmd += ' -vcodec copy'
+    ffmpeg_cmd += ' -f %s' + stream_codec
+    ffmpeg_cmd += ' -metadata title="%s"' % settings_dict['metadata_title']
+    ffmpeg_cmd += ' -metadata year="%s"' % metadata_year
+    ffmpeg_cmd += ' -metadata description="%s"' % settings_dict['metadata_description']
+    ffmpeg_cmd += ' -metadata copyright="%s"' % settings_dict['metadata_copyright']
+    ffmpeg_cmd += ' -metadata comment="%s"' % settings_dict['metadata_comment']
+    ffmpeg_cmd += ' -acodec %s' % settings_dict['audio_out_codec']
+    ffmpeg_cmd += ' -ar %s' % settings_dict['audio_out_sample_rate']
+    ffmpeg_cmd += ' -b:a %s' % settings_dict['audio_out_bitrate']
+    ffmpeg_cmd += ' %s%s ' % (url, port_or_key)
+    ffmpeg_cmd += '-hide_banner -nostats -loglevel "quiet"'
+    print(ffmpeg_cmd)
+
+def start_stream():
+    # Speak through the headphone socket
+    t = threading.Thread(target=play_sound, args=("starting_stream.mp3",))
+    t.start()
+    logging.info('Starting audio video stream')
+    get_settings()
+
     
     kill_settings()
 
-    if len(settings_dict['video_out_overlay_text']) > 0:
-        overlay_text = '-a %s -a %s -ae 36,0x%s' % (settings_dict['video_out_overlay_text_size'],
-                                                    settings_dict['video_out_overlay_text'].replace('~','%'),
-                                                    settings_dict['video_out_overlay_text_color'].replace('#',''))
-        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-            overlay_text +=',0x%s ' % settings_dict['video_out_overlay_bg_color'].replace('#', '')
-        else:
-            overlay_text +=',0x8080FF '
-#        overlay_text = settings_dict['video_out_overlay_text'].replace('~','%') + ' '
-    cmd = ('raspivid '
-           '-t 0 '
-           '%s'
-           '-g %s '
-           '-roi 0,0,0.998,1 '
-           '-o - '
-           '-w %s '
-           '-h %s '
-           '-fps %s '
-           '-b %s '
-           '| ffmpeg '
-           '-thread_queue_size 1024 '
-           '-f %s '
-           '-vsync 2 '
-           '%s'
-           '-i - '
-           '-thread_queue_size 1024 '
-           '-f %s '
-           '-guess_layout_max 0 '
-           '%s'
-           '-channels %s '
-           '-sample_rate %s '
-           '-i %s '
-           '-vcodec copy '
-           '-f %s '
-           '-metadata title="%s" '
-           '-metadata year="%s" '
-           '-metadata description="%s" '
-           '-metadata copyright="%s" '
-           '-metadata comment="%s" '
-           '-acodec %s '
-           '-ar %s '
-           '-b:a %s '
-           '%s%s '
-           '-hide_banner '
-           '-nostats '
-           '-loglevel "quiet"') % (overlay_text,
-                                   settings_dict['video_in_intra_refresh_period'],
-                                   settings_dict['video_in_width'],
-                                   settings_dict['video_in_height'],
-                                   settings_dict['video_in_frames_per_second'],
-                                   settings_dict['video_in_bitrate'],
-                                   settings_dict['video_in_codec'],
-                                   video_offset,
-                                   settings_dict['audio_in_codec'],
-                                   audio_offset,
-                                   settings_dict['audio_in_channels'],
-                                   settings_dict['audio_in_sample_rate'],
-                                   settings_dict['audio_hardware'],
-                                   stream_codec,
-                                   settings_dict['metadata_title'],
-                                   metadata_year,
-                                   settings_dict['metadata_description'],
-                                   settings_dict['metadata_copyright'],
-                                   settings_dict['metadata_comment'],
-                                   settings_dict['audio_out_codec'],
-                                   settings_dict['audio_out_sample_rate'],
-                                   settings_dict['audio_out_bitrate'],
-                                   url,
-                                   port_or_key)
+    cmd = build_raspivid_cmd() + ' | ' + build_ffmpeg_cmd()
+    print(cmd)
+
+#    cmd = ('raspivid '
+#           '-t 0 '
+#           '%s'
+#           '-g %s '
+#           '-roi 0,0,0.998,1 '
+#           '-o - '
+#           '-w %s '
+#           '-h %s '
+#           '-fps %s '
+#           '-b %s '
+#           '| ffmpeg '
+#           '-thread_queue_size 1024 '
+#           '-f %s '
+#           '-vsync 2 '
+#           '%s'
+#           '-i - '
+#           '-thread_queue_size 1024 '
+#           '-f %s '
+#           '-guess_layout_max 0 '
+#           '%s'
+#           '-channels %s '
+#           '-sample_rate %s '
+#           '-i %s '
+#           '-vcodec copy '
+#           '-f %s '
+#           '-metadata title="%s" '
+#           '-metadata year="%s" '
+#           '-metadata description="%s" '
+#           '-metadata copyright="%s" '
+#           '-metadata comment="%s" '
+#           '-acodec %s '
+#           '-ar %s '
+#           '-b:a %s '
+#           '%s%s '
+#           '-hide_banner '
+#           '-nostats '
+#           '-loglevel "quiet"') % (overlay_text,
+#                                   settings_dict['video_in_intra_refresh_period'],
+#                                   settings_dict['video_in_width'],
+#                                   settings_dict['video_in_height'],
+#                                   settings_dict['video_in_frames_per_second'],
+#                                   settings_dict['video_in_bitrate'],
+#                                   settings_dict['video_in_codec'],
+#                                   video_offset,
+#                                   settings_dict['audio_in_codec'],
+#                                   audio_offset,
+#                                   settings_dict['audio_in_channels'],
+#                                   settings_dict['audio_in_sample_rate'],
+#                                   settings_dict['audio_hardware'],
+#                                   stream_codec,
+#                                   settings_dict['metadata_title'],
+#                                   metadata_year,
+#                                   settings_dict['metadata_description'],
+#                                   settings_dict['metadata_copyright'],
+#                                   settings_dict['metadata_comment'],
+#                                   settings_dict['audio_out_codec'],
+#                                   settings_dict['audio_out_sample_rate'],
+#                                   settings_dict['audio_out_bitrate'],
+#                                   url,
+#                                   port_or_key)
+
     os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
