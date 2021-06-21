@@ -248,10 +248,10 @@ def build_raspivid_cmd():
     raspivid_cmd = 'raspivid -t 0'
     if len(settings_dict['video_out_overlay_text']) > 0:
         overlay_text = ' -a %s -a "%s" -ae 36,0x%s' % (settings_dict['video_out_overlay_text_size'],
-                                                      settings_dict['video_out_overlay_text'].replace('~','%'),
-                                                      settings_dict['video_out_overlay_text_color'].replace('#',''))
+                                                       settings_dict['video_out_overlay_text'].replace('~','%'),
+                                                       settings_dict['video_out_overlay_text_color'].replace('#',''))
         if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-            overlay_text +=',0x%s ' % settings_dict['video_out_overlay_bg_color'].replace('#', '')
+            overlay_text +=',0x%s' % settings_dict['video_out_overlay_bg_color'].replace('#', '')
         else:
             overlay_text +=',0x8080FF'
     raspivid_cmd += overlay_text
@@ -326,7 +326,6 @@ def build_ffmpeg_cmd():
     return ffmpeg_cmd
 
 def start_stream():
-    print("Working to here :)")
     # Speak through the headphone socket
     t = threading.Thread(target=play_sound, args=("starting_stream.mp3",))
     t.start()
