@@ -411,6 +411,7 @@ def round_up_to_even(f):
 
 def set_camera_settings():
     MAX_RES = 1080
+    print("Working to here :)")
     txt = settings_dict['video_out_overlay_text'].replace('~','%')
     font_size = settings_dict['video_out_overlay_text_size']
     camera.annotate_text = dt.datetime.now().strftime(txt)
@@ -420,6 +421,7 @@ def set_camera_settings():
     else:
         camera.annotate_background = None
     ratio = MAX_RES / settings_dict['video_in_height']
+    print(ratio)
     camera.annotate_text_size = round_up_to_even(int(font_size) / ratio)
     if settings_dict['video_image_automatic_white_balance'] != 'off':
         camera.awb_mode = settings_dict['video_image_automatic_white_balance']
