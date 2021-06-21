@@ -337,6 +337,8 @@ def start_stream():
     kill_settings()
 
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
+    print(build_raspivid_cmd() + '\n\n')
+    print(build_ffmpeg_cmd() + '\n\n')
     print(cmd)
 
 #    cmd = ('raspivid '
@@ -400,7 +402,7 @@ def start_stream():
 #                                   url,
 #                                   port_or_key)
 
-    os.popen(cmd)
+#    os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
     GPIO.output(LED_PIN, GPIO.HIGH)
