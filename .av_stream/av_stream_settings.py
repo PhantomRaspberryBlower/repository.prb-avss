@@ -446,8 +446,8 @@ def set_camera_settings():
             camera.video_stabilization = True
         else:
             camera.video_stabilization = False
-    except e as Exception:
-        return e
+    except:
+        pass
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
