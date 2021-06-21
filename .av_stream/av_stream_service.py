@@ -290,7 +290,7 @@ def build_ffmpeg_cmd():
     if settings_dict['itsoffset'] != 'none':
         if settings_dict['itsoffset'] == 'audio':
             audio_offset = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
-        if settings_dict['itoffset'] == 'video':
+        elif settings_dict['itsoffset'] == 'video':
             video_offset = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
 
     if settings_dict['startup_udp'] == 'True':
