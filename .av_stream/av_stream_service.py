@@ -336,7 +336,7 @@ def start_stream():
     
     kill_settings()
 
-    cmd = build_raspivid_cmd() + ' | ' + build_ffmpeg_cmd()
+    cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
     print(cmd)
 
 #    cmd = ('raspivid '
