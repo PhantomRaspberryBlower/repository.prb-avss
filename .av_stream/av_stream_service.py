@@ -257,7 +257,7 @@ def build_raspivid_cmd():
     raspivid_cmd += overlay_text
     raspivid_cmd += ' -g %s' % settings_dict['video_in_intra_refresh_period']
     raspivid_cmd += ' -roi 0,0,0.998,1'
-    if settings_dict['video_image_horitzontal_flip'] == 'True':
+    if settings_dict['video_image_horizontal_flip'] == 'True':
         raspivid_cmd += ' -hf'
     if settings_dict['video_image_vertical_flip'] == 'True':
         raspivid_cmd += ' -vf'
