@@ -412,12 +412,12 @@ def set_camera_settings():
     else:
         camera.annotate_background = None
     camera.annotate_text_size = int(font_size)
-    camera.awb_mode = settings_dict['video_image_automatic_white_balance']
+#    camera.awb_mode = settings_dict['video_image_automatic_white_balance']
     camera.brightness = int(settings_dict['video_image_brightness'])
     camera.contrast = int(settings_dict['video_image_contrast'])
     camera.saturation = int(settings_dict['video_image_saturation'])
     camera.sharpness = int(settings_dict['video_image_sharpness'])
-#    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
+    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
 #    camera.exposure_mode = settings_dict['video_image_exposure']
     if settings_dict['video_image_horizontal_flip'] == 'True':
         camera.hflip = True
