@@ -422,7 +422,7 @@ def set_camera_settings():
     else:
         camera.annotate_background = None
     print("Working to here 3 :)")
-    ratio = MAX_RES / settings_dict['video_in_height']
+    ratio = MAX_RES / int(settings_dict['video_in_height'])
     print(str(ratio))
     camera.annotate_text_size = round_up_to_even(int(font_size) / ratio)
     if settings_dict['video_image_automatic_white_balance'] != 'off':
