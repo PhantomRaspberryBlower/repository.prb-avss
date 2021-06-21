@@ -326,6 +326,7 @@ def build_ffmpeg_cmd():
     print(ffmpeg_cmd)
 
 def start_stream():
+    print("Working to here :)")
     # Speak through the headphone socket
     t = threading.Thread(target=play_sound, args=("starting_stream.mp3",))
     t.start()
