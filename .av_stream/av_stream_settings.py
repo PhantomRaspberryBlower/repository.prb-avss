@@ -38,7 +38,8 @@ video_image_flicker_avoidances = ['off', 'auto', '50hz', '60hz']
 video_image_profiles = ['baseline', 'main', 'high']
 video_image_rotations = ['0', '90', '180', '270']
 video_out_overlay_text_sizes = ['8', '10', '12', '14', '16', '18', '20', '22',
-                                '24', '26', '28', '30', '32', '34', '36', '38']
+                                '24', '26', '28', '30', '32', '34', '36', '38', 
+                                '40', '42', '44', '46', '48', '50', '52', '54']
 video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 settings_dict = {}
 hidden_form_elements = '<br>'
