@@ -332,75 +332,11 @@ def start_stream():
     t.start()
     logging.info('Starting audio video stream')
     get_settings()
-
-    
+   
     kill_settings()
 
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
-    print(build_raspivid_cmd() + '\n\n')
-    print(build_ffmpeg_cmd() + '\n\n')
     print(cmd)
-
-#    cmd = ('raspivid '
-#           '-t 0 '
-#           '%s'
-#           '-g %s '
-#           '-roi 0,0,0.998,1 '
-#           '-o - '
-#           '-w %s '
-#           '-h %s '
-#           '-fps %s '
-#           '-b %s '
-#           '| ffmpeg '
-#           '-thread_queue_size 1024 '
-#           '-f %s '
-#           '-vsync 2 '
-#           '%s'
-#           '-i - '
-#           '-thread_queue_size 1024 '
-#           '-f %s '
-#           '-guess_layout_max 0 '
-#           '%s'
-#           '-channels %s '
-#           '-sample_rate %s '
-#           '-i %s '
-#           '-vcodec copy '
-#           '-f %s '
-#           '-metadata title="%s" '
-#           '-metadata year="%s" '
-#           '-metadata description="%s" '
-#           '-metadata copyright="%s" '
-#           '-metadata comment="%s" '
-#           '-acodec %s '
-#           '-ar %s '
-#           '-b:a %s '
-#           '%s%s '
-#           '-hide_banner '
-#           '-nostats '
-#           '-loglevel "quiet"') % (overlay_text,
-#                                   settings_dict['video_in_intra_refresh_period'],
-#                                   settings_dict['video_in_width'],
-#                                   settings_dict['video_in_height'],
-#                                   settings_dict['video_in_frames_per_second'],
-#                                   settings_dict['video_in_bitrate'],
-#                                   settings_dict['video_in_codec'],
-#                                   video_offset,
-#                                   settings_dict['audio_in_codec'],
-#                                   audio_offset,
-#                                   settings_dict['audio_in_channels'],
-#                                   settings_dict['audio_in_sample_rate'],
-#                                   settings_dict['audio_hardware'],
-#                                   stream_codec,
-#                                   settings_dict['metadata_title'],
-#                                   metadata_year,
-#                                   settings_dict['metadata_description'],
-#                                   settings_dict['metadata_copyright'],
-#                                   settings_dict['metadata_comment'],
-#                                   settings_dict['audio_out_codec'],
-#                                   settings_dict['audio_out_sample_rate'],
-#                                   settings_dict['audio_out_bitrate'],
-#                                   url,
-#                                   port_or_key)
 
     os.popen(cmd)
     # Notification audio & video stream started (video)
