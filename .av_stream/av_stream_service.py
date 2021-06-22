@@ -274,7 +274,8 @@ def build_raspivid_cmd():
     raspivid_cmd += ' -sh %s' % settings_dict['video_image_sharpness']
     raspivid_cmd += ' -ex %s' % settings_dict['video_image_exposure']
     raspivid_cmd += ' -pf %s' % settings_dict['video_image_profile']
-    raspivid_cmd += ' -awb %s' % settings_dict['video_image_automatic_white_balance']
+    if settings_dict['video_image_automatic_white_balance'] != 'off':
+        raspivid_cmd += ' -awb %s' % settings_dict['video_image_automatic_white_balance']
     raspivid_cmd += ' -drc %s' % settings_dict['video_image_dynamic_range_compression']
     raspivid_cmd += ' -fli %s' % settings_dict['video_image_flicker_avoidance']
     raspivid_cmd += ' -ifx %s' % settings_dict['video_image_effect']
