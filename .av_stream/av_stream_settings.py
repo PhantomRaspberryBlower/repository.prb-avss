@@ -406,11 +406,16 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     daemon_threads = True
 
 
-def round_up_to_even(f):
-    print(str(f))
-    print(str(math.floor(f / 2.) * 2))
-    print(str(math.ceil(f / 2.) * 2))
-    return math.ceil(f / 2.) * 2
+def round_to_even(f):
+    print(f)
+    a = math.floor(f / 2.) * 2
+    b = math.ceil(f / 2.) * 2
+    if a != b:
+        print(a)
+        return a
+    else:
+        print(b)
+        return b
 
 
 def set_camera_settings():
@@ -426,7 +431,7 @@ def set_camera_settings():
         else:
             camera.annotate_background = None
         ratio = PREVIEW_RES / MAX_RES
-        camera.annotate_text_size = round_up_to_even((int(font_size) * ratio))
+        camera.annotate_text_size = round_to_even((int(font_size) * ratio))
         if settings_dict['video_image_automatic_white_balance'] != 'off':
             camera.awb_mode = settings_dict['video_image_automatic_white_balance']
         camera.brightness = int(settings_dict['video_image_brightness'])
