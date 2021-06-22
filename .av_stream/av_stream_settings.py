@@ -407,6 +407,9 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 
 def round_up_to_even(f):
+    print(str(f))
+    print(str(math.floor(f / 2.) * 2))
+    print(str(math.ceil(f / 2.) * 2))
     return math.ceil(f / 2.) * 2
 
 
