@@ -132,13 +132,15 @@ def kill_settings():
     global settings_status
     global settings_proc
     if settings_status != None:
+        print('Killed')
+        print(settings_status)
         subprocess.Popen.terminate(settings_proc)
         settings_status = subprocess.Popen.poll(settings_proc)
 
 
 def kill_streams(processes=None):
     # Kill all currently running audio & video stream processes
-    if processes != None:
+    if processes == None:
         processes = ['raspivid', 'ffmpeg']
     # List running processes
     subproc = subprocess.Popen(['ps', '-A'], stdout=subprocess.PIPE)
@@ -220,6 +222,8 @@ def speak_ip():
 def start_settings_webpage():
     global settings_proc
     global settings_status
+    print('Started Webpage')
+    print(settings_status)
     settings_proc = subprocess.Popen(['python3', WORK_DIR + '/av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
@@ -334,8 +338,12 @@ def start_stream():
     t.start()
     logging.info('Starting audio video stream')
     get_settings()
+   
     kill_settings()
+
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
+    print(cmd)
+
     os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
