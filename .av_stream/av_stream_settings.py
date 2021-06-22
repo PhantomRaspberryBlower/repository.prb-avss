@@ -399,6 +399,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         set_camera_settings()
         self.do_GET()
 
+    def log_message(self, format, *args):
+        return
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     global hidden_form_elements
