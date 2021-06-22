@@ -65,18 +65,6 @@ Protocol (SSH) or if installed onto Raspbian full version - Virtual Network Comp
 the IP address you wrote down i.e. if the IP address is "192.168.0.10" type 192.168.0.10. Type in the 
 username (pi) and password (default is raspberry). Once connected using SSH type 'cd /home/pi/.av_stream' 
 to change directory; type 'ls -a' to view all the files for Audio Video Streaming Service.
-<b>Using VNC</b> To connect using VNC download and install TightVNC. Using TightVNC connect to the Pi 
-with the IP address you wrote down, two colons and port number 5901 i.e. if the IP address is 
-"192.168.0.10" type 192.168.0.10::5901 Type in the username (pi) and password (default is raspberry). 
-Once connected using VNC navigate to the '/home/pi/.av_stream' directory to view all the files for Audio 
-Video Streaming Service.
-<b>NOTE:-</b> If you are connected using VNC you may notice that OBS Studio is installed. THIS IS FOR 
-TESTING PURPOSES ONLY! Currently as of April 2021 OBS Studio does not utilize the graphics processor 
-(GPU) for hardware encoding, leaving only software encoding using the CPU. When recording or streaming 
-this over-works the poor Pi which can only a manage 5fps at 1920x1080, 10fps at 1280x720 and 18fps at 
-a resolution of 960x540. The CPU will reach 75 degrees centigrade very rapidly. For this reason, this 
-should not be used for long periods or it will eventually damage the Pi. Like I said earlier only for 
-testing purposes.
 
 <b>Config file:</b>
 <b>------------</b>
