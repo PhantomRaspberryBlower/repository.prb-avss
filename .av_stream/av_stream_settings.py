@@ -458,6 +458,7 @@ try:
         set_camera_settings()
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
+        print("Working to here")
         try:
             address = ('', 8000)
             server = StreamingServer(address, StreamingHandler)
