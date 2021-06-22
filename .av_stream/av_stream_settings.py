@@ -416,6 +416,7 @@ def round_to_even(f):
 
 
 def set_camera_settings():
+    print('Working to here!')
     MAX_RES = 1080
     PREVIEW_RES = 270
     txt = settings_dict['video_out_overlay_text'].replace('~','%')
