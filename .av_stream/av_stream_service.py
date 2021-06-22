@@ -131,7 +131,7 @@ def cleanup():
 def kill_settings():
     global settings_status
     global settings_proc
-    if settings_status:
+    if settings_status != None:
         subprocess.Popen.terminate(settings_proc)
         settings_status = subprocess.Popen.poll(settings_proc)
 
