@@ -138,7 +138,7 @@ def kill_settings():
 
 def kill_streams(processes=None):
     # Kill all currently running audio & video stream processes
-    if processes == None:
+    if processes != None:
         processes = ['raspivid', 'ffmpeg']
     # List running processes
     subproc = subprocess.Popen(['ps', '-A'], stdout=subprocess.PIPE)
