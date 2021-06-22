@@ -410,7 +410,7 @@ def round_to_even(f):
     print(f)
     a = math.floor(f / 2.) * 2
     b = math.ceil(f / 2.) * 2
-    if a != b:
+    if (f-a) < (b-f):
         print(a)
         return a
     else:
