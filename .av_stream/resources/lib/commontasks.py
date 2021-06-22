@@ -19,6 +19,7 @@ INVALID_FILENAME_CHARS = '\/:*?"<>|'
 
 todays_date = date.today()
 
+
 def get_settings(path="~/.av_stream/config.ini"):
     # Open config settings
     config_object.read(path)
