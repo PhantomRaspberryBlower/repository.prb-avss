@@ -132,8 +132,7 @@ def kill_settings():
     global settings_status
     global settings_proc
     if settings_status == None:
-        print('Killed settings')
-        print(settings_status)
+        print('Stop webpage')
         subprocess.Popen.terminate(settings_proc)
         settings_status = subprocess.Popen.poll(settings_proc)
 
@@ -223,7 +222,6 @@ def start_settings_webpage():
     global settings_proc
     global settings_status
     print('Started Webpage')
-    print(settings_status)
     settings_proc = subprocess.Popen(['python3', WORK_DIR + '/av_stream_settings.py'])
     settings_status = subprocess.Popen.poll(settings_proc)
 
@@ -261,24 +259,24 @@ def build_raspivid_cmd():
     raspivid_cmd += overlay_text
     raspivid_cmd += ' -g %s' % settings_dict['video_in_intra_refresh_period']
     raspivid_cmd += ' -roi 0,0,0.998,1'
-    if settings_dict['video_image_horizontal_flip'] == 'True':
-        raspivid_cmd += ' -hf'
-    if settings_dict['video_image_vertical_flip'] == 'True':
-        raspivid_cmd += ' -vf'
-    if settings_dict['video_stabilisation'] == 'True':
-        raspivid_cmd += ' -vs'
-    raspivid_cmd += ' -rot %s' % settings_dict['video_image_rotation']
-    raspivid_cmd += ' -br %s' % settings_dict['video_image_brightness']
-    raspivid_cmd += ' -co %s' % settings_dict['video_image_contrast']
-    raspivid_cmd += ' -sa %s' % settings_dict['video_image_saturation']
-    raspivid_cmd += ' -sh %s' % settings_dict['video_image_sharpness']
-    raspivid_cmd += ' -ex %s' % settings_dict['video_image_exposure']
-    raspivid_cmd += ' -pf %s' % settings_dict['video_image_profile']
-    if settings_dict['video_image_automatic_white_balance'] != 'off':
-        raspivid_cmd += ' -awb %s' % settings_dict['video_image_automatic_white_balance']
-    raspivid_cmd += ' -drc %s' % settings_dict['video_image_dynamic_range_compression']
-    raspivid_cmd += ' -fli %s' % settings_dict['video_image_flicker_avoidance']
-    raspivid_cmd += ' -ifx %s' % settings_dict['video_image_effect']
+#    if settings_dict['video_image_horizontal_flip'] == 'True':
+#        raspivid_cmd += ' -hf'
+#    if settings_dict['video_image_vertical_flip'] == 'True':
+#        raspivid_cmd += ' -vf'
+#    if settings_dict['video_stabilisation'] == 'True':
+#        raspivid_cmd += ' -vs'
+#    raspivid_cmd += ' -rot %s' % settings_dict['video_image_rotation']
+#    raspivid_cmd += ' -br %s' % settings_dict['video_image_brightness']
+#    raspivid_cmd += ' -co %s' % settings_dict['video_image_contrast']
+#    raspivid_cmd += ' -sa %s' % settings_dict['video_image_saturation']
+#    raspivid_cmd += ' -sh %s' % settings_dict['video_image_sharpness']
+#    raspivid_cmd += ' -ex %s' % settings_dict['video_image_exposure']
+#    raspivid_cmd += ' -pf %s' % settings_dict['video_image_profile']
+#    if settings_dict['video_image_automatic_white_balance'] != 'off':
+#        raspivid_cmd += ' -awb %s' % settings_dict['video_image_automatic_white_balance']
+#    raspivid_cmd += ' -drc %s' % settings_dict['video_image_dynamic_range_compression']
+#    raspivid_cmd += ' -fli %s' % settings_dict['video_image_flicker_avoidance']
+#    raspivid_cmd += ' -ifx %s' % settings_dict['video_image_effect']
     raspivid_cmd += ' -o -'
     raspivid_cmd += ' -w %s' % settings_dict['video_in_width']
     raspivid_cmd += ' -h %s' % settings_dict['video_in_height']
