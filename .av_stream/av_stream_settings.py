@@ -400,7 +400,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         self.do_GET()
 
     def log_message(self, format, *args):
-        print(format)
+        print(format, *args)
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     global hidden_form_elements
