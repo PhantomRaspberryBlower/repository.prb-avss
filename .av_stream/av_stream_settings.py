@@ -22,23 +22,23 @@ offset_types = ['none', 'audio', 'video']
 update_intervals = ['1', '7', '30']
 video_codecs = ['mp4', 'mpegts']
 video_fps = ['15', '20', '25', '30']
-video_image_automatic_white_balances = ['off', 'auto', 'cloudy', 'flash', 
+video_image_automatic_white_balances = ['off', 'auto', 'cloudy', 'flash',
                                         'fluorescent', 'horizon','incandescent',
                                         'sunlight', 'shade', 'tungsten']
 video_image_dynamic_range_compressions = ['off', 'low', 'med', 'high']
 video_image_effects = ['none', 'blur', 'cartoon', 'colorbalance', 'colorswap',
-                       'colorpoint', 'deinterlace1', 'deinterlace2', 'denoise', 
-                       'emboss', 'film', 'gpen', 'hatch', 'negative', 'oilpaint', 
-                       'pastel', 'posterise', 'saturation', 'sketch', 'solarize', 
+                       'colorpoint', 'deinterlace1', 'deinterlace2', 'denoise',
+                       'emboss', 'film', 'gpen', 'hatch', 'negative', 'oilpaint',
+                       'pastel', 'posterise', 'saturation', 'sketch', 'solarize',
                        'watercolor', 'washedout']
 video_image_exposures = ['auto', 'antishake', 'backlight', 'beach', 'fireworks',
-                         'fixedfps', 'night', 'nightpreview', 'spotlight', 
+                         'fixedfps', 'night', 'nightpreview', 'spotlight',
                          'sports', 'snow', 'verylong']
 video_image_flicker_avoidances = ['off', 'auto', '50hz', '60hz']
 video_image_profiles = ['baseline', 'main', 'high']
 video_image_rotations = ['0', '90', '180', '270']
 video_out_overlay_text_sizes = ['18', '20', '22', '24', '26', '28', '30', '32',
-                                '34', '36', '38', '40', '42', '44', '46', '48', 
+                                '34', '36', '38', '40', '42', '44', '46', '48',
                                 '50', '52', '54', '56', '58', '60', '62', '64']
 video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 settings_dict = {}
@@ -77,7 +77,7 @@ def set_settings():
 
 def options(opt, lst):
   txt = ''
-  for item in lst: 
+  for item in lst:
     if opt == item:
       txt += '\n  <option selected="selected" value="' + item + '">' + item + '</option>'
     else:
@@ -416,49 +416,49 @@ def round_to_even(f):
 
 
 def set_camera_settings():
-    print('Working to here!')
-    MAX_RES = 1080
-    PREVIEW_RES = 270
-    txt = settings_dict['video_out_overlay_text'].replace('~','%')
-    font_size = settings_dict['video_out_overlay_text_size']
-    camera.annotate_text = dt.datetime.now().strftime(txt)
-    camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
-    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-        camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
-    else:
-        camera.annotate_background = None
-    ratio = PREVIEW_RES / MAX_RES
-    camera.annotate_text_size = round_to_even((int(font_size) * ratio))
-    if settings_dict['video_image_automatic_white_balance'] != 'off':
-        camera.awb_mode = settings_dict['video_image_automatic_white_balance']
-    camera.brightness = int(settings_dict['video_image_brightness'])
-    camera.contrast = int(settings_dict['video_image_contrast'])
-    camera.saturation = int(settings_dict['video_image_saturation'])
-    camera.sharpness = int(settings_dict['video_image_sharpness'])
-    camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
-    camera.exposure_mode = settings_dict['video_image_exposure']
-    if settings_dict['video_image_horizontal_flip'] == 'True':
-        camera.hflip = True
-    else:
-        camera.hflip = False
-    if settings_dict['video_image_vertical_flip'] == 'True':
-        camera.vflip = True
-    else:
-        camera.vflip = False
-    camera.image_effect = settings_dict['video_image_effect']
-    camera.rotation = int(settings_dict['video_image_rotation'])
-    if settings_dict['video_stabilisation'] == 'True':
-        camera.video_stabilization = True
-    else:
-        camera.video_stabilization = False
-
+    try:
+        MAX_RES = 1080
+        PREVIEW_RES = 270
+        txt = settings_dict['video_out_overlay_text'].replace('~','%')
+        font_size = settings_dict['video_out_overlay_text_size']
+        camera.annotate_text = dt.datetime.now().strftime(txt)
+        camera.annotate_foreground = picamera.color.Color(settings_dict['video_out_overlay_text_color'])
+        if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+            camera.annotate_background = picamera.color.Color(settings_dict['video_out_overlay_bg_color'])
+        else:
+            camera.annotate_background = None
+        ratio = PREVIEW_RES / MAX_RES
+        camera.annotate_text_size = round_to_even((int(font_size) * ratio))
+        if settings_dict['video_image_automatic_white_balance'] != 'off':
+            camera.awb_mode = settings_dict['video_image_automatic_white_balance']
+        camera.brightness = int(settings_dict['video_image_brightness'])
+        camera.contrast = int(settings_dict['video_image_contrast'])
+        camera.saturation = int(settings_dict['video_image_saturation'])
+        camera.sharpness = int(settings_dict['video_image_sharpness'])
+        camera.drc_strength = settings_dict['video_image_dynamic_range_compression']
+        camera.exposure_mode = settings_dict['video_image_exposure']
+        if settings_dict['video_image_horizontal_flip'] == 'True':
+            camera.hflip = True
+        else:
+            camera.hflip = False
+        if settings_dict['video_image_vertical_flip'] == 'True':
+            camera.vflip = True
+        else:
+            camera.vflip = False
+        camera.image_effect = settings_dict['video_image_effect']
+        camera.rotation = int(settings_dict['video_image_rotation'])
+        if settings_dict['video_stabilisation'] == 'True':
+            camera.video_stabilization = True
+        else:
+            camera.video_stabilization = False
+    except:
+        pass
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
         set_camera_settings()
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
-        print("Working to here")
         try:
             address = ('', 8000)
             server = StreamingServer(address, StreamingHandler)
