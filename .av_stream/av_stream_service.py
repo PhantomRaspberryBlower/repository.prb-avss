@@ -131,7 +131,7 @@ def cleanup():
 def kill_settings():
     global settings_status
     global settings_proc
-    if settings_status != None:
+    if settings_status:
         subprocess.Popen.terminate(settings_proc)
         settings_status = subprocess.Popen.poll(settings_proc)
 
@@ -245,11 +245,11 @@ def start_stop_stream():
 
 def build_raspivid_cmd():
     overlay_text = ''
-    raspivid_cmd = 'raspivid -t 0'
+    raspivid_cmd = 'raspivid -t 0 -a 12'
     if len(settings_dict['video_out_overlay_text']) > 0:
-        overlay_text = ' -a %s -a "%s" -ae 36,0x%s' % (settings_dict['video_out_overlay_text_size'],
-                                                       settings_dict['video_out_overlay_text'].replace('~','%'),
-                                                       settings_dict['video_out_overlay_text_color'].replace('#',''))
+        overlay_text = ' -a "%s" -ae %s,0x%s' % (settings_dict['video_out_overlay_text'].replace('~','%'),
+                                                 settings_dict['video_out_overlay_text_size'],
+                                                 settings_dict['video_out_overlay_text_color'].replace('#',''))
         if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
             overlay_text +=',0x%s' % settings_dict['video_out_overlay_bg_color'].replace('#', '')
         else:
@@ -334,12 +334,8 @@ def start_stream():
     t.start()
     logging.info('Starting audio video stream')
     get_settings()
-   
     kill_settings()
-
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
-    print(cmd)
-
     os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
