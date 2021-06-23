@@ -400,7 +400,11 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         self.do_GET()
 
     def log_message(self, format, *args):
-        print(format, *args)
+        if args[1] == '301':
+            txt = '%s @ %s Changed Settings' % (self.address_string(),
+                                                dt.date.today()
+                                                .strftime('%d/%m/%Y'))
+            commontasks.write_to_file(WORK_DIR + '/settings.log', txt, True)
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     global hidden_form_elements
