@@ -300,6 +300,7 @@ def build_ffmpeg_cmd():
         url = settings_dict['broadcast_url']
         port_or_key = ':' + settings_dict['broadcast_port']
 #        stream_codec = 'mpegts'
+        stream_codec = 'flv'
     else:
         url = settings_dict['facebook_url']
         stream_codec = settings_dict['video_out_codec']
