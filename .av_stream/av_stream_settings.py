@@ -470,7 +470,7 @@ def set_camera_settings():
 
 
 try:
-    with picamera.PiCamera(resolution='120x720', framerate=24) as camera:
+    with picamera.PiCamera(resolution='1280x720', framerate=24) as camera:
         set_camera_settings()
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
