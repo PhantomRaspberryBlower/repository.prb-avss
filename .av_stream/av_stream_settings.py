@@ -475,7 +475,7 @@ try:
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
         try:
-            address = ('', 8080)
+            address = ('', 8000)
             server = StreamingServer(address, StreamingHandler)
             server.serve_forever()
         finally:
@@ -484,7 +484,7 @@ try:
 except:
     output = StreamingOutput()
     try:
-        address = ('', 8080)
+        address = ('', 8000)
         server = StreamingServer(address, StreamingHandler)
         hidden_form_elements = ('<center><b><p style="color: #8b0000;">Preview'
                                 ' unavailable during a live stream.</p></b>'
