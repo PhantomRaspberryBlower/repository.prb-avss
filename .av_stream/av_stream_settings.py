@@ -349,10 +349,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         # Post the settings to commit any changes
         import urllib.parse
         global settings_dict
-        boolean_options['enable_speaker', 'startup_udp', 'update_os',
-                        'upgrade_os', 'video_out_overlay_bg_color_enabled', 
-                        'video_image_horizontal_flip', 'video_stabilisation', 
-                        'video_image_vertical_flip']
+        boolean_options = ['enable_speaker', 'startup_udp', 'update_os',
+                           'upgrade_os', 'video_out_overlay_bg_color_enabled', 
+                           'video_image_horizontal_flip', 'video_stabilisation', 
+                           'video_image_vertical_flip']
         content_length = int(self.headers['Content-Length']) # Get the size of data
         post_data = self.rfile.read(content_length).decode("utf-8") # Get the data
         post_data = urllib.parse.unquote(str(post_data))
