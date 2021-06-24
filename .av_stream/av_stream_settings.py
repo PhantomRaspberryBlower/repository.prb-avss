@@ -20,7 +20,7 @@ audio_sample_rates = ['44100', '48000']
 logging_levels = ['NONE' ,'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 offset_types = ['none', 'audio', 'video']
 update_intervals = ['1', '7', '30']
-video_codecs = ['mp4', 'mpegts']
+video_codecs = ['flv', 'mp4', 'mpegts']
 video_fps = ['15', '20', '25', '30']
 video_image_automatic_white_balances = ['off', 'auto', 'cloudy', 'flash',
                                         'fluorescent', 'horizon','incandescent',
@@ -349,6 +349,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         # Post the settings to commit any changes
         import urllib.parse
         global settings_dict
+        boolean_options['enable_speaker', 'startup_udp', 'update_os',
+                        'upgrade_os', 'video_out_overlay_bg_color_enabled', 
+                        'video_image_horizontal_flip', 'video_stabilisation', 
+                        'video_image_vertical_flip']
         content_length = int(self.headers['Content-Length']) # Get the size of data
         post_data = self.rfile.read(content_length).decode("utf-8") # Get the data
         post_data = urllib.parse.unquote(str(post_data))
@@ -378,29 +382,33 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             settings_dict.update({'last_updated':
                                   dt.date.today().strftime('%d/%m/%Y')})
         else:
-            if str(post_data).find('enable_speaker') < 0:
-                settings_dict.update({'enable_speaker': 'False'})
-            if str(post_data).find('startup_udp') < 0:
-                settings_dict.update({'startup_udp': 'False'})
-            if str(post_data).find('update_os') < 0:
-                settings_dict.update({'update_os': 'False'})
-            if str(post_data).find('upgrade_os') < 0:
-                settings_dict.update({'upgrade_os': 'False'})
-            if str(post_data).find('video_out_overlay_bg_color_enabled') < 0:
-                settings_dict.update({'video_out_overlay_bg_color_enabled': 'False'})
-            if str(post_data).find('video_image_horizontal_flip') < 0:
-                settings_dict.update({'video_image_horizontal_flip': 'False'})
-            if str(post_data).find('video_image_vertical_flip') < 0:
-                settings_dict.update({'video_image_vertical_flip': 'False'})
-            if str(post_data).find('video_stabilisation') < 0:
-                settings_dict.update({'video_stabilisation': 'False'})
+            for item in boolean_options:
+                if str(post_data).find(item) < 0:
+                    settings_dict.update({item: 'False'})
+#            if str(post_data).find('enable_speaker') < 0:
+#                settings_dict.update({'enable_speaker': 'False'})
+#            if str(post_data).find('startup_udp') < 0:
+#                settings_dict.update({'startup_udp': 'False'})
+#            if str(post_data).find('update_os') < 0:
+#                settings_dict.update({'update_os': 'False'})
+#            if str(post_data).find('upgrade_os') < 0:
+#                settings_dict.update({'upgrade_os': 'False'})
+#            if str(post_data).find('video_out_overlay_bg_color_enabled') < 0:
+#                settings_dict.update({'video_out_overlay_bg_color_enabled': 'False'})
+#            if str(post_data).find('video_image_horizontal_flip') < 0:
+#                settings_dict.update({'video_image_horizontal_flip': 'False'})
+#            if str(post_data).find('video_image_vertical_flip') < 0:
+#                settings_dict.update({'video_image_vertical_flip': 'False'})
+#            if str(post_data).find('video_stabilisation') < 0:
+#                settings_dict.update({'video_stabilisation': 'False'})
 
         set_settings()
         set_camera_settings()
         self.do_GET()
 
     def log_message(self, format, *args):
-        if args[1] == '301':
+        # Create a log when changing settings
+        if args[1] == '301': # POST
             txt = '%s @ %s Changed Settings' % (self.address_string(),
                                                 dt.date.today()
                                                 .strftime('%d/%m/%Y'))
@@ -459,6 +467,7 @@ def set_camera_settings():
             camera.video_stabilization = False
     except:
         pass
+
 
 try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
