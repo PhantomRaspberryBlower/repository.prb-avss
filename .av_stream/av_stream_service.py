@@ -280,6 +280,7 @@ def build_raspivid_cmd():
     raspivid_cmd += ' -h %s' % settings_dict['video_in_height']
     raspivid_cmd += ' -fps %s' % settings_dict['video_in_frames_per_second']
     raspivid_cmd += ' -b %s' % settings_dict['video_in_bitrate']
+    raspivid_cmd.replace('color', 'colour')
     return raspivid_cmd
 
 
