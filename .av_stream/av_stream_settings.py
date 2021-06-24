@@ -317,7 +317,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_header('Content-Length', size)
             self.end_headers()
             self.wfile.write(img)
-        elif self.path == '/stream.mjpg':
+        elif self.path == '/stream.mp4':
             # Video stream
             self.send_response(200)
             self.send_header('Age', 0)
@@ -473,7 +473,7 @@ try:
     with picamera.PiCamera(resolution='480x270', framerate=24) as camera:
         set_camera_settings()
         output = StreamingOutput()
-        camera.start_recording(output, format='mjpeg')
+        camera.start_recording(output, format='mp4')
         try:
             address = ('', 8000)
             server = StreamingServer(address, StreamingHandler)
