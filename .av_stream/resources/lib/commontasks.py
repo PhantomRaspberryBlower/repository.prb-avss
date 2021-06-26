@@ -19,8 +19,31 @@ INVALID_FILENAME_CHARS = '\/:*?"<>|'
 
 todays_date = date.today()
 
+WORK_DIR = '/home/pi/.av_stream'
+
+logging.basicConfig(format='%(asctime)s - %(message)s',
+                    filename='%s/avss.log' % WORK_DIR,
+                    level=logging.DEBUG)
+
+settings_dict = {}
+
+def check_for_updates(work_dir, msg):
+    logging.info(msg)
+    response = os.popen('python %s/updateWorker.py' % work_dir).read()
+    if settings_dict['update_os'] == 'True':
+        os.popen('sudo apt-get update')
+        logging.info('OS updated manually')
+    if settings_dict['upgrade_os'] == 'True':
+        os.popen('sudo apt-get upgrade')
+        logging.info('OS upgraded manually')
+    settings_dict = get_settings(work_dir + '/config.ini')
+    settings_dict.update({'last_updated':
+                          date.today().strftime('%d/%m/%Y')})
+    save_settings(settings_dict, work_dir + '/config.ini')
+
 
 def get_settings(path="~/.av_stream/config.ini"):
+    global settings_dict
     # Open config settings
     config_object.read(path)
     # Get the SETTINGS section
