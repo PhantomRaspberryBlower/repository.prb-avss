@@ -99,18 +99,19 @@ def check_for_updates():
     b = datetime.today()
     delta = b - a
     if a < b:
-        logging.info('Checking for updates')
+#        logging.info('Checking for updates')
         t = threading.Thread(target=play_sound,
                              args=("checking_for_updates.mp3",))
         t.start()
-        response = os.popen('python updateWorker.py').read()
-        if settings_dict['update_os'] == 'True':
-            os.popen('sudo apt-get update')
-        if settings_dict['upgrade_os'] == 'True':
-            os.popen('sudo apt-get upgrade')
-        settings_dict.update({'last_updated':
-                              date.today().strftime('%d/%m/%Y')})
-        commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
+        commontasks.check_for_updates(WORK_DIR, 'Auto update started')
+#        response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
+#        if settings_dict['update_os'] == 'True':
+#            os.popen('sudo apt-get update')
+#        if settings_dict['upgrade_os'] == 'True':
+#            os.popen('sudo apt-get upgrade')
+#        settings_dict.update({'last_updated':
+#                              date.today().strftime('%d/%m/%Y')})
+#        commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
 
 
 def cleanup():
