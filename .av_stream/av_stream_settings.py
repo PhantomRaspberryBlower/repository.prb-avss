@@ -371,36 +371,21 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('+', ' ')
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
-            logging.info('Manual update started')
-            response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
-            if settings_dict['update_os'] == 'True':
-                os.popen('sudo apt-get update')
-                logging.info('OS updated manually')
-            if settings_dict['upgrade_os'] == 'True':
-                os.popen('sudo apt-get upgrade')
-                logging.info('OS upgraded manually')
-            settings_dict.update({'last_updated':
-                                  dt.date.today().strftime('%d/%m/%Y')})
+            commontasks.check_for_updates(WORK_DIR, 'Manual update started')
+#            logging.info('Manual update started')
+#            response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
+#            if settings_dict['update_os'] == 'True':
+#                os.popen('sudo apt-get update')
+#                logging.info('OS updated manually')
+#            if settings_dict['upgrade_os'] == 'True':
+#                os.popen('sudo apt-get upgrade')
+#                logging.info('OS upgraded manually')
+#            settings_dict.update({'last_updated':
+#                                  dt.date.today().strftime('%d/%m/%Y')})
         else:
             for item in boolean_options:
                 if str(post_data).find(item) < 0:
                     settings_dict.update({item: 'False'})
-#            if str(post_data).find('enable_speaker') < 0:
-#                settings_dict.update({'enable_speaker': 'False'})
-#            if str(post_data).find('startup_udp') < 0:
-#                settings_dict.update({'startup_udp': 'False'})
-#            if str(post_data).find('update_os') < 0:
-#                settings_dict.update({'update_os': 'False'})
-#            if str(post_data).find('upgrade_os') < 0:
-#                settings_dict.update({'upgrade_os': 'False'})
-#            if str(post_data).find('video_out_overlay_bg_color_enabled') < 0:
-#                settings_dict.update({'video_out_overlay_bg_color_enabled': 'False'})
-#            if str(post_data).find('video_image_horizontal_flip') < 0:
-#                settings_dict.update({'video_image_horizontal_flip': 'False'})
-#            if str(post_data).find('video_image_vertical_flip') < 0:
-#                settings_dict.update({'video_image_vertical_flip': 'False'})
-#            if str(post_data).find('video_stabilisation') < 0:
-#                settings_dict.update({'video_stabilisation': 'False'})
 
         set_settings()
         set_camera_settings()
@@ -413,6 +398,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                                 dt.date.today()
                                                 .strftime('%d/%m/%Y'))
             commontasks.write_to_file(WORK_DIR + '/settings.log', txt, True)
+
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     global hidden_form_elements
