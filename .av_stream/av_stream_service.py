@@ -98,7 +98,9 @@ def check_for_updates():
     a = datetime.strptime(last_updated, date_format) + timedelta(days=update_interval_days)
     b = datetime.today()
     delta = b - a
+    print(a, b)
     if a < b:
+        print('Updating')
 #        logging.info('Checking for updates')
         t = threading.Thread(target=play_sound,
                              args=("checking_for_updates.mp3",))
