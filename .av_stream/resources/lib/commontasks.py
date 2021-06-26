@@ -27,6 +27,7 @@ logging.basicConfig(format='%(asctime)s - %(message)s',
 
 settings_dict = {}
 
+
 def check_for_updates(work_dir, msg):
     logging.info(msg)
     response = os.popen('python %s/updateWorker.py' % work_dir).read()
