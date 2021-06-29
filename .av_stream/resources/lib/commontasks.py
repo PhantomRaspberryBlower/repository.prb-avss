@@ -114,11 +114,11 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'video_out_overlay_bg_color': settings['video_out_overlay_bg_color'],
                      'video_out_overlay_text_size': settings['video_out_overlay_text_size'],
                      'video_out_overlay_text_color': settings['video_out_overlay_text_color'],
-                     'video_stabilisation': settings['video_stabilisation']}
+                     'video_stabilisation': settings['video_stabilisation'],
                      'vimeo_url': settings['vimeo_url'],
                      'vimeo_stream_key': settings['vimeo_stream_key'],
                      'youtube_url': settings['youtube_url'],
-                     'youtube_stream_key': settings['youtube_stream_key'],
+                     'youtube_stream_key': settings['youtube_stream_key']}
     return settings_dict
 
 
