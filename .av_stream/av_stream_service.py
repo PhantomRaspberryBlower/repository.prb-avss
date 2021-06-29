@@ -97,7 +97,6 @@ def check_for_updates():
     update_interval_days = int(settings_dict['update_interval_days'])
     a = datetime.strptime(last_updated, date_format) + timedelta(days=update_interval_days)
     b = datetime.today()
-    delta = b - a
     if a < b:
         t = threading.Thread(target=play_sound,
                              args=("checking_for_updates.mp3",))
@@ -356,7 +355,7 @@ def start_stream():
     kill_settings()
 
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
-    print(cmd)
+    logging.info(cmd)
 
     os.popen(cmd)
     # Notification audio & video stream started (video)
