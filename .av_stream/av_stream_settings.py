@@ -372,16 +372,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
             commontasks.check_for_updates(WORK_DIR, 'Manual update started')
-#            logging.info('Manual update started')
-#            response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
-#            if settings_dict['update_os'] == 'True':
-#                os.popen('sudo apt-get update')
-#                logging.info('OS updated manually')
-#            if settings_dict['upgrade_os'] == 'True':
-#                os.popen('sudo apt-get upgrade')
-#                logging.info('OS upgraded manually')
-#            settings_dict.update({'last_updated':
-#                                  dt.date.today().strftime('%d/%m/%Y')})
         else:
             for item in boolean_options:
                 if str(post_data).find(item) < 0:
