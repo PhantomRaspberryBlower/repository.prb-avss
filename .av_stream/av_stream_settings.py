@@ -44,6 +44,7 @@ video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
+PORT_NUMBER = 8000
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 HTML_DIR = WORK_DIR + '/resources/templates'
 
@@ -452,7 +453,7 @@ try:
         output = StreamingOutput()
         camera.start_recording(output, format='mjpeg')
         try:
-            address = ('', 8000)
+            address = ('', PORT_NUMBER)
             server = StreamingServer(address, StreamingHandler)
             server.serve_forever()
         finally:
@@ -461,7 +462,7 @@ try:
 except:
     output = StreamingOutput()
     try:
-        address = ('', 8000)
+        address = ('', PORT_NUMBER)
         server = StreamingServer(address, StreamingHandler)
         hidden_form_elements = ('<center><b><p style="color: #8b0000;">Preview'
                                 ' unavailable during a live stream.</p></b>'
