@@ -373,7 +373,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         # Post the settings to commit any changes
         import urllib.parse
         global settings_dict
-        boolean_options = ['enable_speaker', 'startup_udp', 'update_os',
+        boolean_options = ['enable_speaker', 'startup_udp', 
+                           'stream_to_facebook', 'stream_to_periscope',
+                           'stream_to_twitch', 'stream_to_ustream',
+                           'stream_to_vimeo', 'stream_to_youtube', 'update_os',
                            'upgrade_os', 'video_out_overlay_bg_color_enabled', 
                            'video_image_horizontal_flip', 'video_stabilisation', 
                            'video_image_vertical_flip']
