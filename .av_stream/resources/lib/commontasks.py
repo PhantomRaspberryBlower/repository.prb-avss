@@ -73,10 +73,22 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'metadata_description': settings['metadata_description'],
                      'metadata_title': settings['metadata_title'],
                      'metadata_year': settings['metadata_year'],
+                     'periscope_url': settings['periscope_url'],
+                     'periscope_stream_key': settings['periscpe_stream_key'],
                      'startup_udp': settings['startup_udp'],
+                     'stream_to_facebook': settings['stream_to_facebook'],
+                     'stream_to_periscope': settings['stream_to_periscope'],
+                     'stream_to_twitch': settings['stream_to_twitch'],
+                     'stream_to_ustream': settings['stream_to_ustream'],
+                     'stream_to_vimeo': settings['stream_to_vimeo'],
+                     'stream_to_youtube': settings['stream_to_youtube'],
+                     'twitch_url': settings['twitch_url'],
+                     'twitch_stream_key': settings['twitch_stream_key'],
                      'update_interval_days': settings['update_interval_days'],
                      'update_os': settings['update_os'],
                      'upgrade_os': settings['upgrade_os'],
+                     'ustream_url': settings['ustream_url'],
+                     'ustream_stream_key': settings['ustream_stream_key'],
                      'video_image_automatic_white_balance': settings['video_image_automatic_white_balance'],
                      'video_image_brightness': settings['video_image_brightness'],
                      'video_image_contrast': settings['video_image_contrast'],
@@ -103,6 +115,10 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'video_out_overlay_text_size': settings['video_out_overlay_text_size'],
                      'video_out_overlay_text_color': settings['video_out_overlay_text_color'],
                      'video_stabilisation': settings['video_stabilisation']}
+                     'vimeo_url': settings['vimeo_url'],
+                     'vimeo_stream_key': settings['vimeo_stream_key'],
+                     'youtube_url': settings['youtube_url'],
+                     'youtube_stream_key': settings['youtube_stream_key'],
     return settings_dict
 
 
