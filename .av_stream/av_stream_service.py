@@ -98,22 +98,11 @@ def check_for_updates():
     a = datetime.strptime(last_updated, date_format) + timedelta(days=update_interval_days)
     b = datetime.today()
     delta = b - a
-    print(a, b)
     if a < b:
-        print('Updating')
-#        logging.info('Checking for updates')
         t = threading.Thread(target=play_sound,
                              args=("checking_for_updates.mp3",))
         t.start()
         commontasks.check_for_updates(WORK_DIR, 'Auto update started')
-#        response = os.popen('python %s/updateWorker.py' % WORK_DIR).read()
-#        if settings_dict['update_os'] == 'True':
-#            os.popen('sudo apt-get update')
-#        if settings_dict['upgrade_os'] == 'True':
-#            os.popen('sudo apt-get upgrade')
-#        settings_dict.update({'last_updated':
-#                              date.today().strftime('%d/%m/%Y')})
-#        commontasks.save_settings(settings_dict, WORK_DIR + '/config.ini')
 
 
 def cleanup():
@@ -302,10 +291,34 @@ def build_ffmpeg_cmd():
     if settings_dict['startup_udp'] == 'True':
         url = settings_dict['broadcast_url']
         port_or_key = ':' + settings_dict['broadcast_port']
-        stream_codec = 'mpegts'
+        stream_output = 'mpegts'
     else:
-        url = settings_dict['facebook_url']
-        stream_codec = settings_dict['video_out_codec']
+        if settings_dict['stream_to_facebook'] == 'True':
+            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+                                    settings_dict['facebook_url'],
+                                    settings_dict['facebook_stream_key'])
+        if settings_dict['stream_to_periscope'] == 'True':
+            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+                                    settings_dict['periscope_url'],
+                                    settings_dict['periscope_stream_key'])
+        if settings_dict['stream_to_twitch'] == 'True':
+            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+                                    settings_dict['twitch_url'],
+                                    settings_dict['twitch_stream_key'])
+        if settings_dict['stream_to_ustream'] == 'True':
+            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+                                    settings_dict['ustream_url'],
+                                    settings_dict['ustream_stream_key'])
+        if settings_dict['stream_to_vimeo'] == 'True':
+            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+                                    settings_dict['vimeo_url'],
+                                    settings_dict['vimeo_stream_key'])
+        if settings_dict['stream_to_youtube'] == 'True':
+            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+                                    settings_dict['youtube_url'],
+                                    settings_dict['youtube_stream_key'])
+        tee += '"'
+        stream_output = tee
 
     ffmpeg_cmd += ' -f %s' % settings_dict['video_in_codec']
     ffmpeg_cmd += ' -vsync 2'
@@ -319,7 +332,6 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' -sample_rate %s' % settings_dict['audio_in_sample_rate']
     ffmpeg_cmd += ' -i %s' % settings_dict['audio_hardware']
     ffmpeg_cmd += ' -vcodec copy'
-    ffmpeg_cmd += ' -f %s' % stream_codec
     ffmpeg_cmd += ' -metadata title="%s"' % settings_dict['metadata_title']
     ffmpeg_cmd += ' -metadata year="%s"' % metadata_year
     ffmpeg_cmd += ' -metadata description="%s"' % settings_dict['metadata_description']
@@ -329,6 +341,7 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' -ar %s' % settings_dict['audio_out_sample_rate']
     ffmpeg_cmd += ' -b:a %s' % settings_dict['audio_out_bitrate']
     ffmpeg_cmd += ' %s%s' % (url, port_or_key)
+    ffmpeg_cmd += ' -f %s' % stream_output
     ffmpeg_cmd += ' -hide_banner -nostats -loglevel "quiet"'
     return ffmpeg_cmd
 
