@@ -74,7 +74,7 @@ def get_settings(path="~/.av_stream/config.ini"):
                      'metadata_title': settings['metadata_title'],
                      'metadata_year': settings['metadata_year'],
                      'periscope_url': settings['periscope_url'],
-                     'periscope_stream_key': settings['periscpe_stream_key'],
+                     'periscope_stream_key': settings['periscope_stream_key'],
                      'startup_udp': settings['startup_udp'],
                      'stream_to_facebook': settings['stream_to_facebook'],
                      'stream_to_periscope': settings['stream_to_periscope'],
