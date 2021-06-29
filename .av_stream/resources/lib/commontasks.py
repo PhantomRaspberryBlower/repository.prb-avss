@@ -21,11 +21,11 @@ todays_date = date.today()
 
 WORK_DIR = '/home/pi/.av_stream'
 
+settings_dict = {}
+
 logging.basicConfig(format='%(asctime)s - %(message)s',
                     filename='%s/avss.log' % WORK_DIR,
                     level=logging.DEBUG)
-
-settings_dict = {}
 
 
 def check_for_updates(work_dir, msg):
