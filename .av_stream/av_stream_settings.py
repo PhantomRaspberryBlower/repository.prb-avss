@@ -371,6 +371,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                                      .replace('+', ' ')
                                      .replace('%', '~')})
         if post_data[0]=='update=update':
+            post_data = str(post_data).replace('update=update', '')
             commontasks.check_for_updates(WORK_DIR, 'Manual update started')
         else:
             for item in boolean_options:
