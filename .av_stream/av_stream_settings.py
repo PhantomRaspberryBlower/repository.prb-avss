@@ -109,6 +109,12 @@ def INDEX_PAGE():
     startup_udp_txt = ''
     update_os_txt = ''
     upgrade_os_txt = ''
+    stream_to_facebook_txt = ''
+    stream_to_periscope_txt = ''
+    stream_to_twitch_txt = ''
+    stream_to_ustream_txt = ''
+    stream_to_vimeo_txt = ''
+    stream_to_youtube_txt = ''
     video_out_overlay_bg_color_enabled_txt = ''
     video_image_horizontal_flip_txt = ''
     video_image_vertical_flip_txt = ''
@@ -144,7 +150,6 @@ def INDEX_PAGE():
         video_image_vertical_flip_txt = 'checked="True"'
     if settings_dict['video_stabilisation'] == 'True':
         video_stabilisation_txt = 'checked="True"'
-
     # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
