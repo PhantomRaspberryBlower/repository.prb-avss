@@ -44,7 +44,7 @@ video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 settings_dict = {}
 hidden_form_elements = '<br>'
 
-PORT_NUMBER = 8000
+PORT_NUMBER = 8000 # Can't be port 80 unless run as root
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
 HTML_DIR = WORK_DIR + '/resources/templates'
 
@@ -124,6 +124,18 @@ def INDEX_PAGE():
         update_os_txt = 'checked="True"'
     if settings_dict['upgrade_os'] == 'True':
         upgrade_os_txt = 'checked="True"'
+    if settings_dict['stream_to_facebook'] == 'True':
+        stream_to_facebook_txt = 'checked="True"'
+    if settings_dict['stream_to_periscope'] == 'True':
+        stream_to_periscope_txt = 'checked="True"'
+    if settings_dict['stream_to_twitch'] == 'True':
+        stream_to_twitch_txt = 'checked="True"'
+    if settings_dict['stream_to_ustream'] == 'True':
+        stream_to_ustream_txt = 'checked="True"'
+    if settings_dict['stream_to_vimeo'] == 'True':
+        stream_to_vimeo_txt = 'checked="True"'
+    if settings_dict['stream_to_youtube'] == 'True':
+        stream_to_youtube_txt = 'checked="True"'
     if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
         video_out_overlay_bg_color_enabled_txt = 'checked="True"'
     if settings_dict['video_image_horizontal_flip'] == 'True':
@@ -157,6 +169,12 @@ def INDEX_PAGE():
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description'],
             "<!--logging_level_txt-->": logging_level_txt,
+            "<!--stream_to_facebook_txt-->": stream_to_facebook_txt,
+            "<!--stream_to_periscope_txt-->": stream_to_periscope_txt,
+            "<!--stream_to_twitch_txt-->": stream_to_twitch_txt,
+            "<!--stream_to_ustream_txt-->": stream_to_ustream_txt,
+            "<!--stream_to_vimeo_txt-->": stream_to_vimeo_txt,
+            "<!--stream_to_youtube_txt-->": stream_to_youtube_txt,
             "<!--video_image_automatic_white_balance_txt-->": video_image_automatic_white_balance_txt,
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
