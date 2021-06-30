@@ -174,7 +174,14 @@
         <label for="facebook_stream_key" id="facebook_stream_key_label">Stream ID:</label>
         <input type="text" id="facebook_stream_key" name="facebook_stream_key" value="<!--facebook_stream_key-->" <!--startup_enabled--> style="width: 510px;">
     </td></tr></table>
-    <!--<br>-->
+    <label for="periscope_settings" id="periscope_settings" style="display:none"><b>Periscope Settings:</b></label>
+    <table id="periscope_table" style="display: none; border:1px solid black; width: 100%; background-color:lightgrey;"><tr><td>
+        <label for="periscope_url" id="periscope_url_label">URL:</label>
+        <input type="text" id="periscope_url" name="periscope_url" value="<!--periscope_url-->" <!--startup_enabled--> style="width: 545px;">
+        <br><br>
+        <label for="periscope_stream_key" id="periscope_stream_key_label">Stream ID:</label>
+        <input type="text" id="periscope_stream_key" name="periscope_stream_key" value="<!--periscope_stream_key-->" <!--startup_enabled--> style="width: 510px;">
+    </td></tr></table>
   </td></tr></table>
   <br>
   <label for="update_settings"><b>Updates:</b></label><br>
@@ -233,11 +240,19 @@
     function ShowHideTextBox(stream_to_facebook) {
       var facebook_settings = document.getElementById("facebook_settings");
       var facebook_table = document.getElementById("facebook_table");
+      var periscope_settings = document.getElementById("periscope_settings");
+      var periscope_table = document.getElementById("periscope_table");
       if (stream_to_facebook.checked == true)
         {facebook_settings.style.display = "block";
          facebook_table.style.display = "block";}
       else
         {facebook_settings.style.display = "none";
          facebook_table.style.display = "none";}}
+      if (stream_to_periscope.checked == true)
+        {periscope_settings.style.display = "block";
+         periscope_table.style.display = "block";}
+      else
+        {periscope_settings.style.display = "none";
+         periscope_table.style.display = "none";}}
 </script>
 </html>
