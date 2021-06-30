@@ -228,8 +228,9 @@
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
     function ShowHideTextBox(stream_to_facebook) {
+      var stream_to_facebook = document.getElementById("stream_to_facebook");
       var facebook_url = document.getElementById("facebook_url");
-      facebook_url.style.display = stream_to_facebook ? "inline" : "none";
+      facebook_url.style.display = stream_to_facebook.checked ? "inline" : "none";
     }
 </script>
 </html>
