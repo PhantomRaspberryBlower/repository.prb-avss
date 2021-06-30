@@ -157,7 +157,7 @@
     <label for="stream_to_facebook">Facebook </label>
     <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onclick="ShowHideFacebook(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
     <label for="stream_to_periscope">Periscope </label>
-    <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHideFacebook(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
+    <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHidePeriscope(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
     <label for="stream_to_twitch">Twitch </label>
     <input type="checkbox" id="stream_to_twitch" name="stream_to_twitch" <!--startup_enabled--><!--stream_to_twitch_txt-->>
     <label for="stream_to_ustream">Ustream </label>
@@ -237,7 +237,7 @@
       stream_to_vimeo.disabled = startup_udp.checked ? true : false;
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
-    function ShowHideTextBox(stream_to_facebook) {
+    function ShowHideFacebook(stream_to_facebook) {
       var facebook_settings = document.getElementById("facebook_settings");
       var facebook_table = document.getElementById("facebook_table");
       if (stream_to_facebook.checked == true)
@@ -246,7 +246,7 @@
       else
         {facebook_settings.style.display = "none";
          facebook_table.style.display = "none";}}
-    function ShowHideTextBox(stream_to_periscope) {
+    function ShowHidePeriscope(stream_to_periscope) {
       var periscope_settings = document.getElementById("periscope_settings");
       var periscope_table = document.getElementById("periscope_table");
       if (stream_to_periscope.checked == true)
