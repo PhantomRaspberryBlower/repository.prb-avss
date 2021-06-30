@@ -167,9 +167,9 @@
     <label for="stream_to_youtube">YouTube </label>
     <input type="checkbox" id="stream_to_youtube" name="stream_to_youtube" <!--startup_enabled--><!--stream_to_youtube_txt-->>    
     <!--<br>-->
-    <label for="facebook_url" style="display: none">URL:</label>
+    <label for="facebook_url" id="facebook_url_label" style="display: none">URL:</label>
     <input type="text" id="facebook_url" name="facebook_url" value="<!--facebook_url-->" <!--startup_enabled--> style="display: none; width: 553px;">
-    <label for="facebook_stream_key"style="display: none">Stream ID:</label>
+    <label for="facebook_stream_key" id="facebook_stream_key_label" style="display: none">Stream ID:</label>
     <input type="text" id="facebook_stream_key" name="facebook_stream_key" value="<!--facebook_stream_key-->" <!--startup_enabled--> style="display: none; width: 518px;">
     <!--<br>-->
   </td></tr></table>
@@ -228,13 +228,19 @@
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
     function ShowHideTextBox(stream_to_facebook) {
+      var facebook_url_label = document.getElementById("facebook_url_label");
       var facebook_url = document.getElementById("facebook_url");
+      var facebook_stream_key_label = document.getElementById("facebook_stream_key_label");
       var facebook_stream_key = document.getElementById("facebook_stream_key");
       if (stream_to_facebook.checked == true)
-        {facebook_url.style.display = "block";
+        {facebook_url_label.style.display = "block";
+         facebook_url.style.display = "block";
+         facebook_stream_key_label.style.display = "block";
          facebook_stream_key.style.display = "block";}
       else
-        {facebook_url.style.display = "none";
+        {facebook_url_label.style.display = "none";
+         facebook_url.style.display = "none";
+         facebook_stream_key_label.style.display = "none";
          facebook_stream_key.style.display = "none";}}
 </script>
 </html>
