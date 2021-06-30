@@ -237,18 +237,18 @@
       stream_to_vimeo.disabled = startup_udp.checked ? true : false;
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
-    function ShowHideTextBox(stream_to_facebook) {
+    function ShowHideTextBox(check) {
       var facebook_settings = document.getElementById("facebook_settings");
       var facebook_table = document.getElementById("facebook_table");
       var periscope_settings = document.getElementById("periscope_settings");
       var periscope_table = document.getElementById("periscope_table");
-      if (stream_to_facebook.checked == true)
+      if (check.checked == true)
         {facebook_settings.style.display = "block";
          facebook_table.style.display = "block";}
       else
         {facebook_settings.style.display = "none";
          facebook_table.style.display = "none";}}
-      if (stream_to_periscope.checked == true)
+      if (check.checked == true)
         {periscope_settings.style.display = "block";
          periscope_table.style.display = "block";}
       else
