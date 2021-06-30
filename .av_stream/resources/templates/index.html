@@ -217,8 +217,6 @@
     function EnableDisableTextBox(startup_udp) {
       var stream_to_facebook = document.getElementById("stream_to_facebook");
       stream_to_facebook.disabled = startup_udp.checked ? true : false;
-      var facebook_url = document.getElementById("facebook_url");
-      facebook_url.display = stream_to_facebook.checked ? inline : none;
       var stream_to_periscope = document.getElementById("stream_to_periscope");
       stream_to_periscope.disabled = startup_udp.checked ? true : false;
       var stream_to_twitch = document.getElementById("stream_to_twitch");
@@ -229,5 +227,9 @@
       stream_to_vimeo.disabled = startup_udp.checked ? true : false;
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
+    function ShowHideTextBox(stream_to_facebook) {
+      var facebook_url = document.getElementById("facebook_url");
+      facebook_url.style.display = stream_to_facebook ? "inline" : "none";
+    }
 </script>
 </html>
