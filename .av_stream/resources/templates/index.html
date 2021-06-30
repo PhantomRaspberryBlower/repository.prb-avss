@@ -155,7 +155,7 @@
   <label for="streaming_platform_settings"><b>Streaming Platforms:</b></label>
   <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
     <label for="stream_to_facebook">Facebook </label>
-    <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
+    <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onclick="EnableDisableTextBox(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
     <label for="stream_to_periscope">Periscope </label>
     <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" <!--startup_enabled--><!--stream_to_periscope_txt-->>    
     <label for="stream_to_twitch">Twitch </label>
@@ -228,13 +228,7 @@
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
     function ShowHideTextBox(stream_to_facebook) {
-      var stream_to_facebook = document.getElementById("stream_to_facebook");
       var facebook_url = document.getElementById("facebook_url");
-      if (stream_to_facebook.checked == true){
-        facebook_url.style.display = "block";
-    } else {
-        facebook_url.style.display = "none";
-    }
-    }
+      if (stream_to_facebook.checked == true) {facebook_url.style.display = "block";} else {facebook_url.style.display = "none";}
 </script>
 </html>
