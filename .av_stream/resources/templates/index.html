@@ -168,11 +168,13 @@
     <input type="checkbox" id="stream_to_youtube" name="stream_to_youtube" <!--startup_enabled--><!--stream_to_youtube_txt-->>
     <label for="facebook_settings" id="facebook_settings"><b>Facebook:</b></label>
     <table id="facebook_table" style="display: none; border:1px solid black; width: 100%; background-color:lightgrey;"><tr><td>
-      <label for="facebook_url" id="facebook_url_label">URL:</label>
-      <input type="text" id="facebook_url" name="facebook_url" value="<!--facebook_url-->" <!--startup_enabled--> style="width: 553px;">
-      <br><br>
-      <label for="facebook_stream_key" id="facebook_stream_key_label">Stream ID:</label>
-      <input type="text" id="facebook_stream_key" name="facebook_stream_key" value="<!--facebook_stream_key-->" <!--startup_enabled--> style="width: 518px;">
+      <tbody id="facebook_table" style="display:none">
+        <label for="facebook_url" id="facebook_url_label">URL:</label>
+        <input type="text" id="facebook_url" name="facebook_url" value="<!--facebook_url-->" <!--startup_enabled--> style="width: 548px;">
+        <br><br>
+        <label for="facebook_stream_key" id="facebook_stream_key_label">Stream ID:</label>
+        <input type="text" id="facebook_stream_key" name="facebook_stream_key" value="<!--facebook_stream_key-->" <!--startup_enabled--> style="width: 513px;">
+      </tbody>
     </td></tr></table>
     <!--<br>-->
   </td></tr></table>
@@ -238,6 +240,6 @@
          facebook_table.style.display = "block";}
       else
         {facebook_settings.style.display = "none";
-         facebook_table.display = "none";}}
+         facebook_table.style.display = "none";}}
 </script>
 </html>
