@@ -174,12 +174,18 @@ def INDEX_PAGE():
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description'],
             "<!--logging_level_txt-->": logging_level_txt,
+            "<!--periscope_url-->": settings_dict['periscope_url'],
+            "<!--periscope_stream_key-->": settings_dict['periscope_stream_key'],
             "<!--stream_to_facebook_txt-->": stream_to_facebook_txt,
             "<!--stream_to_periscope_txt-->": stream_to_periscope_txt,
             "<!--stream_to_twitch_txt-->": stream_to_twitch_txt,
             "<!--stream_to_ustream_txt-->": stream_to_ustream_txt,
             "<!--stream_to_vimeo_txt-->": stream_to_vimeo_txt,
             "<!--stream_to_youtube_txt-->": stream_to_youtube_txt,
+            "<!--twitch_url-->": settings_dict['twitch_url'],
+            "<!--twitch_stream_key-->": settings_dict['twitch_stream_key'],
+            "<!--ustream_url-->": settings_dict['ustream_url'],
+            "<!--ustream_stream_key-->": settings_dict['ustream_stream_key'],
             "<!--video_image_automatic_white_balance_txt-->": video_image_automatic_white_balance_txt,
             "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
             "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
@@ -200,7 +206,11 @@ def INDEX_PAGE():
             "<!--video_image_horizontal_flip_txt-->": video_image_horizontal_flip_txt,
             "<!--video_image_rotation_txt-->": video_image_rotation_txt,
             "<!--video_image_vertical_flip_txt-->": video_image_vertical_flip_txt,
-            "<!--video_stabilisation_txt-->": video_stabilisation_txt}
+            "<!--video_stabilisation_txt-->": video_stabilisation_txt,
+            "<!--vimeo_url-->": settings_dict['vimeo_url'],
+            "<!--vimeo_stream_key-->": settings_dict['vimeo_stream_key'],
+            "<!--youtube_url-->": settings_dict['youtube_url'],
+            "<!--youtube_stream_key-->": settings_dict['youtube_stream_key']}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
