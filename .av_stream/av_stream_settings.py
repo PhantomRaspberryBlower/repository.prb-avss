@@ -132,6 +132,7 @@ def INDEX_PAGE():
                 disable_form_elements = 'disabled'
             exec("%s_txt = %s" % (item,'checked="True"'))
             print("%s_txt = %s" % (item,'checked="True"'))
+    print(enable_speaker_txt)
 #    if settings_dict['enable_speaker'] == 'True':
 #        enable_speaker_txt = 'checked="True"'
 #    if settings_dict['startup_udp'] == 'True':
