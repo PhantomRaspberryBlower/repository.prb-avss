@@ -49,9 +49,9 @@ def get_settings(path="~/.av_stream/config.ini"):
     config_object.read(path)
     # Get the SETTINGS section
 #    settings = config_object['SETTINGS']
-    settings_dict = config_object.items('SETTINGS')
-#    for key, value in settings.items:
-#        settings_dict.update({key: value})
+#    settings_dict = config_object.items('SETTINGS')
+    for key, value in config_object.items('SETTINGS'):
+        settings_dict.update({key: value})
 
 #    settings_dict = {'audio_hardware': settings['audio_hardware'],
 #                     'audio_in_channels': settings['audio_in_channels'],
