@@ -128,7 +128,7 @@ def INDEX_PAGE():
     # HTML form checkboxes
     for item in checkbox_items:
         if settings_dict[item] == 'True':
-            if item = 'startup_udp':
+            if item == 'startup_udp':
                 disable_form_elements = 'disabled'
             exec("%s_txt = %s" % (item,'check="True"'))
 
