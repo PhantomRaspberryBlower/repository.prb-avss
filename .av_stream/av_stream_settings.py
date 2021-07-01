@@ -128,10 +128,11 @@ def INDEX_PAGE():
     # HTML form checkboxes
     for item in checkbox_items:
         if settings_dict[item] == 'True':
+            print(settings_dict[item])
+            exec("%s_txt = '%s'" % (item,'checked="True"'))
             if item == 'startup_udp':
                 disable_form_elements = 'disabled'
-            exec("%s_txt = '%s'" % (item,'checked="True"'))
-    print("enable_speaker_txt = " + enable_speaker_txt)
+    print("enable_speaker_txt = %s" % enable_speaker_txt)
 #    if settings_dict['enable_speaker'] == 'True':
 #        enable_speaker_txt = 'checked="True"'
 #    if settings_dict['startup_udp'] == 'True':
