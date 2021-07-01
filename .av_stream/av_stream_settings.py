@@ -127,6 +127,7 @@ def INDEX_PAGE():
     disable_form_elements = ''
     # HTML form checkboxes
     for item in checkbox_items:
+        print(item)
         if settings_dict[item] == 'True':
             if item == 'startup_udp':
                 disable_form_elements = 'disabled'
