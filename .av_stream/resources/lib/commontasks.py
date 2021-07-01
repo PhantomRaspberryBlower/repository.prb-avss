@@ -49,7 +49,7 @@ def get_settings(path="~/.av_stream/config.ini"):
     config_object.read(path)
     # Get the SETTINGS section
     settings = config_object['SETTINGS']
-    settings_dict = settings.items
+    settings_dict = settings.items()
 ##    for key, value in settings.items:
 ##        settings_dict
 
