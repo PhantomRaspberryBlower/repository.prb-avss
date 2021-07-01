@@ -104,6 +104,11 @@ def INDEX_PAGE():
     video_image_dynamic_range_compression_txt = options(settings_dict['video_image_dynamic_range_compression'], video_image_dynamic_range_compressions)
     video_image_flicker_avoidance_txt = options(settings_dict['video_image_flicker_avoidance'], video_image_flicker_avoidances)
     video_image_effect_txt = options(settings_dict['video_image_effect'], video_image_effects)
+    checkbox_items['enable_speaker', 'startup_udp', 'update_os', 'upgrade_os',
+                   'stream_to_facebook', 'stream_to_periscope', 'stream_to_twitch',
+                   'stream_to_ustream', 'stream_to_vimeo', 'stream_to_youtube', 
+                   'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip', 
+                   'video_image_vertical_flip', 'video_stabilisation']
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
@@ -121,35 +126,41 @@ def INDEX_PAGE():
     video_stabilisation_txt = ''
     disable_form_elements = ''
     # HTML form checkboxes
-    if settings_dict['enable_speaker'] == 'True':
-        enable_speaker_txt = 'checked="True"'
-    if settings_dict['startup_udp'] == 'True':
-        startup_udp_txt = 'checked="True"'
-        disable_form_elements = 'disabled'
-    if settings_dict['update_os'] == 'True':
-        update_os_txt = 'checked="True"'
-    if settings_dict['upgrade_os'] == 'True':
-        upgrade_os_txt = 'checked="True"'
-    if settings_dict['stream_to_facebook'] == 'True':
-        stream_to_facebook_txt = 'checked="True"'
-    if settings_dict['stream_to_periscope'] == 'True':
-        stream_to_periscope_txt = 'checked="True"'
-    if settings_dict['stream_to_twitch'] == 'True':
-        stream_to_twitch_txt = 'checked="True"'
-    if settings_dict['stream_to_ustream'] == 'True':
-        stream_to_ustream_txt = 'checked="True"'
-    if settings_dict['stream_to_vimeo'] == 'True':
-        stream_to_vimeo_txt = 'checked="True"'
-    if settings_dict['stream_to_youtube'] == 'True':
-        stream_to_youtube_txt = 'checked="True"'
-    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-        video_out_overlay_bg_color_enabled_txt = 'checked="True"'
-    if settings_dict['video_image_horizontal_flip'] == 'True':
-        video_image_horizontal_flip_txt = 'checked="True"'
-    if settings_dict['video_image_vertical_flip'] == 'True':
-        video_image_vertical_flip_txt = 'checked="True"'
-    if settings_dict['video_stabilisation'] == 'True':
-        video_stabilisation_txt = 'checked="True"'
+    for item in checkbox_items:
+        if settings_dict[item] == 'True':
+            if item = 'startup_udp':
+                disable_form_elements = 'disabled'
+            exec("%s_txt = %s" % (item,'check="True"'))
+
+#    if settings_dict['enable_speaker'] == 'True':
+#        enable_speaker_txt = 'checked="True"'
+#    if settings_dict['startup_udp'] == 'True':
+#        startup_udp_txt = 'checked="True"'
+#        disable_form_elements = 'disabled'
+#    if settings_dict['update_os'] == 'True':
+#        update_os_txt = 'checked="True"'
+#    if settings_dict['upgrade_os'] == 'True':
+#        upgrade_os_txt = 'checked="True"'
+#    if settings_dict['stream_to_facebook'] == 'True':
+#        stream_to_facebook_txt = 'checked="True"'
+#    if settings_dict['stream_to_periscope'] == 'True':
+#        stream_to_periscope_txt = 'checked="True"'
+#    if settings_dict['stream_to_twitch'] == 'True':
+#        stream_to_twitch_txt = 'checked="True"'
+#    if settings_dict['stream_to_ustream'] == 'True':
+#        stream_to_ustream_txt = 'checked="True"'
+#    if settings_dict['stream_to_vimeo'] == 'True':
+#        stream_to_vimeo_txt = 'checked="True"'
+#    if settings_dict['stream_to_youtube'] == 'True':
+#        stream_to_youtube_txt = 'checked="True"'
+#    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
+#        video_out_overlay_bg_color_enabled_txt = 'checked="True"'
+#    if settings_dict['video_image_horizontal_flip'] == 'True':
+#        video_image_horizontal_flip_txt = 'checked="True"'
+#    if settings_dict['video_image_vertical_flip'] == 'True':
+#        video_image_vertical_flip_txt = 'checked="True"'
+#    if settings_dict['video_stabilisation'] == 'True':
+#        video_stabilisation_txt = 'checked="True"'
     # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
