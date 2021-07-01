@@ -104,11 +104,11 @@ def INDEX_PAGE():
     video_image_dynamic_range_compression_txt = options(settings_dict['video_image_dynamic_range_compression'], video_image_dynamic_range_compressions)
     video_image_flicker_avoidance_txt = options(settings_dict['video_image_flicker_avoidance'], video_image_flicker_avoidances)
     video_image_effect_txt = options(settings_dict['video_image_effect'], video_image_effects)
-    checkbox_items['enable_speaker', 'startup_udp', 'update_os', 'upgrade_os',
-                   'stream_to_facebook', 'stream_to_periscope', 'stream_to_twitch',
-                   'stream_to_ustream', 'stream_to_vimeo', 'stream_to_youtube', 
-                   'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip', 
-                   'video_image_vertical_flip', 'video_stabilisation']
+    checkbox_items = ['enable_speaker', 'startup_udp', 'update_os', 'upgrade_os',
+                      'stream_to_facebook', 'stream_to_periscope', 'stream_to_twitch',
+                      'stream_to_ustream', 'stream_to_vimeo', 'stream_to_youtube', 
+                      'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip', 
+                      'video_image_vertical_flip', 'video_stabilisation']
     hostname = si.hostname
     enable_speaker_txt = ''
     startup_udp_txt = ''
