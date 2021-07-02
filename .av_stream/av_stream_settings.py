@@ -110,20 +110,20 @@ def INDEX_PAGE():
                       'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip', 
                       'video_image_vertical_flip', 'video_stabilisation']
     hostname = si.hostname
-    enable_speaker_txt = ''
-    startup_udp_txt = ''
-    update_os_txt = ''
-    upgrade_os_txt = ''
-    stream_to_facebook_txt = ''
-    stream_to_periscope_txt = ''
-    stream_to_twitch_txt = ''
-    stream_to_ustream_txt = ''
-    stream_to_vimeo_txt = ''
-    stream_to_youtube_txt = ''
-    video_out_overlay_bg_color_enabled_txt = ''
-    video_image_horizontal_flip_txt = ''
-    video_image_vertical_flip_txt = ''
-    video_stabilisation_txt = ''
+#    enable_speaker_txt = ''
+#    startup_udp_txt = ''
+#    update_os_txt = ''
+#    upgrade_os_txt = ''
+#    stream_to_facebook_txt = ''
+#    stream_to_periscope_txt = ''
+#    stream_to_twitch_txt = ''
+#    stream_to_ustream_txt = ''
+#    stream_to_vimeo_txt = ''
+#    stream_to_youtube_txt = ''
+#    video_out_overlay_bg_color_enabled_txt = ''
+#    video_image_horizontal_flip_txt = ''
+#    video_image_vertical_flip_txt = ''
+#    video_stabilisation_txt = ''
     disable_form_elements = ''
     # HTML form checkboxes
     ldic=locals()
@@ -147,16 +147,6 @@ def INDEX_PAGE():
     video_image_horizontal_flip_txt = ldic['video_image_horizontal_flip_txt']
     video_image_vertical_flip_txt = ldic['video_image_vertical_flip_txt']
     video_stabilisation_txt = ldic['video_stabilisation_txt']
-
-#    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
-#        video_out_overlay_bg_color_enabled_txt = 'checked="True"'
-#    if settings_dict['video_image_horizontal_flip'] == 'True':
-#        video_image_horizontal_flip_txt = 'checked="True"'
-#    if settings_dict['video_image_vertical_flip'] == 'True':
-#        video_image_vertical_flip_txt = 'checked="True"'
-#    if settings_dict['video_stabilisation'] == 'True':
-#        video_stabilisation_txt = 'checked="True"'
-    # other HTML form elemets
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
             "<!--audio_out_codec_txt-->": audio_out_codec_txt,
