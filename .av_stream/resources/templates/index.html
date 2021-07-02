@@ -270,7 +270,7 @@
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
     function ShowHideLiveStreams() {
-      ShowHideFacebook()
+      ShowHideFacebook(document.getElementById("stream_to_facebook"))
     }
     function ShowHideFacebook(stream_to_facebook) {
       var facebook_settings = document.getElementById("facebook_settings");
