@@ -132,7 +132,6 @@ def INDEX_PAGE():
             exec("%s_txt = '%s'" % (item,'checked="True"'), globals(), ldic)
             if item == 'startup_udp':
                 disable_form_elements = 'disabled'
-            print("enable_speaker_txt = %s" % enable_speaker_txt)
     enable_speaker_txt = ldic['enable_speaker_txt']
     startup_udp_txt = ldic['startup_udp_txt']
     update_os_txt = ldic['update_os_txt']
