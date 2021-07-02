@@ -258,21 +258,41 @@
           document.getElementById('video_image_sharpness_input').value=val;}
     function EnableDisableCheckBox(startup_udp) {
       var stream_to_facebook = document.getElementById("stream_to_facebook");
-      stream_to_facebook.disabled = startup_udp.checked ? true : false;
       var facebook_url = document.getElementById("facebook_url");
-      facebook_url.disabled = startup_udp.checked ? true : false;
       var facebook_stream_key = document.getElementById("facebook_stream_key");
+      stream_to_facebook.disabled = startup_udp.checked ? true : false;
+      facebook_url.disabled = startup_udp.checked ? true : false;
       facebook_stream_key.disabled = startup_udp.checked ? true : false;
       var stream_to_periscope = document.getElementById("stream_to_periscope");
+      var periscope_url = document.getElementById("periscope_url");
+      var periscope_stream_key = document.getElementById("periscope_stream_key");
       stream_to_periscope.disabled = startup_udp.checked ? true : false;
+      periscope_url.disabled = startup_udp.checked ? true : false;
+      periscope_stream_key.disabled = startup_udp.checked ? true : false;
       var stream_to_twitch = document.getElementById("stream_to_twitch");
+      var twitch_url = document.getElementById("twitch_url");
+      var twitch_stream_key = document.getElementById("twitch_stream_key");
       stream_to_twitch.disabled = startup_udp.checked ? true : false;
+      twitch_url.disabled = startup_udp.checked ? true : false;
+      twitch_stream_key.disabled = startup_udp.checked ? true : false;
       var stream_to_ustream = document.getElementById("stream_to_ustream");
+      var ustream_url = document.getElementById("ustream_url");
+      var ustream_stream_key = document.getElementById("ustream_stream_key");
       stream_to_ustream.disabled = startup_udp.checked ? true : false;
+      ustream_url.disabled = startup_udp.checked ? true : false;
+      ustream_stream_key.disabled = startup_udp.checked ? true : false;
       var stream_to_vimeo = document.getElementById("stream_to_vimeo");
+      var vimeo_url = document.getElementById("vimeo_url");
+      var vimeo_stream_key = document.getElementById("vimeo_stream_key");
       stream_to_vimeo.disabled = startup_udp.checked ? true : false;
+      vimeo_url.disabled = startup_udp.checked ? true : false;
+      vimeo_stream_key.disabled = startup_udp.checked ? true : false;
       var stream_to_youtube = document.getElementById("stream_to_youtube");
+      var youtube_url = document.getElementById("youtube_url");
+      var youtube_stream_key = document.getElementById("youtube_stream_key");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
+      youtube_url.disabled = startup_udp.checked ? true : false;
+      youtube_stream_key.disabled = startup_udp.checked ? true : false;
     function ShowHideLiveStreams() {
       ShowHideFacebook(document.getElementById("stream_to_facebook"));
       ShowHidePeriscope(document.getElementById("stream_to_periscope"));
