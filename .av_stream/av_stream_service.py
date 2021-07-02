@@ -342,6 +342,7 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' %s%s' % (url, port_or_key)
     ffmpeg_cmd += ' -f %s' % stream_output
     ffmpeg_cmd += ' -hide_banner -nostats -loglevel "quiet"'
+    print(ffmpeg_cmd)
     return ffmpeg_cmd
 
 
