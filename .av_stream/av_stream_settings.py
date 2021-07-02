@@ -136,7 +136,7 @@ def INDEX_PAGE():
     enable_speaker_txt = ldic['enable_speaker_txt']
     startup_udp_txt = ldic['startup_udp_txt']
     update_os_txt = ldic['update_os_txt']
-    ugrade_os_txt = ldic['ugrade_os_txt']
+    upgrade_os_txt = ldic['upgrade_os_txt']
     stream_to_facebook_txt = ldic['stream_to_facebook_txt']
     stream_to_periscope_txt = ldic['stream_to_periscope_txt']
     stream_to_twitch_txt = ldic['stream_to_twitch_txt']
