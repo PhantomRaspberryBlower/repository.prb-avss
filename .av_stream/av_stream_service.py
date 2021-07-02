@@ -343,7 +343,6 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += '%s%s' % (url, port_or_key)
     ffmpeg_cmd += ' -f%s' % stream_output
     ffmpeg_cmd += ' -hide_banner -nostats -loglevel "quiet"'
-    print(ffmpeg_cmd)
     return ffmpeg_cmd
 
 
@@ -359,7 +358,9 @@ def start_stream():
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
     logging.info(cmd)
 
-#    os.popen(cmd)
+    print(cmd)
+
+    os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
     GPIO.output(LED_PIN, GPIO.HIGH)
