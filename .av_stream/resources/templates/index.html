@@ -259,6 +259,10 @@
     function EnableDisableCheckBox(startup_udp) {
       var stream_to_facebook = document.getElementById("stream_to_facebook");
       stream_to_facebook.disabled = startup_udp.checked ? true : false;
+      var facebook_url = document.getElementById("facebook_url");
+      facebook_url.disabled = startup_udp.checked ? true : false;
+      var facebook_stream_key = document.getElementById("facebook_stream_key");
+      facebook_stream_key.disabled = startup_udp.checked ? true : false;
       var stream_to_periscope = document.getElementById("stream_to_periscope");
       stream_to_periscope.disabled = startup_udp.checked ? true : false;
       var stream_to_twitch = document.getElementById("stream_to_twitch");
