@@ -271,6 +271,11 @@
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
     function ShowHideLiveStreams() {
       ShowHideFacebook(document.getElementById("stream_to_facebook"))
+      ShowHidePeriscope(document.getElementById("stream_to_periscope"))
+      ShowHideTwitch(document.getElementById("stream_to_twitch"))
+      ShowHideUstream(document.getElementById("stream_to_ustream"))
+      ShowHideVimeo(document.getElementById("stream_to_vimeo"))
+      ShowHideYouTube(document.getElementById("stream_to_youtube"))
     }
     function ShowHideFacebook(stream_to_facebook) {
       var facebook_settings = document.getElementById("facebook_settings");
