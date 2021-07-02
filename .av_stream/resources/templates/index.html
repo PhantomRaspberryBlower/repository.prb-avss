@@ -7,7 +7,7 @@
   input[type="color"]::-webkit-color-swatch-wrapper {padding: 0;}
   input[type="color"]::-webkit-color-swatch {border: none;}
 </style>
-<body style="background-color:white;">
+<body onload="ShowHideLiveStreams()" style="background-color:white;">
 <table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color:silver;"><tr><td>
 <center><h1>Audio Video Streaming Service Settings</h1></center>
 <!-- Style below allows 2 images placed one above the other -->
@@ -155,7 +155,7 @@
   <label for="streaming_platform_settings"><b>Streaming Platforms:</b></label>
   <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
     <label for="stream_to_facebook">Facebook </label>
-    <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onload="ShowHideFacebook(this)" onclick="ShowHideFacebook(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
+    <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onclick="ShowHideFacebook(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
     <label for="stream_to_periscope">Periscope </label>
     <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHidePeriscope(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
     <label for="stream_to_twitch">Twitch </label>
@@ -269,6 +269,9 @@
       stream_to_vimeo.disabled = startup_udp.checked ? true : false;
       var stream_to_youtube = document.getElementById("stream_to_youtube");
       stream_to_youtube.disabled = startup_udp.checked ? true : false;}
+    function ShowHideLiveStreams() {
+      ShowHideFacebook()
+    }
     function ShowHideFacebook(stream_to_facebook) {
       var facebook_settings = document.getElementById("facebook_settings");
       var facebook_table = document.getElementById("facebook_table");
