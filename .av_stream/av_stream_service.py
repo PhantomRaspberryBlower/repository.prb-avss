@@ -280,6 +280,7 @@ def build_ffmpeg_cmd():
     port_or_key = ''
     audio_offset = ''
     video_offset = ''
+    tee = ''
     ffmpeg_cmd = 'ffmpeg -thread_queue_size 1024'
     if settings_dict['itsoffset'] != 'none':
         if settings_dict['itsoffset'] == 'audio':
@@ -288,32 +289,32 @@ def build_ffmpeg_cmd():
             video_offset = ' -itsoffset %s' % settings_dict['itsoffset_seconds']
 
     if settings_dict['startup_udp'] == 'True':
-        url = settings_dict['broadcast_url']
+        url = ' ' + settings_dict['broadcast_url']
         port_or_key = ':' + settings_dict['broadcast_port']
-        stream_output = 'mpegts'
+        stream_output = ' mpegts'
     else:
         if settings_dict['stream_to_facebook'] == 'True':
-            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+            tee += ' [f=%s]%s/%s' % (settings_dict['video_out_codec'],
                                     settings_dict['facebook_url'],
                                     settings_dict['facebook_stream_key'])
         if settings_dict['stream_to_periscope'] == 'True':
-            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+            tee += ' [f=%s]%s/%s' % (settings_dict['video_out_codec'],
                                     settings_dict['periscope_url'],
                                     settings_dict['periscope_stream_key'])
         if settings_dict['stream_to_twitch'] == 'True':
-            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+            tee += ' [f=%s]%s/%s' % (settings_dict['video_out_codec'],
                                     settings_dict['twitch_url'],
                                     settings_dict['twitch_stream_key'])
         if settings_dict['stream_to_ustream'] == 'True':
-            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+            tee += ' [f=%s]%s/%s' % (settings_dict['video_out_codec'],
                                     settings_dict['ustream_url'],
                                     settings_dict['ustream_stream_key'])
         if settings_dict['stream_to_vimeo'] == 'True':
-            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+            tee += ' [f=%s]%s/%s' % (settings_dict['video_out_codec'],
                                     settings_dict['vimeo_url'],
                                     settings_dict['vimeo_stream_key'])
         if settings_dict['stream_to_youtube'] == 'True':
-            tee += '[f=%s]%s/%s' % (settings_dict['video_out_codec'],
+            tee += ' [f=%s]%s/%s' % (settings_dict['video_out_codec'],
                                     settings_dict['youtube_url'],
                                     settings_dict['youtube_stream_key'])
         tee += '"'
@@ -339,8 +340,8 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' -acodec %s' % settings_dict['audio_out_codec']
     ffmpeg_cmd += ' -ar %s' % settings_dict['audio_out_sample_rate']
     ffmpeg_cmd += ' -b:a %s' % settings_dict['audio_out_bitrate']
-    ffmpeg_cmd += ' %s%s' % (url, port_or_key)
-    ffmpeg_cmd += ' -f %s' % stream_output
+    ffmpeg_cmd += '%s%s' % (url, port_or_key)
+    ffmpeg_cmd += ' -f%s' % stream_output
     ffmpeg_cmd += ' -hide_banner -nostats -loglevel "quiet"'
     print(ffmpeg_cmd)
     return ffmpeg_cmd
@@ -358,7 +359,7 @@ def start_stream():
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
     logging.info(cmd)
 
-    os.popen(cmd)
+#    os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
     GPIO.output(LED_PIN, GPIO.HIGH)
