@@ -126,33 +126,28 @@ def INDEX_PAGE():
     video_stabilisation_txt = ''
     disable_form_elements = ''
     # HTML form checkboxes
+    ldic=locals()
     for item in checkbox_items:
         if settings_dict[item] == 'True':
-            exec("global %s_txt; %s_txt = '%s'" % (item, item,'checked="True"'))
+            exec("%s_txt = '%s'" % (item,'checked="True"'), globals(), ldic)
             if item == 'startup_udp':
                 disable_form_elements = 'disabled'
             print("enable_speaker_txt = %s" % enable_speaker_txt)
-#    if settings_dict['enable_speaker'] == 'True':
-#        enable_speaker_txt = 'checked="True"'
-#    if settings_dict['startup_udp'] == 'True':
-#        startup_udp_txt = 'checked="True"'
-#        disable_form_elements = 'disabled'
-#    if settings_dict['update_os'] == 'True':
-#        update_os_txt = 'checked="True"'
-#    if settings_dict['upgrade_os'] == 'True':
-#        upgrade_os_txt = 'checked="True"'
-#    if settings_dict['stream_to_facebook'] == 'True':
-#        stream_to_facebook_txt = 'checked="True"'
-#    if settings_dict['stream_to_periscope'] == 'True':
-#        stream_to_periscope_txt = 'checked="True"'
-#    if settings_dict['stream_to_twitch'] == 'True':
-#        stream_to_twitch_txt = 'checked="True"'
-#    if settings_dict['stream_to_ustream'] == 'True':
-#        stream_to_ustream_txt = 'checked="True"'
-#    if settings_dict['stream_to_vimeo'] == 'True':
-#        stream_to_vimeo_txt = 'checked="True"'
-#    if settings_dict['stream_to_youtube'] == 'True':
-#        stream_to_youtube_txt = 'checked="True"'
+    enable_speaker_txt = ldic['enable_speaker_txt']
+    startup_udp_txt = ldic['startup_udp_txt']
+    update_os_txt = ldic['update_os_txt']
+    ugrade_os_txt = ldic['ugrade_os_txt']
+    stream_to_facebook_txt = ldic['stream_to_facebook_txt']
+    stream_to_periscope_txt = ldic['stream_to_periscope_txt']
+    stream_to_twitch_txt = ldic['stream_to_twitch_txt']
+    stream_to_ustream_txt = ldic['stream_to_ustream_txt']
+    stream_to_vimeo_txt = ldic['stream_to_vimeo_txt']
+    stream_to_youtube_txt = ldic['stream_to_youtube_txt']
+    video_out_overlay_bg_color_enabled_txt = ldic['video_out_overlay_bg_color_enabled_txt']
+    video_image_horizontal_flip_txt = ldic['video_image_horizontal_flip_txt']
+    video_image_vertical_flip_txt = ldic['video_image_vertical_flip_txt']
+    video_stabilisation_txt = ldic['video_stabilisation_txt']
+
 #    if settings_dict['video_out_overlay_bg_color_enabled'] == 'True':
 #        video_out_overlay_bg_color_enabled_txt = 'checked="True"'
 #    if settings_dict['video_image_horizontal_flip'] == 'True':
