@@ -42,7 +42,6 @@ echo "         Installing PyGame"
 echo "-----------------------------------"
 # Used to play audio files (mp3)
 apt-get -y install python3-pygame
-#python3 -m pip install -U pygame --user
 echo "-----------------------------------"
 echo "          Installing git"
 echo "-----------------------------------"
