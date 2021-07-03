@@ -269,7 +269,7 @@ def INFO_PAGE():
         tags.update({"<!--%s-->" % key: str(value)})
 
     for tag, cmd in tags.items():
-        page = page.replace(tag, "<b>%s</b>" % cmd)
+        page = page.replace(tag, "<b>%s</b>" % cmd.replace('©', '&#169;'))
 
     return page
 
