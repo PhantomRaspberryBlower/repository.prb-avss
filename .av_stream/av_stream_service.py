@@ -352,15 +352,10 @@ def start_stream():
     t.start()
     logging.info('Starting audio video stream')
     get_settings()
-   
     kill_settings()
-
     # Pipe the ouput of raspivid to ffmpeg
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
     logging.info(cmd)
-
-    print(cmd)
-
     os.popen(cmd)
     # Notification audio & video stream started (video)
     notification(interval=0.5, mode='v')
