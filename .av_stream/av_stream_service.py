@@ -340,8 +340,8 @@ def build_ffmpeg_cmd():
     ffmpeg_cmd += ' -acodec %s' % settings_dict['audio_out_codec']
     ffmpeg_cmd += ' -ar %s' % settings_dict['audio_out_sample_rate']
     ffmpeg_cmd += ' -b:a %s' % settings_dict['audio_out_bitrate']
-    ffmpeg_cmd += '%s%s' % (url, port_or_key)
     ffmpeg_cmd += ' -f%s' % stream_output
+    ffmpeg_cmd += '%s%s' % (url, port_or_key)
     ffmpeg_cmd += ' -hide_banner -nostats -loglevel "quiet"'
     return ffmpeg_cmd
 
@@ -355,6 +355,7 @@ def start_stream():
    
     kill_settings()
 
+    # Pipe the ouput of raspivid to ffmpeg
     cmd = '%s | %s' % (build_raspivid_cmd(), build_ffmpeg_cmd())
     logging.info(cmd)
 
