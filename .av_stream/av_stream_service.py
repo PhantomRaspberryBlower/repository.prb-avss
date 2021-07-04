@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 
-# Stream video & audio to facebook or broadcast via udp on port 4569.
-# Headless installation on RPi 4. Fitted an LED, switch and speaker to
-# the GPIO pins for user inputs.
-# Press the switch to start streaming; the LED flashes 3 times then lights
-# up when connected and stream begins. If the LED repeatedly blinks this 
-# indicates an error occurred.
-# Press the switch again to stop the stream. To shutdown the RPi press
-# and hold the switch for more than 3 seconds the LED flashes 3 times
-# before the shutdown process begins.
-
-# Written by Phantom Raspberry Blower
-# Date: 21-04-2021
+'''
+Written by: Phantom Raspberry Blower
+Date: 21-04-2021
+Description: Stream video & audio to facebook or broadcast via udp on port
+4569. Headless installation on RPi 4. Fitted an LED, switch and speaker to
+the GPIO pins for user inputs. The LED flashes 2 times to indicate it has 
+started and is ready for input. Press the switch to start streaming; the LED
+flashes 3 times then lights up when streaming begins. Press the switch again
+to stop the stream. To shutdown the RPi press and hold the switch for more
+than 3 seconds, the LED flashes 3 times before the shutdown process begins.
+'''
 
 # Import dependencies
 import RPi.GPIO as GPIO
@@ -415,11 +414,12 @@ def stop_stream():
 if __name__ == '__main__':
     try:
         # Display header
-        print('-----------------------------------------------------')
-        print('This program streams audio and video to facebook live')
-        print('  or can broadcast on the LAN via udp on port 4569.  ')
-        print('     Written by Phantom Raspberry Blower  (2021)     ')
-        print('-----------------------------------------------------')
+        print('-------------------------------------------------')
+        print('Streams audio and video to a live stream provider')
+        print('or can broadcast on the LAN via udp on port 4569.')
+        print('Open web browser on port 8000 to change settings.')
+        print('   Written by Phantom Raspberry Blower  (2021)   ')
+        print('-------------------------------------------------')
         print('\n')
         logging.info('*** Starting AVSS ***')
         # Display settings on web page 
