@@ -1,5 +1,12 @@
 #!/bin/python
 
+'''
+Written by: Phantom Raspberry Blower (The PRB)
+Date: 01-10-2018
+Description: Script for displaying system information about software, CPU, 
+hardware, memory, storage, networks and settings. Tested on Raspberry Pi.
+'''
+
 from urllib.request import urlopen
 from collections import namedtuple
 from subprocess import Popen, PIPE
@@ -9,13 +16,6 @@ import struct
 import platform
 import getpass
 import os
-
-# Written by: Phantom Raspberry Blower (The PRB)
-# Date: 01-10-2018
-# Description: Script for displaying system information
-#              about software, CPU, hardware, memory,
-#              storage, networks and settings.
-#              Tested on Raspberry Pi.
 
 class SystemInfo():
 
