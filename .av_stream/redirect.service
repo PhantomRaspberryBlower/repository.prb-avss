@@ -1,0 +1,15 @@
+[Unit]
+Description=Redirect requests on port 80 to port 8000
+Requires=network.target
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u redirect.py
+WorkingDirectory=/home/pi/.av_stream
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target 
