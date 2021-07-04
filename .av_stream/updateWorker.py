@@ -1,3 +1,11 @@
+#!/bin/python
+
+'''
+Written by: Phantom Raspberry Blower (The PRB)
+Date: 01-04-2021
+Description: Script for updating software from github. Tested on Raspberry Pi.
+'''
+
 import sh
 from sh import git
 import time
@@ -5,9 +13,10 @@ import os, sys
 import logging
 
 aggregated = ""
+WORK_DIR = '/home/pi/'
 
 
-def CheckForUpdate(workingDir):
+def CheckForUpdate(workingDir=WORK_DIR):
     logging.info("Fetching most recent code from source..." + workingDir)
     # Fetch most up to date version of code.
     p = git("--git-dir=" + workingDir + ".git/",
@@ -37,8 +46,7 @@ def ProcessFetch(char, stdin):
         stdin.put("yourpassword\n")
 
 if __name__ == "__main__":
-    gitDir = "/home/pi/"
-    if CheckForUpdate(gitDir):
-        resetCheck = git("--git-dir=" + gitDir + ".git/",
-                         "--work-tree=" + gitDir, "reset", "--hard",
+    if CheckForUpdate(WORK_DIR):
+        resetCheck = git("--git-dir=" + WORK_DIR + ".git/",
+                         "--work-tree=" + WORK_DIR, "reset", "--hard",
                          "origin/main")
