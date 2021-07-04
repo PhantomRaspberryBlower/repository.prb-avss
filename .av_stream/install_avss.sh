@@ -73,7 +73,9 @@ rm -r "$WORK_DIR"/.av_stream/.av_stream
 cp "$WORK_DIR"/.av_stream/config.bkp.ini "$WORK_DIR"/.av_stream/config.ini
 cp "$WORK_DIR"/.av_stream/asound.conf /etc/asound.conf
 cp "$WORK_DIR"/.av_stream/av_stream.service /etc/systemd/system/av_stream.service
+#cp "$WORK_DIR"/.av_stream/redirect.service /etc/systemd/system/redirect.service
 systemctl enable /etc/systemd/system/av_stream.service
+#systemctl enable /etc/systemd/system/redirect.service
 chown pi:pi -R "$WORK_DIR"
 echo "-----------------------------------"
 echo "           Enable camera"
