@@ -1,4 +1,12 @@
-# Web streaming example
+#!/usr/bin/env python3
+
+'''
+Written by: Phantom Raspberry Blower
+Date: 21-04-2021
+Description: Creates a web page on port 8000 for changing settings needed to
+stream video & audio to a live streaming providers:- facebook, periscope, 
+twitch, ustream, vimeo and youtube or broadcast via udp on port 4569. 
+'''
 
 import io
 import picamera
