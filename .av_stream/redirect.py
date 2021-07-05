@@ -34,3 +34,4 @@ class Redirect(BaseHTTPRequestHandler):
        self.end_headers()
 
 HTTPServer(("", 80, Redirect).serve_forever()
+    
