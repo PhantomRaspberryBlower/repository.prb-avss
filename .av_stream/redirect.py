@@ -33,5 +33,5 @@ class Redirect(BaseHTTPRequestHandler):
        self.send_header('Location', 'http://%s:%s/index.html' % (get_ip(), DEST_PORT))
        self.end_headers()
 
-HTTPServer(("", 80, Redirect).serve_forever()
-    
+
+HTTPServer(("", 80), Redirect).serve_forever()
