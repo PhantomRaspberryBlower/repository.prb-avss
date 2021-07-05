@@ -15,6 +15,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 DEST_PORT = 8000
 
+
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
@@ -27,11 +28,15 @@ def get_ip():
         s.close()
     return IP
 
+
 class Redirect(BaseHTTPRequestHandler):
    def do_GET(self):
        self.send_response(302)
        self.send_header('Location', 'http://%s:%s/index.html' % (get_ip(), DEST_PORT))
        self.end_headers()
+    def log_message(self, format, *args):
+        # Create a log when changing settings
+        pass
 
 
 HTTPServer(("", 80), Redirect).serve_forever()
