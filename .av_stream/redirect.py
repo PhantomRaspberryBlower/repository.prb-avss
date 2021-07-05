@@ -34,9 +34,9 @@ class Redirect(BaseHTTPRequestHandler):
        self.send_response(302)
        self.send_header('Location', 'http://%s:%s/index.html' % (get_ip(), DEST_PORT))
        self.end_headers()
-    def log_message(self, format, *args):
-        # Create a log when changing settings
-        pass
+   def log_message(self, format, *args):
+       # Create a log when changing settings
+       pass
 
 
 HTTPServer(("", 80), Redirect).serve_forever()
