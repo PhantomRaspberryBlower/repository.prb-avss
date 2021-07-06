@@ -133,6 +133,7 @@ def INDEX_PAGE():
     video_image_vertical_flip_txt = ''
     video_stabilisation_txt = ''
     disable_form_elements = ''
+    disable_background_color = ''
     # HTML form checkboxes
     ldic=locals()
     for item in checkbox_items:
@@ -140,6 +141,10 @@ def INDEX_PAGE():
             exec("%s_txt = '%s'" % (item,'checked="True"'), globals(), ldic)
             if item == 'startup_udp':
                 disable_form_elements = 'disabled'
+        elif settings_dict[item] == 'False':
+            exec("%s_txt = '%s'" % (item,'disabled="True"'), globals(), ldic)
+            if item == 'video_out_overlay_bg_color_enabled':
+                disable_background_color = 'disabled'
     enable_speaker_txt = ldic['enable_speaker_txt']
     startup_udp_txt = ldic['startup_udp_txt']
     update_os_txt = ldic['update_os_txt']
@@ -156,6 +161,7 @@ def INDEX_PAGE():
     video_stabilisation_txt = ldic['video_stabilisation_txt']
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
+            "<!--startup_bg_color_enabled": disable_background_color,
             "<!--audio_out_codec_txt-->": audio_out_codec_txt,
             "<!--audio_out_bitrate_txt-->": audio_out_bitrate_txt,
             "<!--audio_out_sample_rate_txt-->": audio_out_sample_rate_txt,
