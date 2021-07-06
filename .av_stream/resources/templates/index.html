@@ -145,7 +145,8 @@
         <label for="streaming_platform_settings"><b>Streaming Platforms:</b></label>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
           <label for="stream_to_facebook">Facebook </label>
-          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onclick="ShowHideFacebook(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
+          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" value="True" onclick="ShowHideLiveStream(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
+          <input type="hidden" id="hidden_stream_to_facebook" name="stream_to_facebook" value="False" /><br>
           <label for="stream_to_periscope">Periscope </label>
           <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHidePeriscope(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
           <label for="stream_to_twitch">Twitch </label>
@@ -156,8 +157,8 @@
           <input type="checkbox" id="stream_to_vimeo" name="stream_to_vimeo" onclick="ShowHideVimeo(this)" <!--startup_enabled--><!--stream_to_vimeo_txt-->>
           <label for="stream_to_youtube">YouTube </label>
           <input type="checkbox" id="stream_to_youtube" name="stream_to_youtube" onclick="ShowHideYouTube(this)" <!--startup_enabled--><!--stream_to_youtube_txt-->>
-          <label for="facebook_settings" id="facebook_settings" style="display:none"><b>Facebook Settings:</b></label>
-          <table id="facebook_table" style="display: none; border:1px solid black; width: 100%; background-color:lightskyblue;"><tr><td>
+          <label for="stream_to_facebook_settings" id="stream_to_facebook_settings" style="display:none"><b>Facebook Settings:</b></label>
+          <table id="stream_to_facebook_table" style="display: none; border:1px solid black; width: 100%; background-color:lightskyblue;"><tr><td>
             <label for="facebook_url" id="facebook_url_label">URL:</label>
             <input type="text" id="facebook_url" name="facebook_url" value="<!--facebook_url-->" style="width: 545px;">
             <br><br>
@@ -247,6 +248,9 @@
     </table>
   </body>
   <script type="text/javascript">
+    function SubmitDisabledCheckbox(checkbox) {
+      var hidden_checkbox = document.getElementById("hidden_" + checkbox.name);
+      hidden_checkbox.value = checkbox.checked ? "True" : "False";}
     function updateBrightnessInput(val) {document.getElementById('video_image_brightness_input').value=val;}
     function updateContrastInput(val) {document.getElementById('video_image_contrast_input').value=val;}
     function updateSaturationInput(val) {document.getElementById('video_image_saturation_input').value=val;}
@@ -298,15 +302,15 @@
       ShowHideUstream(document.getElementById("stream_to_ustream"));
       ShowHideVimeo(document.getElementById("stream_to_vimeo"));
       ShowHideYouTube(document.getElementById("stream_to_youtube"));}
-    function ShowHideFacebook(stream_to_facebook) {
-      var facebook_settings = document.getElementById("facebook_settings");
-      var facebook_table = document.getElementById("facebook_table");
-      if (stream_to_facebook.checked == true)
-        {facebook_settings.style.display = "block";
-         facebook_table.style.display = "block";}
+    function ShowHideLiveStream(checkbox) {
+      var settings = document.getElementById(checkbox.name + "_settings");
+      var table = document.getElementById(checkbox.name + "_table");
+      if (checkbox.checked == true)
+        {settings.style.display = "block";
+         table.style.display = "block";}
       else
-        {facebook_settings.style.display = "none";
-         facebook_table.style.display = "none";}}
+        {settings.style.display = "none";
+         table.style.display = "none";}}
     function ShowHidePeriscope(stream_to_periscope) {
       var periscope_settings = document.getElementById("periscope_settings");
       var periscope_table = document.getElementById("periscope_table");
