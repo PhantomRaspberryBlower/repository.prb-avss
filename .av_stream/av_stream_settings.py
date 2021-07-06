@@ -213,9 +213,9 @@ def INDEX_PAGE():
             "<!--video_stabilisation_txt-->": video_stabilisation_txt,
             "<!--vimeo_url-->": settings_dict['vimeo_url'],
             "<!--vimeo_stream_key-->": settings_dict['vimeo_stream_key'],
+            "<!--startup_enabled-->": disable_form_elements,
             "<!--youtube_url-->": settings_dict['youtube_url'],
-            "<!--youtube_stream_key-->": settings_dict['youtube_stream_key'],
-            "<!--startup_enabled-->": disable_form_elements}
+            "<!--youtube_stream_key-->": settings_dict['youtube_stream_key']}
     f = open(HTML_DIR + "/index.html", "r")
     page = f.read()
     for tag, cmd in tags.items():
