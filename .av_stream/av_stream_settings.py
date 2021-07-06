@@ -159,6 +159,7 @@ def INDEX_PAGE():
     video_image_vertical_flip_txt = ldic['video_image_vertical_flip_txt']
     video_stabilisation_txt = ldic['video_stabilisation_txt']
     tags = {"<!--hidden-->": hidden_form_elements,
+            "<!--startup_enabled-->": disable_form_elements,
             "<!--startup_bg_color_enabled-->": disable_background_color,
             "<!--audio_out_codec_txt-->": audio_out_codec_txt,
             "<!--audio_out_bitrate_txt-->": audio_out_bitrate_txt,
@@ -213,7 +214,6 @@ def INDEX_PAGE():
             "<!--video_stabilisation_txt-->": video_stabilisation_txt,
             "<!--vimeo_url-->": settings_dict['vimeo_url'],
             "<!--vimeo_stream_key-->": settings_dict['vimeo_stream_key'],
-            "<!--startup_enabled-->": disable_form_elements,
             "<!--youtube_url-->": settings_dict['youtube_url'],
             "<!--youtube_stream_key-->": settings_dict['youtube_stream_key']}
     f = open(HTML_DIR + "/index.html", "r")
