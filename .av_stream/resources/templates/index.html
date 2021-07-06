@@ -145,8 +145,8 @@
         <label for="streaming_platform_settings"><b>Streaming Platforms:</b></label>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
           <label for="stream_to_facebook">Facebook </label>
-          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this);" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
-          <input type="hidden" id="hidden_stream_to_facebook" name="stream_to_facebook" value="False" />
+          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" value="on" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this);" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
+          <input type="hidden" id="hidden_stream_to_facebook" name="stream_to_facebook" value="off" />
           <label for="stream_to_periscope">Periscope </label>
           <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHidePeriscope(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
           <label for="stream_to_twitch">Twitch </label>
@@ -250,7 +250,7 @@
   <script type="text/javascript">
     function SubmitDisabledCheckbox(checkbox) {
       var hidden_checkbox = document.getElementById("hidden_" + checkbox.name);
-      hidden_checkbox.value = checkbox.checked ? "True" : "False";}
+      hidden_checkbox.value = checkbox.checked ? "on" : "off";}
     function updateBrightnessInput(val) {document.getElementById('video_image_brightness_input').value=val;}
     function updateContrastInput(val) {document.getElementById('video_image_contrast_input').value=val;}
     function updateSaturationInput(val) {document.getElementById('video_image_saturation_input').value=val;}
