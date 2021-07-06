@@ -142,7 +142,6 @@ def INDEX_PAGE():
             if item == 'startup_udp':
                 disable_form_elements = 'disabled'
         elif settings_dict[item] == 'False':
-            exec("%s_txt = '%s'" % (item,'disabled="True"'), globals(), ldic)
             if item == 'video_out_overlay_bg_color_enabled':
                 disable_background_color = 'disabled'
     enable_speaker_txt = ldic['enable_speaker_txt']
@@ -161,7 +160,7 @@ def INDEX_PAGE():
     video_stabilisation_txt = ldic['video_stabilisation_txt']
     tags = {"<!--hidden-->": hidden_form_elements,
             "<!--startup_enabled-->": disable_form_elements,
-            "<!--startup_bg_color_enabled": disable_background_color,
+            "<!--startup_bg_color_enabled-->": disable_background_color,
             "<!--audio_out_codec_txt-->": audio_out_codec_txt,
             "<!--audio_out_bitrate_txt-->": audio_out_bitrate_txt,
             "<!--audio_out_sample_rate_txt-->": audio_out_sample_rate_txt,
