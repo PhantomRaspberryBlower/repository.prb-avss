@@ -148,15 +148,15 @@
           <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
           <input type="hidden" id="hidden_stream_to_facebook" name="stream_to_facebook" value="on" />
           <label for="stream_to_periscope">Periscope </label>
-          <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHidePeriscope(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
+          <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
           <label for="stream_to_twitch">Twitch </label>
-          <input type="checkbox" id="stream_to_twitch" name="stream_to_twitch" onclick="ShowHideTwitch(this)" <!--startup_enabled--><!--stream_to_twitch_txt-->>
+          <input type="checkbox" id="stream_to_twitch" name="stream_to_twitch" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_twitch_txt-->>
           <label for="stream_to_ustream">Ustream </label>
-          <input type="checkbox" id="stream_to_ustream" name="stream_to_ustream" onclick="ShowHideUstream(this)" <!--startup_enabled--><!--stream_to_ustream_txt-->>
+          <input type="checkbox" id="stream_to_ustream" name="stream_to_ustream" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_ustream_txt-->>
           <label for="stream_to_vimeo">Vimeo </label>
-          <input type="checkbox" id="stream_to_vimeo" name="stream_to_vimeo" onclick="ShowHideVimeo(this)" <!--startup_enabled--><!--stream_to_vimeo_txt-->>
+          <input type="checkbox" id="stream_to_vimeo" name="stream_to_vimeo" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_vimeo_txt-->>
           <label for="stream_to_youtube">YouTube </label>
-          <input type="checkbox" id="stream_to_youtube" name="stream_to_youtube" onclick="ShowHideYouTube(this)" <!--startup_enabled--><!--stream_to_youtube_txt-->>
+          <input type="checkbox" id="stream_to_youtube" name="stream_to_youtube" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_youtube_txt-->>
           <label for="stream_to_facebook_settings" id="stream_to_facebook_settings" style="display:none"><b>Facebook Settings:</b></label>
           <table id="stream_to_facebook_table" style="display: none; border:1px solid black; width: 100%; background-color:lightskyblue;"><tr><td>
             <label for="facebook_url" id="facebook_url_label">URL:</label>
@@ -311,50 +311,5 @@
       else
         {settings.style.display = "none";
          table.style.display = "none";}}
-    function ShowHidePeriscope(stream_to_periscope) {
-      var periscope_settings = document.getElementById("periscope_settings");
-      var periscope_table = document.getElementById("periscope_table");
-      if (stream_to_periscope.checked == true)
-        {periscope_settings.style.display = "block";
-         periscope_table.style.display = "block";}
-      else
-        {periscope_settings.style.display = "none";
-         periscope_table.style.display = "none";}}
-    function ShowHideTwitch(stream_to_twitch) {
-      var twitch_settings = document.getElementById("twitch_settings");
-      var twitch_table = document.getElementById("twitch_table");
-      if (stream_to_twitch.checked == true)
-        {twitch_settings.style.display = "block";
-         twitch_table.style.display = "block";}
-      else
-        {twitch_settings.style.display = "none";
-         twitch_table.style.display = "none";}}
-    function ShowHideUstream(stream_to_ustream) {
-      var ustream_settings = document.getElementById("ustream_settings");
-      var ustream_table = document.getElementById("ustream_table");
-      if (stream_to_ustream.checked == true)
-        {ustream_settings.style.display = "block";
-         ustream_table.style.display = "block";}
-      else
-        {ustream_settings.style.display = "none";
-         ustream_table.style.display = "none";}}
-    function ShowHideVimeo(stream_to_vimeo) {
-      var vimeo_settings = document.getElementById("vimeo_settings");
-      var vimeo_table = document.getElementById("vimeo_table");
-      if (stream_to_vimeo.checked == true)
-        {vimeo_settings.style.display = "block";
-         vimeo_table.style.display = "block";}
-      else
-        {vimeo_settings.style.display = "none";
-         vimeo_table.style.display = "none";}}
-    function ShowHideYouTube(stream_to_youtube) {
-      var youtube_settings = document.getElementById("youtube_settings");
-      var youtube_table = document.getElementById("youtube_table");
-      if (stream_to_youtube.checked == true)
-        {youtube_settings.style.display = "block";
-         youtube_table.style.display = "block";}
-      else
-        {youtube_settings.style.display = "none";
-         youtube_table.style.display = "none";}}
   </script>
 </html>
