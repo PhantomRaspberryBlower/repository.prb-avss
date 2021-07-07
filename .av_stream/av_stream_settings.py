@@ -138,7 +138,7 @@ def INDEX_PAGE():
     ldic=locals()
     for item in checkbox_items:
         if settings_dict[item] == 'True':
-            exec("%s_txt = '%s'" % (item,'checked="True"'), globals(), ldic)
+            exec("%s_txt = '%s'" % (item,' checked="True"'), globals(), ldic)
             if item == 'startup_udp':
                 disable_form_elements = 'disabled'
         elif settings_dict[item] == 'False':
@@ -417,7 +417,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             commontasks.check_for_updates(WORK_DIR, 'Manual update started')
         else:
             for item in boolean_options:
-                if str(post_data).rfind(item) < 0:
+                if str(post_data).find(item) < 0:
                     settings_dict.update({item: 'False'})
 
         set_settings()
