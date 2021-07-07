@@ -417,7 +417,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             commontasks.check_for_updates(WORK_DIR, 'Manual update started')
         else:
             for item in boolean_options:
-                if str(post_data).findall(item) < 0:
+                if str(post_data).rfind(item) < 0:
                     settings_dict.update({item: 'False'})
 
         set_settings()
