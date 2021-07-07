@@ -407,8 +407,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 settings_dict.update({'video_in_height': item[1]})
             elif items[1] == 'on':
                 settings_dict.update({items[0]:items[1].replace('on', 'True')})
-            elif items[1] == 'True':
-                settings_dict.update({items[0]:items[1]})
+            elif items[1] == 'off':
+                settings_dict.update({items[0]:items[1].replace('off', 'False')})
             else:
                 settings_dict.update({items[0]:items[1]
                                      .replace("'", '"')
