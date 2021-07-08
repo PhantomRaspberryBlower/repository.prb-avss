@@ -418,6 +418,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         else:
             for item in boolean_options:
                 if str(post_data).find(item) < 0:
+                    print(item)
                     settings_dict.update({item: 'False'})
 
         set_settings()
