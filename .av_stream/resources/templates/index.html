@@ -270,43 +270,20 @@
     function EnableDisableBackground(video_out_overlay_bg_color_enabled) {
       var video_out_overlay_bg_color = document.getElementById("video_out_overlay_bg_color");
       video_out_overlay_bg_color.disabled = video_out_overlay_bg_color_enabled.checked ? false : true;}
-    function EnableDisableCheckBox(startup_udp) {
-      var stream_to_facebook = document.getElementById("stream_to_facebook");
-      var facebook_url = document.getElementById("facebook_url");
-      var facebook_stream_key = document.getElementById("facebook_stream_key");
-      stream_to_facebook.disabled = startup_udp.checked ? true : false;
-      facebook_url.disabled = startup_udp.checked ? true : false;
-      facebook_stream_key.disabled = startup_udp.checked ? true : false;
-      var stream_to_periscope = document.getElementById("stream_to_periscope");
-      var periscope_url = document.getElementById("periscope_url");
-      var periscope_stream_key = document.getElementById("periscope_stream_key");
-      stream_to_periscope.disabled = startup_udp.checked ? true : false;
-      periscope_url.disabled = startup_udp.checked ? true : false;
-      periscope_stream_key.disabled = startup_udp.checked ? true : false;
-      var stream_to_twitch = document.getElementById("stream_to_twitch");
-      var twitch_url = document.getElementById("twitch_url");
-      var twitch_stream_key = document.getElementById("twitch_stream_key");
-      stream_to_twitch.disabled = startup_udp.checked ? true : false;
-      twitch_url.disabled = startup_udp.checked ? true : false;
-      twitch_stream_key.disabled = startup_udp.checked ? true : false;
-      var stream_to_ustream = document.getElementById("stream_to_ustream");
-      var ustream_url = document.getElementById("ustream_url");
-      var ustream_stream_key = document.getElementById("ustream_stream_key");
-      stream_to_ustream.disabled = startup_udp.checked ? true : false;
-      ustream_url.disabled = startup_udp.checked ? true : false;
-      ustream_stream_key.disabled = startup_udp.checked ? true : false;
-      var stream_to_vimeo = document.getElementById("stream_to_vimeo");
-      var vimeo_url = document.getElementById("vimeo_url");
-      var vimeo_stream_key = document.getElementById("vimeo_stream_key");
-      stream_to_vimeo.disabled = startup_udp.checked ? true : false;
-      vimeo_url.disabled = startup_udp.checked ? true : false;
-      vimeo_stream_key.disabled = startup_udp.checked ? true : false;
-      var stream_to_youtube = document.getElementById("stream_to_youtube");
-      var youtube_url = document.getElementById("youtube_url");
-      var youtube_stream_key = document.getElementById("youtube_stream_key");
-      stream_to_youtube.disabled = startup_udp.checked ? true : false;
-      youtube_url.disabled = startup_udp.checked ? true : false;
-      youtube_stream_key.disabled = startup_udp.checked ? true : false;}
+    function EnableDisableCheckBox(startup_udp, stream, url, stream_key) {
+      var this_stream = document.getElementById(stream);
+      var this_url = document.getElementById(url);
+      var this_key = document.getElementById(stream_key);
+      this_stream.disabled = startup_udp.checked ? true : false;
+      this_url.disabled = startup_udp.checked ? true : false;
+      this_stream_key.disabled = startup_udp.checked ? true : false;}
+    function EnableDisableCheckBoxes(startup_udp) {
+      EnableDisableCheckBox(startup_udp, "stream_to_facebook", "facebook_url", "facebook_stream_key");
+      EnableDisableCheckBox(startup_udp, "stream_to_periscope", "periscope_url", "periscope_stream_key");
+      EnableDisableCheckBox(startup_udp, "stream_to_twitch", "twitch_url", "twitch_stream_key");
+      EnableDisableCheckBox(startup_udp, "stream_to_ustream", "ustream_url", "ustream_stream_key");
+      EnableDisableCheckBox(startup_udp, "stream_to_vimeo", "vimeo_url", "vimeo_stream_key");
+      EnableDisableCheckBox(startup_udp, "stream_to_youtube", "youtube_url", "youtube_stream_key");}
     function ShowHideLiveStreams() {
       ShowHideLiveStream(document.getElementById("stream_to_facebook"));
       ShowHideLiveStream(document.getElementById("stream_to_periscope"));
