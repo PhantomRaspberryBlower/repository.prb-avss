@@ -302,11 +302,11 @@
       youtube_stream_key.disabled = startup_udp.checked ? true : false;}
     function ShowHideLiveStreams() {
       ShowHideLiveStream(document.getElementById("stream_to_facebook"));
-      ShowHidePeriscope(document.getElementById("stream_to_periscope"));
-      ShowHideTwitch(document.getElementById("stream_to_twitch"));
-      ShowHideUstream(document.getElementById("stream_to_ustream"));
-      ShowHideVimeo(document.getElementById("stream_to_vimeo"));
-      ShowHideYouTube(document.getElementById("stream_to_youtube"));}
+      ShowHideLiveStream(document.getElementById("stream_to_periscope"));
+      ShowHideLiveStream(document.getElementById("stream_to_twitch"));
+      ShowHideLiveStream(document.getElementById("stream_to_ustream"));
+      ShowHideLiveStream(document.getElementById("stream_to_vimeo"));
+      ShowHideLiveStream(document.getElementById("stream_to_youtube"));}
     function ShowHideLiveStream(checkbox) {
       var settings = document.getElementById(checkbox.name + "_settings");
       var table = document.getElementById(checkbox.name + "_table");
