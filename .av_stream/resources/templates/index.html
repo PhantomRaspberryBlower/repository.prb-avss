@@ -274,16 +274,17 @@
       var this_stream = document.getElementById(stream);
       var this_url = document.getElementById(url);
       var this_key = document.getElementById(stream_key);
-      this_stream.disabled = startup_udp.checked ? true : false;
-      this_url.disabled = startup_udp.checked ? true : false;
-      this_stream_key.disabled = startup_udp.checked ? true : false;}
+      var udp = document.getElementById("startup_udp");
+      this_stream.disabled = udp.checked ? true : false;
+      this_url.disabled = udp.checked ? true : false;
+      this_stream_key.disabled = udp.checked ? true : false;}
     function EnableDisableCheckBoxes(startup_udp) {
-      EnableDisableCheckBox(startup_udp, "stream_to_facebook", "facebook_url", "facebook_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_periscope", "periscope_url", "periscope_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_twitch", "twitch_url", "twitch_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_ustream", "ustream_url", "ustream_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_vimeo", "vimeo_url", "vimeo_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_youtube", "youtube_url", "youtube_stream_key");}
+      EnableDisableCheckBox("stream_to_facebook", "facebook_url", "facebook_stream_key");
+      EnableDisableCheckBox("stream_to_periscope", "periscope_url", "periscope_stream_key");
+      EnableDisableCheckBox("stream_to_twitch", "twitch_url", "twitch_stream_key");
+      EnableDisableCheckBox("stream_to_ustream", "ustream_url", "ustream_stream_key");
+      EnableDisableCheckBox("stream_to_vimeo", "vimeo_url", "vimeo_stream_key");
+      EnableDisableCheckBox("stream_to_youtube", "youtube_url", "youtube_stream_key");}
     function ShowHideLiveStreams() {
       ShowHideLiveStream(document.getElementById("stream_to_facebook"));
       ShowHideLiveStream(document.getElementById("stream_to_periscope"));
