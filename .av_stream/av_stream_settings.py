@@ -405,8 +405,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 item = items[1].split('x')
                 settings_dict.update({'video_in_width': item[0]})
                 settings_dict.update({'video_in_height': item[1]})
-            elif items[1] == 'on':
-                settings_dict.update({items[0]:items[1].replace('on', 'True')})
             else:
                 settings_dict.update({items[0]:items[1]
                                      .replace("'", '"')
