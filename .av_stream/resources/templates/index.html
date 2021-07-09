@@ -253,15 +253,15 @@
     </table>
   </body>
   <script type="text/javascript">
-  function RemoveDuplicates() {
-    var x, i, p;
-    x = document.querySelectorAll("[name]");
-    for (i = 0; i < x.length; i++) {
-      if (x[i].name == p) {
-        x[i-1].name = ""};
-      p = x[i].name
-      };}
-  function SubmitDisabledCheckboxes() {
+    function RemoveDuplicates() {
+      var x, i, p;
+      x = document.querySelectorAll("[name]");
+      for (i = 0; i < x.length; i++) {
+        if (x[i].name == p) {
+          x[i-1].name = ""};
+        p = x[i].name
+        };}
+    function SubmitDisabledCheckboxes() {
       SubmitDisabledCheckbox(document.getElementById("stream_to_facebook"));
       SubmitDisabledCheckbox(document.getElementById("stream_to_periscope"));
       SubmitDisabledCheckbox(document.getElementById("stream_to_twitch"));
