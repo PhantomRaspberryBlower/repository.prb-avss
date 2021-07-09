@@ -25,7 +25,7 @@
       </center>
       <!--hidden-->
       <!-- End of Style -->
-      <form action="/" method="POST" onsubmit="RemoveDuplicates()">
+      <form action="/" method="POST" onsubmit="RemoveDuplicateNames()">
         <label for="audio_sttings"><b>Audio:</b></label>
         <br>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
@@ -125,7 +125,7 @@
           <label for="video_out_overlay_text_color">Text Shade:</label>
           <input type="color" id="video_out_overlay_text_color" name="video_out_overlay_text_color" onchange="clickColor(0, -1, -1, 5)" value="<!--video_out_overlay_text_color-->">
           <label for="video_out_overlay_bg_color_enabled">Enable Background </label>
-          <input type="checkbox" id="video_out_overlay_bg_color_enabled" name="video_out_overlay_bg_color_enabled" onclick="EnableDisableBackground(this)" value="True" <!--video_out_overlay_bg_color_enabled_txt-->>
+          <input type="checkbox" id="video_out_overlay_bg_color_enabled" name="video_out_overlay_bg_color_enabled" onclick="EnableDisableBackgroundColor(this)" value="True" <!--video_out_overlay_bg_color_enabled_txt-->>
           <label for="video_out_overlay_bg_color">Background Colour:</label>
           <input type="color" id="video_out_overlay_bg_color" name="video_out_overlay_bg_color" onchange="clickColor(0, -1, -1, 5)" value="<!--video_out_overlay_bg_color-->" <!--startup_bg_color_enabled-->>
           </td></tr>
@@ -253,7 +253,7 @@
     </table>
   </body>
   <script type="text/javascript">
-    function RemoveDuplicates() {
+    function RemoveDuplicateNames() {
       var x, i, p;
       x = document.querySelectorAll("[name]");
       for (i = 0; i < x.length; i++) {
@@ -261,21 +261,11 @@
           x[i-1].name = ""};
         p = x[i].name
         };}
-    function SubmitDisabledCheckboxes() {
-      SubmitDisabledCheckbox(document.getElementById("stream_to_facebook"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_periscope"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_twitch"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_ustream"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_vimeo"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_youtube"));}
-    function SubmitDisabledCheckbox(checkbox) {
-      var hidden_checkbox = document.getElementById("hidden_" + checkbox.name);
-      hidden_checkbox.value = checkbox.checked ? "True" : "False";}
     function updateBrightnessInput(val) {document.getElementById('video_image_brightness_input').value=val;}
     function updateContrastInput(val) {document.getElementById('video_image_contrast_input').value=val;}
     function updateSaturationInput(val) {document.getElementById('video_image_saturation_input').value=val;}
     function updateSharpnessInput(val) {document.getElementById('video_image_sharpness_input').value=val;}
-    function EnableDisableBackground(video_out_overlay_bg_color_enabled) {
+    function EnableDisableBackgroundColor(video_out_overlay_bg_color_enabled) {
       var video_out_overlay_bg_color = document.getElementById("video_out_overlay_bg_color");
       video_out_overlay_bg_color.disabled = video_out_overlay_bg_color_enabled.checked ? false : true;}
     function EnableDisableCheckBox(startup_udp, stream, url, stream_key) {
@@ -308,5 +298,15 @@
       else
         {settings.style.display = "none";
          table.style.display = "none";}}
+    function SubmitDisabledCheckboxes() {
+      SubmitDisabledCheckbox(document.getElementById("stream_to_facebook"));
+      SubmitDisabledCheckbox(document.getElementById("stream_to_periscope"));
+      SubmitDisabledCheckbox(document.getElementById("stream_to_twitch"));
+      SubmitDisabledCheckbox(document.getElementById("stream_to_ustream"));
+      SubmitDisabledCheckbox(document.getElementById("stream_to_vimeo"));
+      SubmitDisabledCheckbox(document.getElementById("stream_to_youtube"));}
+    function SubmitDisabledCheckbox(checkbox) {
+      var hidden_checkbox = document.getElementById("hidden_" + checkbox.name);
+      hidden_checkbox.value = checkbox.checked ? "True" : "False";}
   </script>
 </html>
