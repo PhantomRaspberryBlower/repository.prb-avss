@@ -278,13 +278,13 @@
     function EnableDisableBackground(video_out_overlay_bg_color_enabled) {
       var video_out_overlay_bg_color = document.getElementById("video_out_overlay_bg_color");
       video_out_overlay_bg_color.disabled = video_out_overlay_bg_color_enabled.checked ? false : true;}
-    function EnableDisableCheckBox(startup_udp, stream) {
+    function EnableDisableCheckBox(startup_udp, stream, url, stream_key) {
       var this_stream = document.getElementById(stream);
-      //var this_url = document.getElementById(url);
-      //var this_key = document.getElementById(stream_key);
+      var this_url = document.getElementById(url);
+      var this_key = document.getElementById(stream_key);
       this_stream.disabled = startup_udp.checked ? true : false;
-      //this_url.disabled = startup_udp.checked ? true : false;
-      //this_stream_key.disabled = startup_udp.checked ? true : false;}
+      this_url.disabled = startup_udp.checked ? true : false;
+      this_key.disabled = startup_udp.checked ? true : false;}
     function EnableDisableCheckBoxes(startup_udp) {
       EnableDisableCheckBox(startup_udp, "stream_to_facebook", "facebook_url", "facebook_stream_key");
       EnableDisableCheckBox(startup_udp, "stream_to_periscope", "periscope_url", "periscope_stream_key");
