@@ -4,8 +4,8 @@
 Written by: Phantom Raspberry Blower
 Date: 21-04-2021
 Description: Creates a web page on port 8000 for changing settings needed to
-stream video & audio to a live streaming providers:- facebook, periscope, 
-twitch, ustream, vimeo and youtube or broadcast via udp on port 4569. 
+stream video & audio to a live streaming providers:- facebook, periscope,
+twitch, ustream, vimeo and youtube or broadcast via udp on port 4569.
 '''
 
 import io
@@ -97,8 +97,8 @@ def options(opt, lst):
 def INDEX_PAGE():
     checkbox_items = ['enable_speaker', 'startup_udp', 'update_os', 'upgrade_os',
                       'stream_to_facebook', 'stream_to_periscope', 'stream_to_twitch',
-                      'stream_to_ustream', 'stream_to_vimeo', 'stream_to_youtube', 
-                      'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip', 
+                      'stream_to_ustream', 'stream_to_vimeo', 'stream_to_youtube',
+                      'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip',
                       'video_image_vertical_flip', 'video_stabilisation']
     audio_out_codec_txt = options(settings_dict['audio_out_codec'],audio_codecs)
     audio_out_bitrate_txt = options(settings_dict['audio_out_bitrate'], audio_bitrates)
@@ -388,12 +388,12 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         # Post the settings to commit any changes
         import urllib.parse
         global settings_dict
-        boolean_options = ['enable_speaker', 'startup_udp', 
+        boolean_options = ['enable_speaker', 'startup_udp',
                            'stream_to_facebook', 'stream_to_periscope',
                            'stream_to_twitch', 'stream_to_ustream',
                            'stream_to_vimeo', 'stream_to_youtube', 'update_os',
-                           'upgrade_os', 'video_out_overlay_bg_color_enabled', 
-                           'video_image_horizontal_flip', 'video_stabilisation', 
+                           'upgrade_os', 'video_out_overlay_bg_color_enabled',
+                           'video_image_horizontal_flip', 'video_stabilisation',
                            'video_image_vertical_flip']
         content_length = int(self.headers['Content-Length']) # Get the size of data
         post_data = self.rfile.read(content_length).decode("utf-8") # Get the data
