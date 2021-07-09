@@ -25,7 +25,7 @@
       </center>
       <!--hidden-->
       <!-- End of Style -->
-      <form action="/" method="POST">
+      <form action="/" method="POST" onsubmit="RemoveDuplicates()">
         <label for="audio_sttings"><b>Audio:</b></label>
         <br>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
@@ -145,23 +145,23 @@
         <label for="streaming_platform_settings"><b>Streaming Platforms:</b></label>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
           <label for="stream_to_facebook">Facebook </label>
-          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
+          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this);" value="True" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
           <input type="hidden" id="hidden_stream_to_facebook" name="stream_to_facebook" value="False" />
           <label for="stream_to_periscope">Periscope </label>
-          <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_periscope_txt-->>
+          <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" value="True" <!--startup_enabled--><!--stream_to_periscope_txt-->>
           <input type="hidden" id="hidden_stream_to_periscope" name="stream_to_periscope" value="False" />
           <label for="stream_to_twitch">Twitch </label>
-          <input type="checkbox" id="stream_to_twitch" name="stream_to_twitch" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_twitch_txt-->>
+          <input type="checkbox" id="stream_to_twitch" name="stream_to_twitch" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" value="True" <!--startup_enabled--><!--stream_to_twitch_txt-->>
           <input type="hidden" id="hidden_stream_to_twitch" name="stream_to_twitch" value="False" />
           <label for="stream_to_ustream">Ustream </label>
-          <input type="checkbox" id="stream_to_ustream" name="stream_to_ustream" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_ustream_txt-->>
+          <input type="checkbox" id="stream_to_ustream" name="stream_to_ustream" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" value="True" <!--startup_enabled--><!--stream_to_ustream_txt-->>
           <input type="hidden" id="hidden_stream_to_ustream" name="stream_to_ustream" value="False" />
           <label for="stream_to_vimeo">Vimeo </label>
-          <input type="checkbox" id="stream_to_vimeo" name="stream_to_vimeo" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_vimeo_txt-->>
+          <input type="checkbox" id="stream_to_vimeo" name="stream_to_vimeo" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" value="True" <!--startup_enabled--><!--stream_to_vimeo_txt-->>
           <input type="hidden" id="hidden_stream_to_vimeo" name="stream_to_vimeo" value="False" />
           <label for="stream_to_youtube">YouTube </label>
-          <input type="checkbox" id="stream_to_youtube" name="stream_to_youtube" value="True" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" <!--startup_enabled--><!--stream_to_youtube_txt-->>
-          <input type="hidden" id="hidden_stream_to_youtube" name="stream_to_youtube" value="on" />
+          <input type="checkbox" id="stream_to_youtube" name="stream_to_youtube" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" value="True" <!--startup_enabled--><!--stream_to_youtube_txt-->>
+          <input type="hidden" id="hidden_stream_to_youtube" name="stream_to_youtube" value="False" />
           <label for="stream_to_facebook_settings" id="stream_to_facebook_settings" style="display:none"><b>Facebook Settings:</b></label>
           <table id="stream_to_facebook_table" style="display: none; border:1px solid black; width: 100%; background-color:lightskyblue;"><tr><td>
             <label for="facebook_url" id="facebook_url_label">URL:</label>
@@ -253,7 +253,15 @@
     </table>
   </body>
   <script type="text/javascript">
-    function SubmitDisabledCheckboxes() {
+  function RemoveDuplicates() {
+    var x, i, p;
+    x = document.querySelectorAll("[name]");
+    for (i = 0; i < x.length; i++) {
+      if (x[i].name == p) {
+        x[i-1].name = ""};
+      p = x[i].name
+      };}
+  function SubmitDisabledCheckboxes() {
       SubmitDisabledCheckbox(document.getElementById("stream_to_facebook"));
       SubmitDisabledCheckbox(document.getElementById("stream_to_periscope"));
       SubmitDisabledCheckbox(document.getElementById("stream_to_twitch"));
@@ -270,13 +278,13 @@
     function EnableDisableBackground(video_out_overlay_bg_color_enabled) {
       var video_out_overlay_bg_color = document.getElementById("video_out_overlay_bg_color");
       video_out_overlay_bg_color.disabled = video_out_overlay_bg_color_enabled.checked ? false : true;}
-    function EnableDisableCheckBox(startup_udp, stream, url, stream_key) {
+    function EnableDisableCheckBox(startup_udp, stream) {
       var this_stream = document.getElementById(stream);
-      var this_url = document.getElementById(url);
-      var this_key = document.getElementById(stream_key);
+      //var this_url = document.getElementById(url);
+      //var this_key = document.getElementById(stream_key);
       this_stream.disabled = startup_udp.checked ? true : false;
-      this_url.disabled = startup_udp.checked ? true : false;
-      this_stream_key.disabled = startup_udp.checked ? true : false;}
+      //this_url.disabled = startup_udp.checked ? true : false;
+      //this_stream_key.disabled = startup_udp.checked ? true : false;}
     function EnableDisableCheckBoxes(startup_udp) {
       EnableDisableCheckBox(startup_udp, "stream_to_facebook", "facebook_url", "facebook_stream_key");
       EnableDisableCheckBox(startup_udp, "stream_to_periscope", "periscope_url", "periscope_stream_key");
