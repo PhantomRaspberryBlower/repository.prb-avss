@@ -66,11 +66,11 @@
           <label for="video_image_rotation">Rotation:</label>
           <select name="video_image_rotation" id="video_image_rotation" style="width: 50px;"> <!--video_image_rotation_txt--></select>
           <label for="video_image_horizontal_flip">Horizontal Flip </label>
-          <input type="checkbox" id="video_image_horizontal_flip" name="video_image_horizontal_flip" <!--video_image_horizontal_flip_txt-->>
+          <input type="checkbox" id="video_image_horizontal_flip" name="video_image_horizontal_flip" value="True" <!--video_image_horizontal_flip_txt-->>
           <label for="video_image_vertical_flip">Vertical Flip </label>
-          <input type="checkbox" id="video_image_vertical_flip" name="video_image_vertical_flip" <!--video_image_vertical_flip_txt-->>
+          <input type="checkbox" id="video_image_vertical_flip" name="video_image_vertical_flip" value="True" <!--video_image_vertical_flip_txt-->>
           <label for="video_stabilisation">Video Stabilisation </label>
-          <input type="checkbox" id="video_stabilisation" name="video_stabilisation" <!--video_stabilisation_txt-->>
+          <input type="checkbox" id="video_stabilisation" name="video_stabilisation" value="True" <!--video_stabilisation_txt-->>
           <br><br>
           <center>
             <table><tr><td>
@@ -125,7 +125,7 @@
           <label for="video_out_overlay_text_color">Text Shade:</label>
           <input type="color" id="video_out_overlay_text_color" name="video_out_overlay_text_color" onchange="clickColor(0, -1, -1, 5)" value="<!--video_out_overlay_text_color-->">
           <label for="video_out_overlay_bg_color_enabled">Enable Background </label>
-          <input type="checkbox" id="video_out_overlay_bg_color_enabled" name="video_out_overlay_bg_color_enabled" onclick="EnableDisableBackground(this)" <!--video_out_overlay_bg_color_enabled_txt-->>
+          <input type="checkbox" id="video_out_overlay_bg_color_enabled" name="video_out_overlay_bg_color_enabled" onclick="EnableDisableBackground(this)" value="True" <!--video_out_overlay_bg_color_enabled_txt-->>
           <label for="video_out_overlay_bg_color">Background Colour:</label>
           <input type="color" id="video_out_overlay_bg_color" name="video_out_overlay_bg_color" onchange="clickColor(0, -1, -1, 5)" value="<!--video_out_overlay_bg_color-->" <!--startup_bg_color_enabled-->>
           </td></tr>
@@ -224,18 +224,18 @@
           <label for="update_interval_days">Interval (days):</label>
           <select id="update_interval_days" name="update_interval_days" style="width: 42px;"> <!--update_interval_days_txt--></select>
           <label for="update_os">Update OS </label>
-          <input type="checkbox" id="update_os" name="update_os" <!--update_os_txt-->>
+          <input type="checkbox" id="update_os" name="update_os" value="True" <!--update_os_txt-->>
           <label for="upgrade_os">Upgrade OS </label>
-          <input type="checkbox" id="upgrade_os" name="upgrade_os" <!--upgrade_os_txt-->>
+          <input type="checkbox" id="upgrade_os" name="upgrade_os" value="True" <!--upgrade_os_txt-->>
           </td></tr>
         </table>
         <br>
         <label for="misc_settings"><b>Miscellaneous:</b></label><br>
         <table style="border:1px solid black;width: 100%;background-color:lightgrey"><tr><td>
           <label for="enable_speaker">Enable Speaker </label>
-          <input type="checkbox" id="enable_speaker" name="enable_speaker" <!--enable_speaker_txt-->>
+          <input type="checkbox" id="enable_speaker" name="enable_speaker" value="True" <!--enable_speaker_txt-->>
           <label for="startup_udp">Startup UDP </label>
-          <input type="checkbox" id="startup_udp" name="startup_udp" onclick="EnableDisableCheckBoxes(this)" <!--startup_udp_txt-->>
+          <input type="checkbox" id="startup_udp" name="startup_udp" onclick="EnableDisableCheckBoxes(this)" value="True" <!--startup_udp_txt-->>
           <label for="logging_level">Logging Level:</label>
           <select id="logging_level" name="logging_level" style="width: 85px;"> <!--logging_level_txt--></select>
           </td></tr>
