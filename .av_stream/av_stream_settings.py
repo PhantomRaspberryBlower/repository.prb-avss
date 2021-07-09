@@ -417,7 +417,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             for item in boolean_options:
                 if str(post_data).find(item) < 0:
                     settings_dict.update({item: 'False'})
-
         set_settings()
         set_camera_settings()
         self.do_GET()
