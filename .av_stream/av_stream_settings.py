@@ -86,12 +86,11 @@ def set_settings():
 
 def options(opt, lst):
   txt = ''
-  indent += ' ' * 12
   for item in lst:
     if opt == item:
-      txt += '\n%s<option selected="selected" value="%s">%s</option>' % (indent, item, item)
+      txt += '\n  <option selected="selected" value="' + item + '">' + item + '</option>'
     else:
-      txt += '\n%s<option value="%s">%s</option>' % (indent, item, item)
+      txt += '\n  <option value="' + item + '">' + item + '</option>'
   return txt
 
 
@@ -167,7 +166,12 @@ def INDEX_PAGE():
             "<!--audio_out_sample_rate_txt-->": audio_out_sample_rate_txt,
             "<!--enable_speaker_txt-->": enable_speaker_txt,
             "<!--itsoffset_txt-->": itsoffset_txt,
+            "<!--metadata_title-->": settings_dict['metadata_title'],
+            "<!--metadata_year-->": settings_dict['metadata_year'],
+            "<!--metadata_description-->": settings_dict['metadata_description'],
             "<!--logging_level_txt-->": logging_level_txt,
+            "<!--periscope_url-->": settings_dict['periscope_url'],
+            "<!--periscope_stream_key-->": settings_dict['periscope_stream_key'],
             "<!--startup_udp_txt-->": startup_udp_txt,
             "<!--stream_to_facebook_txt-->": stream_to_facebook_txt,
             "<!--stream_to_periscope_txt-->": stream_to_periscope_txt,
@@ -175,11 +179,18 @@ def INDEX_PAGE():
             "<!--stream_to_ustream_txt-->": stream_to_ustream_txt,
             "<!--stream_to_vimeo_txt-->": stream_to_vimeo_txt,
             "<!--stream_to_youtube_txt-->": stream_to_youtube_txt,
+            "<!--twitch_url-->": settings_dict['twitch_url'],
+            "<!--twitch_stream_key-->": settings_dict['twitch_stream_key'],
             "<!--update_os_txt-->": update_os_txt,
             "<!--upgrade_os_txt-->": upgrade_os_txt,
             "<!--update_interval_days_txt": update_interval_days_txt,
+            "<!--ustream_url-->": settings_dict['ustream_url'],
+            "<!--ustream_stream_key-->": settings_dict['ustream_stream_key'],
+            "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
             "<!--video_in_frames_per_second_txt-->": video_in_frames_per_second_txt,
             "<!--video_image_automatic_white_balance_txt-->": video_image_automatic_white_balance_txt,
+            "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
+            "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
             "<!--video_image_dynamic_range_compression_txt-->": video_image_dynamic_range_compression_txt,
             "<!--video_image_effect_txt-->": video_image_effect_txt,
             "<!--video_image_exposure_txt-->": video_image_exposure_txt,
@@ -187,32 +198,17 @@ def INDEX_PAGE():
             "<!--video_image_horizontal_flip_txt-->": video_image_horizontal_flip_txt,
             "<!--video_image_profile_txt-->": video_image_profile_txt,
             "<!--video_image_rotation_txt-->": video_image_rotation_txt,
-            "<!--video_image_vertical_flip_txt-->": video_image_vertical_flip_txt,
-            "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
-            "<!--video_out_codec_txt-->": video_out_codec_txt,
-            "<!--video_out_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt,
-            "<!--video_resolution_txt-->": video_resolution_txt,
-            "<!--video_stabilisation_txt-->": video_stabilisation_txt,
-            "<!--facebook_url-->": settings_dict['facebook_url'],
-            "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
-            "<!--itsoffset_seconds-->": settings_dict['itsoffset_seconds'],
-            "<!--metadata_title-->": settings_dict['metadata_title'],
-            "<!--metadata_year-->": settings_dict['metadata_year'],
-            "<!--metadata_description-->": settings_dict['metadata_description'],
-            "<!--periscope_url-->": settings_dict['periscope_url'],
-            "<!--periscope_stream_key-->": settings_dict['periscope_stream_key'],
-            "<!--twitch_url-->": settings_dict['twitch_url'],
-            "<!--twitch_stream_key-->": settings_dict['twitch_stream_key'],
-            "<!--ustream_url-->": settings_dict['ustream_url'],
-            "<!--ustream_stream_key-->": settings_dict['ustream_stream_key'],
-            "<!--video_in_bitrate-->": settings_dict['video_in_bitrate'],
-            "<!--video_image_brightness-->": settings_dict['video_image_brightness'],
-            "<!--video_image_contrast-->": settings_dict['video_image_contrast'],
             "<!--video_image_saturation-->": settings_dict['video_image_saturation'],
             "<!--video_image_sharpness-->": settings_dict['video_image_sharpness'],
+            "<!--video_image_vertical_flip_txt-->": video_image_vertical_flip_txt,
+            "<!--video_out_codec_txt-->": video_out_codec_txt,
             "<!--video_out_overlay_text-->": settings_dict['video_out_overlay_text'].replace('"', "'").replace('~', '%'),
+            "<!--video_out_overlay_text_size_txt-->": video_out_overlay_text_size_txt,
             "<!--video_out_overlay_text_color-->": settings_dict['video_out_overlay_text_color'],
+            "<!--video_out_overlay_bg_color_enabled_txt-->": video_out_overlay_bg_color_enabled_txt,
             "<!--video_out_overlay_bg_color-->": settings_dict['video_out_overlay_bg_color'],
+            "<!--video_resolution_txt-->": video_resolution_txt,
+            "<!--video_stabilisation_txt-->": video_stabilisation_txt,
             "<!--vimeo_url-->": settings_dict['vimeo_url'],
             "<!--vimeo_stream_key-->": settings_dict['vimeo_stream_key'],
             "<!--youtube_url-->": settings_dict['youtube_url'],
