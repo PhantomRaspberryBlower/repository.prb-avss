@@ -86,8 +86,7 @@ def set_settings():
 
 def options(opt, lst):
   txt = ''
-#  indent = ' ' * 12
-  indent = '            '
+  indent = ' ' * 12
   for item in lst:
     if opt == item:
       txt += '\n%s<option selected="selected" value="%s">%s</option>' % (indent, item, item)
