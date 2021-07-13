@@ -165,10 +165,10 @@ def INDEX_PAGE():
             "<!--audio_out_bitrate_txt-->": audio_out_bitrate_txt,
             "<!--audio_out_sample_rate_txt-->": audio_out_sample_rate_txt,
             "<!--enable_speaker_txt-->": enable_speaker_txt,
-            "<!--itsoffset_txt-->": itsoffset_txt,
             "<!--facebook_url-->": settings_dict['facebook_url'],
             "<!--facebook_stream_key-->": settings_dict['facebook_stream_key'],
             "<!--itsoffset_seconds-->": settings_dict['itsoffset_seconds'],
+            "<!--itsoffset_txt-->": itsoffset_txt,
             "<!--metadata_title-->": settings_dict['metadata_title'],
             "<!--metadata_year-->": settings_dict['metadata_year'],
             "<!--metadata_description-->": settings_dict['metadata_description'],
@@ -282,7 +282,7 @@ def INFO_PAGE():
         tags.update({"<!--%s-->" % key: str(value)})
 
     for tag, cmd in tags.items():
-        page = page.replace(tag, "<b>%s</b>" % cmd)
+        page = page.replace(tag, "<b>%s</b>" % cmd.replace('©', '&#169;'))
 
     return page
 
