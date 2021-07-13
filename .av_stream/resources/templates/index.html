@@ -25,7 +25,7 @@
       </center>
       <!--hidden-->
       <!-- End of Style -->
-      <form action="/" method="POST" onsubmit="RemoveDuplicateNames()">
+      <form action="/" method="POST" onsubmit="return ValidateStreams();RemoveDuplicateNames()">
         <label for="audio_sttings"><b>Audio:</b></label>
         <br>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
@@ -242,7 +242,7 @@
         </table>
         <br>
         <table style="black;margin-left:auto;margin-right:auto;"><tr><td>
-          <input type="submit" onclick="ValidateStreams();return confirm('Are you sure? Changes will take effect next time you start streaming.')" value="Save" style="width: 60px;">&nbsp&nbsp&nbsp
+          <input type="submit" onclick="return confirm('Are you sure? Changes will take effect next time you start streaming.')" value="Save" style="width: 60px;">&nbsp&nbsp&nbsp
           <input type="reset" style="width: 60px;">&nbsp&nbsp&nbsp
           <input type="button" onclick="location.href='/help.html'" value="Help" style="width: 60px;">&nbsp&nbsp&nbsp
           <input type="button" onclick="location.href='/info.html'" value="Info" style="width: 60px;">
