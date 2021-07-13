@@ -259,7 +259,7 @@
       for (i = 0; i < x.length; i++) {
         if (x[i].name.startsWith("stream_to_") && x[i].checked == true) {
           s += 1;}}
-      if document.getElementById('startup_udp').checked == true {
+      if (document.getElementById('startup_udp').checked == true) {
         s += 1;}
       if (s < 1) {
         alert("You must check at least one streaming platform.");
