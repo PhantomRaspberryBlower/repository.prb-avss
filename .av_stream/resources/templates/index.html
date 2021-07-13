@@ -20,7 +20,7 @@
           <div class="containerdiv width: 480px; height: 270px; ">
           <img border="0" src="no_preview.png" width="480" height="270" alt="">
           <img class="cornerimage" border="0" src="stream.mjpg" width="480" height="270" alt="">
-        <div>
+<!--        <div> -->
         </td></tr></table>
       </center>
       <!--hidden-->
@@ -242,7 +242,7 @@
         </table>
         <br>
         <table style="black;margin-left:auto;margin-right:auto;"><tr><td>
-          <input type="submit" onclick="return confirm('Are you sure? Changes will take effect next time you start streaming.')" value="Save" style="width: 60px;">&nbsp&nbsp&nbsp
+          <input type="submit" onclick="ValidateStreams();return confirm('Are you sure? Changes will take effect next time you start streaming.')" value="Save" style="width: 60px;">&nbsp&nbsp&nbsp
           <input type="reset" style="width: 60px;">&nbsp&nbsp&nbsp
           <input type="button" onclick="location.href='/help.html'" value="Help" style="width: 60px;">&nbsp&nbsp&nbsp
           <input type="button" onclick="location.href='/info.html'" value="Info" style="width: 60px;">
@@ -253,14 +253,23 @@
     </table>
   </body>
   <script type="text/javascript">
+    function ValidateStreams() {
+      var x, i, s=0;
+      x = document.querySelectorAll("[name]");
+      for (i = 0; i < x.length; i++) {
+        if (x[i].name.startsWith("stream_to_") && x[i].checked == true) {
+          s += 1;}}
+      if (s < 1) {
+        alert("You must check at least one streaming platform.");
+        return false;}}
+    function RemoveDuplicateNames() {
     function RemoveDuplicateNames() {
       var x, i, p;
       x = document.querySelectorAll("[name]");
       for (i = 0; i < x.length; i++) {
         if (x[i].name == p) {
           x[i-1].name = ""};
-        p = x[i].name
-        };}
+        p = x[i].name};}
     function updateBrightnessInput(val) {document.getElementById('video_image_brightness_input').value=val;}
     function updateContrastInput(val) {document.getElementById('video_image_contrast_input').value=val;}
     function updateSaturationInput(val) {document.getElementById('video_image_saturation_input').value=val;}
@@ -292,12 +301,12 @@
     function ShowHideLiveStream(checkbox) {
       var settings = document.getElementById(checkbox.name + "_settings");
       var table = document.getElementById(checkbox.name + "_table");
-      if (checkbox.checked == true)
-        {settings.style.display = "block";
-         table.style.display = "block";}
-      else
-        {settings.style.display = "none";
-         table.style.display = "none";}}
+      if (checkbox.checked == true) {
+        settings.style.display = "block";
+        table.style.display = "block";}
+      else {
+        settings.style.display = "none";
+        table.style.display = "none";}}
     function SubmitDisabledCheckboxes() {
       SubmitDisabledCheckbox(document.getElementById("stream_to_facebook"));
       SubmitDisabledCheckbox(document.getElementById("stream_to_periscope"));
