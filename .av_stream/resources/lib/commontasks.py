@@ -14,14 +14,10 @@ from datetime import date
 from configparser import ConfigParser
 
 config_object = ConfigParser()
-
-INVALID_FILENAME_CHARS = '\/:*?"<>|'
-
 todays_date = date.today()
-
-WORK_DIR = '/home/pi/.av_stream'
-
 settings_dict = {}
+INVALID_FILENAME_CHARS = '\/:*?"<>|'
+WORK_DIR = '/home/pi/.av_stream'
 
 logging.basicConfig(format='%(asctime)s - %(message)s',
                     filename='%s/avss.log' % WORK_DIR,
