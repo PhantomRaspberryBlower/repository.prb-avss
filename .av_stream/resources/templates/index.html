@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>Audio Video Streaming Service Settings</title>
   </head>
   <style>
@@ -22,8 +23,8 @@
           <img class="cornerimage" border="0" src="stream.mjpg" width="480" height="270" alt="">
         </td></tr></table>
       </center>
-      <!--hidden-->
-      <form action="/" method="POST" onsubmit="return ValidateStreams();RemoveDuplicateNames()">
+      <!--preview_unavailable-->
+      <form action="/" method="POST" onsubmit="return ValidateOptions()">
         <label for="audio_sttings"><b>Audio:</b></label>
         <br>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
@@ -75,28 +76,27 @@
               <center>
                 <label for="video_image_brightness">Brigthness:</label>
                 <input type="text" id="video_image_brightness_input" value="<!--video_image_brightness-->" style="width: 35px;"><br>
+                <input type="range" id="video_image_brightness" name="video_image_brightness" min="0" max="100" onchange="UpdateRangeInput(this);" value="<!--video_image_brightness-->" style="width: 139px;"><br>
               </center>
-              <input type="range" id="video_image_brightness" name="video_image_brightness" min="0" max="100" onchange="updateBrightnessInput(this.value);" value="<!--video_image_brightness-->" style="width: 139px;">
-              <br>
               </td><td>
               <center>
                 <label for="video_image_contrast">Contrast:</label>
                 <input type="text" id="video_image_contrast_input" value="<!--video_image_contrast-->" style="width: 35px;"><br>
+                <input type="range" id="video_image_contrast" name="video_image_contrast" min="-100" max="100" onchange="UpdateRangeInput(this);" value="<!--video_image_contrast-->" style="width: 139px;"><br>
               </center>
-              <input type="range" id="video_image_contrast" name="video_image_contrast" min="-100" max="100" onchange="updateContrastInput(this.value);" value="<!--video_image_contrast-->" style="width: 139px;"><br>
               </td>
               <td>
               <center>
                 <label for="video_image_saturation">Saturation:</label>
                 <input type="text" id="video_image_saturation_input" value="<!--video_image_saturation-->" style="width: 35px;"><br>
-                <input type="range" id="video_image_saturation" name="video_image_saturation" min="-100" max="100" onchange="updateSaturationInput(this.value);" value="<!--video_image_saturation-->" style="width: 139px;"><br>
+                <input type="range" id="video_image_saturation" name="video_image_saturation" min="-100" max="100" onchange="UpdateRangeInput(this);" value="<!--video_image_saturation-->" style="width: 139px;"><br>
               </center>
               </td>
               <td>
               <center>
                 <label for="video_image_sharpness">Sharpness:</label>
                 <input type="text" id="video_image_sharpness_input" value="<!--video_image_sharpness-->" style="width: 35px;"><br>
-                <input type="range" id="video_image_sharpness" name="video_image_sharpness" min="-100" max="100" onchange="updateSharpnessInput(this.value);" value="<!--video_image_sharpness-->" style="width: 139px;">
+                <input type="range" id="video_image_sharpness" name="video_image_sharpness" min="-100" max="100" onchange="UpdateRangeInput(this);" value="<!--video_image_sharpness-->" style="width: 139px;">
               </center>
               </td></tr>
             </table>
@@ -143,7 +143,7 @@
         <label for="streaming_platform_settings"><b>Streaming Platforms:</b></label>
         <table style="border:1px solid black;width: 100%; background-color:lightgrey;"><tr><td>
           <label for="stream_to_facebook">Facebook </label>
-          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this);" value="True" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
+          <input type="checkbox" id="stream_to_facebook" name="stream_to_facebook" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" value="True" <!--startup_enabled--><!--stream_to_facebook_txt-->>    
           <input type="hidden" id="hidden_stream_to_facebook" name="stream_to_facebook" value="False" />
           <label for="stream_to_periscope">Periscope </label>
           <input type="checkbox" id="stream_to_periscope" name="stream_to_periscope" onclick="ShowHideLiveStream(this);SubmitDisabledCheckbox(this)" value="True" <!--startup_enabled--><!--stream_to_periscope_txt-->>
@@ -251,31 +251,25 @@
     </table>
   </body>
   <script type="text/javascript">
-    function ValidateStreams() {
-      var x, i, s=0;
+    const streams = ["stream_to_facebook", "stream_to_periscope", "stream_to_twitch", "stream_to_ustream", "stream_to_vimeo", "stream_to_youtube"];
+    function ValidateOptions() {
+      var x, i, p, s=0;
       x = document.querySelectorAll("[name]");
       for (i = 0; i < x.length; i++) {
+        // Remove any duplicate names (used to save options for disabled checkboxes)
+        if (x[i].name == p) {
+          x[i-1].name = ""};
+        p = x[i].name};
+        // Check a streaming option is selected
         if (x[i].name.startsWith("stream_to_") && x[i].checked == true) {
-          s += 1;}}
+          s += 1;}
       if (document.getElementById('startup_udp').checked == true) {
         s += 1;}
       if (s < 1) {
         alert("You must select at least one streaming platform; or select startup UDP.");
         return false;}}
-    function RemoveDuplicateNames() {
-      var x, i, p;
-      x = document.querySelectorAll("[name]");
-      for (i = 0; i < x.length; i++) {
-        if (x[i].name == p) {
-          x[i-1].name = ""};
-        p = x[i].name};}
-    function updateBrightnessInput(val) {document.getElementById('video_image_brightness_input').value=val;}
-    function updateContrastInput(val) {document.getElementById('video_image_contrast_input').value=val;}
-    function updateSaturationInput(val) {document.getElementById('video_image_saturation_input').value=val;}
-    function updateSharpnessInput(val) {document.getElementById('video_image_sharpness_input').value=val;}
-    function EnableDisableBackgroundColor(video_out_overlay_bg_color_enabled) {
-      var video_out_overlay_bg_color = document.getElementById("video_out_overlay_bg_color");
-      video_out_overlay_bg_color.disabled = video_out_overlay_bg_color_enabled.checked ? false : true;}
+    function UpdateRangeInput(range) {document.getElementById(range.name + "_input").value=range.value;}
+    function EnableDisableBackgroundColor(checkbox) {document.getElementById("video_out_overlay_bg_color").disabled = checkbox.checked ? false : true;}
     function EnableDisableCheckBox(startup_udp, stream, url, stream_key) {
       var this_stream = document.getElementById(stream);
       var this_url = document.getElementById(url);
@@ -284,19 +278,13 @@
       this_url.disabled = startup_udp.checked ? true : false;
       this_key.disabled = startup_udp.checked ? true : false;}
     function EnableDisableCheckBoxes(startup_udp) {
-      EnableDisableCheckBox(startup_udp, "stream_to_facebook", "facebook_url", "facebook_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_periscope", "periscope_url", "periscope_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_twitch", "twitch_url", "twitch_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_ustream", "ustream_url", "ustream_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_vimeo", "vimeo_url", "vimeo_stream_key");
-      EnableDisableCheckBox(startup_udp, "stream_to_youtube", "youtube_url", "youtube_stream_key");}
+      var name;
+      for (let i = 0; i < streams.length; i++) {
+        name = streams[i].replace("stream_to_", "");
+        EnableDisableCheckBox(startup_udp, streams[i], name + "_url", name + "_stream_key");}}
     function ShowHideLiveStreams() {
-      ShowHideLiveStream(document.getElementById("stream_to_facebook"));
-      ShowHideLiveStream(document.getElementById("stream_to_periscope"));
-      ShowHideLiveStream(document.getElementById("stream_to_twitch"));
-      ShowHideLiveStream(document.getElementById("stream_to_ustream"));
-      ShowHideLiveStream(document.getElementById("stream_to_vimeo"));
-      ShowHideLiveStream(document.getElementById("stream_to_youtube"));}
+      for (let i = 0; i < streams.length; i++) {
+        ShowHideLiveStream(document.getElementById(streams[i]));}}
     function ShowHideLiveStream(checkbox) {
       var settings = document.getElementById(checkbox.name + "_settings");
       var table = document.getElementById(checkbox.name + "_table");
@@ -307,14 +295,8 @@
         settings.style.display = "none";
         table.style.display = "none";}}
     function SubmitDisabledCheckboxes() {
-      SubmitDisabledCheckbox(document.getElementById("stream_to_facebook"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_periscope"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_twitch"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_ustream"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_vimeo"));
-      SubmitDisabledCheckbox(document.getElementById("stream_to_youtube"));}
-    function SubmitDisabledCheckbox(checkbox) {
-      var hidden_checkbox = document.getElementById("hidden_" + checkbox.name);
-      hidden_checkbox.value = checkbox.checked ? "True" : "False";}
+      for (let i = 0; i < streams.length; i++) {
+        SubmitDisabledCheckbox(document.getElementById(streams[i]));}}
+    function SubmitDisabledCheckbox(checkbox) {document.getElementById("hidden_" + checkbox.name).value = checkbox.checked ? "True" : "False";}
   </script>
 </html>
