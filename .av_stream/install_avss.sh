@@ -82,6 +82,10 @@ echo "           Enable camera"
 echo "-----------------------------------"
 raspi-config nonint do_camera 0
 echo "-----------------------------------"
+echo "   Enable PWM Fan pin 14 at 65'C"
+echo "-----------------------------------"
+raspi-config nonint do_fan 0 14 65
+echo "-----------------------------------"
 echo "       Cleanup installation"
 echo "-----------------------------------"
 apt -y autoremove
