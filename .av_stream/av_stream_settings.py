@@ -50,7 +50,7 @@ video_out_overlay_text_sizes = ['18', '20', '22', '24', '26', '28', '30', '32',
                                 '50', '52', '54', '56', '58', '60', '62', '64']
 video_resolutions = ['480x270','960x540', '1280x720', '1920x1080']
 settings_dict = {}
-hidden_form_elements = '<br>'
+preview_unavailable = '<br>'
 
 PORT_NUMBER = 8000 # Can't be port 80 unless run as root
 WORK_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -96,12 +96,8 @@ def options(opt, lst):
 
 
 def INDEX_PAGE():
-    checkbox_items = ['enable_speaker', 'startup_udp', 'update_os', 'upgrade_os',
-                      'stream_to_facebook', 'stream_to_periscope', 'stream_to_twitch',
-                      'stream_to_ustream', 'stream_to_vimeo', 'stream_to_youtube',
-                      'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip',
-                      'video_image_vertical_flip', 'video_stabilisation']
-    audio_out_codec_txt = options(settings_dict['audio_out_codec'],audio_codecs)
+    # HTML form options
+    audio_out_codec_txt = options(settings_dict['audio_out_codec'], audio_codecs)
     audio_out_bitrate_txt = options(settings_dict['audio_out_bitrate'], audio_bitrates)
     audio_out_sample_rate_txt = options(settings_dict['audio_out_sample_rate'], audio_sample_rates)
     video_in_frames_per_second_txt = options(settings_dict['video_in_frames_per_second'], video_fps)
@@ -119,6 +115,12 @@ def INDEX_PAGE():
     video_image_flicker_avoidance_txt = options(settings_dict['video_image_flicker_avoidance'], video_image_flicker_avoidances)
     video_image_effect_txt = options(settings_dict['video_image_effect'], video_image_effects)
     hostname = si.hostname
+    # HTML form checkboxes
+    checkbox_items = ['enable_speaker', 'startup_udp', 'update_os', 'upgrade_os',
+                      'stream_to_facebook', 'stream_to_periscope', 'stream_to_twitch',
+                      'stream_to_ustream', 'stream_to_vimeo', 'stream_to_youtube',
+                      'video_out_overlay_bg_color_enabled', 'video_image_horizontal_flip',
+                      'video_image_vertical_flip', 'video_stabilisation']
     enable_speaker_txt = ''
     startup_udp_txt = ''
     update_os_txt = ''
@@ -135,7 +137,6 @@ def INDEX_PAGE():
     video_stabilisation_txt = ''
     disable_form_elements = ''
     disable_background_color = ''
-    # HTML form checkboxes
     ldic=locals()
     for item in checkbox_items:
         if settings_dict[item] == 'True':
@@ -159,7 +160,8 @@ def INDEX_PAGE():
     video_image_horizontal_flip_txt = ldic['video_image_horizontal_flip_txt']
     video_image_vertical_flip_txt = ldic['video_image_vertical_flip_txt']
     video_stabilisation_txt = ldic['video_stabilisation_txt']
-    tags = {"<!--hidden-->": hidden_form_elements,
+    # Populate index.html form tags with data
+    tags = {"<!--preview_unavailable-->": preview_unavailable,
             "<!--startup_enabled-->": disable_form_elements,
             "<!--startup_bg_color_enabled-->": disable_background_color,
             "<!--audio_out_codec_txt-->": audio_out_codec_txt,
@@ -432,7 +434,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
-    global hidden_form_elements
+    global preview_unavailable
     allow_reuse_address = True
     daemon_threads = True
 
@@ -503,9 +505,9 @@ except:
     try:
         address = ('', PORT_NUMBER)
         server = StreamingServer(address, StreamingHandler)
-        hidden_form_elements = ('<center><b><p style="color: #8b0000;">Preview'
-                                ' unavailable during a live stream.</p></b>'
-                                '</center>')
+        preview_unavailable = ('<center><b><p style="color: #8b0000;">Preview'
+                               ' unavailable during a live stream.</p></b>'
+                               '</center>')
         server.serve_forever()
     except:
         pass
