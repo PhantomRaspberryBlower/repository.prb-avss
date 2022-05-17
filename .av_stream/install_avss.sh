@@ -1,6 +1,7 @@
 #!/bin/bash
 # Audio Video Streaming Service (AVSS)
-# Script for installing AVSS onto a headless Raspberry Pi installed with buster lite
+# Script for installing AVSS onto a headless
+# Raspberry Pi installed with buster lite.
 # Need to make it executable and run as root ie.
 # sudo chmod +x install_avss.sh
 # followed by
